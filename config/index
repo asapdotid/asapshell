@@ -1,6 +1,6 @@
 #!/bin/bash
 
-local __UCONFIG=$ASAPSHELL_DIR/utilities/config
+local __UCONFIG=$ASAPSHELL_DIR/config/config
 local __UTILFILES=($__UCONFIG)
 
 for i in "${__UTILFILES[@]}"

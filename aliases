@@ -10,6 +10,9 @@ source $ASAPSHELL_DIR/helpers/index
 # Config
 source $ASAPSHELL_DIR/config/index
 
+# General aliases
+source $ASAPSHELL_DIR/os/general/index
+
 ### Get os name via uname ###
 local _myos="$(uname)"
 
