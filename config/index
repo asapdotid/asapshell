@@ -1,0 +1,13 @@
+#!/bin/bash
+
+local __UCONFIG=$ASAPSHELL_DIR/utilities/config
+local __UTILFILES=($__UCONFIG)
+
+for i in "${__UTILFILES[@]}"
+do
+  if [ -f "$i" ]; then
+    source $i
+  else
+    error "$i does not exist."
+  fi
+done

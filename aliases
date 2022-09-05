@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Initial environment
+# export ASAPSHELL_DIR="$HOME/.config/asapshell"
+export ASAPSHELL_DIR=$PWD
+
+# Helpers
+source $ASAPSHELL_DIR/helpers/index
+
+# Config
+source $ASAPSHELL_DIR/config/index
+
+### Get os name via uname ###
+local _myos="$(uname)"
+
+### add alias as per os using $_myos ###
+case $_myos in
+   Linux) source $ASAPSHELL_DIR/os/linux/index ;;
+   FreeBSD|OpenBSD) source $ASAPSHELL_DIR/os/bsd/index ;;
+   Darwin) source $ASAPSHELL_DIR/os/darwin/index ;;
+   *) ;;
+esac
