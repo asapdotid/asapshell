@@ -19,7 +19,7 @@ _myos="$(uname -s)"
 ### add alias as per os using $_myos ###
 case $_myos in
    Linux) source "$ASAPSHELL_DIR/os/linux/index" ;;
-   FreeBSD|OpenBSD) "source $ASAPSHELL_DIR/os/bsd/index" ;;
+   FreeBSD|OpenBSD) source "$ASAPSHELL_DIR/os/bsd/index" ;;
    Darwin) source "$ASAPSHELL_DIR/os/darwin/index" ;;
    *) ;;
 esac
