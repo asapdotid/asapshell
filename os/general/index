@@ -1,14 +1,14 @@
 #!/bin/bash
 
-local __GEXA=$ASAPSHELL_DIR/os/general/aliases/exa
-local __GPATH=$ASAPSHELL_DIR/os/general/aliases/path
-local __GSYSTEM=$ASAPSHELL_DIR/os/general/aliases/system
-local __GENERALFILES=($__GEXA $__GPATH $__GSYSTEM)
+__GEXA="$ASAPSHELL_DIR/os/general/aliases/exa"
+__GPATH="$ASAPSHELL_DIR/os/general/aliases/path"
+__GSYSTEM="$ASAPSHELL_DIR/os/general/aliases/system"
+__GENERALFILES=($__GEXA $__GPATH $__GSYSTEM)
 
 for i in "${__GENERALFILES[@]}"
 do
   if [ -f "$i" ]; then
-    source $i
+    source "$i"
   else
     error "$i does not exist."
   fi
