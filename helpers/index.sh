@@ -1,11 +1,10 @@
 #!/bin/bash
 
-__HLOG="$ASAPSHELL_DIR/helpers/loging"
-__HCOMMAND="$ASAPSHELL_DIR/helpers/command"
+__HLOG="$ASAPSHELL_DIR/helpers/loging.sh"
+__HCOMMAND="$ASAPSHELL_DIR/helpers/command.sh"
 __HELPERFILES=($__HLOG $__HCOMMAND)
 
-for i in "${__HELPERFILES[@]}"
-do
+for i in "${__HELPERFILES[@]}"; do
   if [ -f "$i" ]; then
     source "$i"
   else

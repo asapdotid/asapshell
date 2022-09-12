@@ -8,7 +8,7 @@ command_exists() {
   # check if command exists and fail otherwise
   command -v "$1" >/dev/null 2>&1
   if [[ $? -ne 0 ]]; then
-      error "I require $1 but it's not installed. Abort."
+    error "I require $1 but it's not installed. Abort."
   fi
 }
 

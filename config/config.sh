@@ -7,8 +7,8 @@ if [ -f $ASAPSHELL_DIR/.env ]; then
     [[ $key =~ $isComment ]] && continue
     [[ $key =~ $isBlank ]] && continue
     value=$(eval echo "$temp")
-    eval export "$key='$value'";
-  done < $ASAPSHELL_DIR/.env
+    eval export "$key='$value'"
+  done <$ASAPSHELL_DIR/.env
 else
   error "No .env file found, copy .env.example to .env"
 fi

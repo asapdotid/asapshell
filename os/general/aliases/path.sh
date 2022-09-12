@@ -2,8 +2,8 @@
 
 # Aliases
 alias lab='lab_path'
-alias lab:a='lab_path apps'
-alias lab:an='lab_path ansible'
+alias lab:app='lab_path apps'
+alias lab:a='lab_path ansible'
 alias lab:c='lab_path config'
 alias lab:d='lab_path docker'
 alias lab:i='lab_path infra'
@@ -13,6 +13,8 @@ alias home:dl='home_path Downloads'
 alias home:doc='home_path Documents'
 
 # Function
+
+#Change home directory
 function home_path() {
   if [ -z "$1" ]; then
     cd $HOME && exa -labGF --header --git --icons $HOME
@@ -25,6 +27,7 @@ function home_path() {
   fi
 }
 
+#Change to Labs directory
 function lab_path() {
   if [ -z "$1" ]; then
     cd $LAB_LOCATION && exa -labGF --header --git --icons $LAB_LOCATION
@@ -37,6 +40,7 @@ function lab_path() {
   fi
 }
 
+#Change to Projects directory
 function project_path() {
   if [ -z "$1" ]; then
     cd $PROJECT_LOCATION && exa -labGF --header --git --icons $PROJECT_LOCATION
