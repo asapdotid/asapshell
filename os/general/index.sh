@@ -3,7 +3,17 @@
 __GEXA="$ASAPSHELL_DIR/os/general/aliases/exa.sh"
 __GPATH="$ASAPSHELL_DIR/os/general/aliases/path.sh"
 __GSYSTEM="$ASAPSHELL_DIR/os/general/aliases/system.sh"
-__GENERALFILES=($__GEXA $__GPATH $__GSYSTEM)
+__GDOCKER="$ASAPSHELL_DIR/os/general/aliases/docker.sh"
+__GANSIBLE="$ASAPSHELL_DIR/os/general/aliases/ansible.sh"
+__GGIT="$ASAPSHELL_DIR/os/general/aliases/git.sh"
+__GGIT_FLOW="$ASAPSHELL_DIR/os/general/aliases/git-flow.sh"
+__GNVM="$ASAPSHELL_DIR/os/general/aliases/nvm.sh"
+__GNPM="$ASAPSHELL_DIR/os/general/aliases/npm.sh"
+__GTMUX="$ASAPSHELL_DIR/os/general/aliases/tmux.sh"
+__GTMUXINATOR="$ASAPSHELL_DIR/os/general/aliases/tmuxinator.sh"
+__GVAGRANT="$ASAPSHELL_DIR/os/general/aliases/vagrant.sh"
+__GCOMPOSER="$ASAPSHELL_DIR/os/general/aliases/composer.sh"
+__GENERALFILES=($__GEXA $__GPATH $__GSYSTEM $__GDOCKER $__GANSIBLE $__GGIT $__GGIT_FLOW $__GNVM $__GNPM $__GTMUX $__GTMUXINATOR $__GVAGRANT $__GCOMPOSER)
 
 for i in "${__GENERALFILES[@]}"; do
   if [ -f "$i" ]; then

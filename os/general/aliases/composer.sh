@@ -1,0 +1,15 @@
+#!/bin/bash
+# PHP Composer
+alias com='composer'
+alias com:v='composer -V'
+alias com:i='composer init'
+alias com:in='composer install'
+alias com:ud='composer update'
+alias com:ud:g='composer global update'
+alias com:ug='composer upgrade'
+alias com:re='composer require'
+alias com:re:g='composer global require'
+alias com:re:d='composer require --dev'
+alias com:rm='composer remove'
+alias com:rm:d='composer remove --dev'
+alias com:s:g='composer global show'
