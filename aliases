@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Initial environment
-# export ASAPSHELL_DIR="$HOME/.config/asapshell"
-export ASAPSHELL_DIR=$PWD
+export ASAPSHELL_DIR="$HOME/.config/asapshell"
 
 # Helpers
 source "$ASAPSHELL_DIR/helpers/index.sh"
