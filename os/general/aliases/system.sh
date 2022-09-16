@@ -6,6 +6,7 @@ alias cd~='cd $HOME'
 alias cd.='cd ..'
 alias cd..='cd ../../'
 alias cd...='cd ../../../'
+alias cd....='cd ../../../../'
 alias cd:.='cd_home_dot'
 alias gh='history | grep'
 alias mkcd='mk_cd'
@@ -21,7 +22,7 @@ alias lt='du -sh * | sort -h'
 
 #Change directory
 function cd_home_dot() {
-  if [ ! -z "$1" && -d "$HOME/.$1" ]; then
+  if [[ ! -z "$1" && -d "$HOME/.$1" ]]; then
     cd "$HOME/.$1"
   else
     error "Please check your directory destination first!"
