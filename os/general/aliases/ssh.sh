@@ -1,5 +1,6 @@
 #!/bin/bash
 
+alias ssh='TERM=xterm ssh'
 alias ssh:gen='ssh_keygen'
 
 # Function
