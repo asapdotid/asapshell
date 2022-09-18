@@ -45,7 +45,7 @@ function project_path() {
   if [[ -z "$1" ]]; then
     cd $PROJECT_LOCATION && exa -labGF --header --git --icons $PROJECT_LOCATION
   else
-    if [[ -d "$LAB_LOCATION/$1" ]]; then
+    if [[ -d "$PROJECT_LOCATION/$1" ]]; then
       cd "$PROJECT_LOCATION/$1" && exa -labGF --header --git --icons "$PROJECT_LOCATION/$1"
     else
       error "Directory doest not exist in the Projects"
