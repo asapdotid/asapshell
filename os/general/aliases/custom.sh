@@ -11,3 +11,6 @@ alias code="$VSCODE"
 
 # Noevim
 alias nv="nvim"
+
+# Get IP
+alias myip="curl http://ipecho.net/plain; echo"
