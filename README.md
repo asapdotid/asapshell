@@ -4,22 +4,35 @@ Shell script utility aliases for (bash or zsh)
 
 ## General Aliases
 
-- [x] Custom
-- [x] System (will update)
-- [x] Exa [doc](https://the.exa.website/)
-- [x] NVM [doc](https://github.com/nvm-sh/nvm)
-- [x] SSH
-- [x] Git
-- [x] Git-Flow
 - [x] Ansible
-- [x] Node JS
-- [x] Terraform
-- [x] Vagrant
-- [x] Tmux
-- [x] Tmuxinator
+- [x] Custom
 - [x] Docker
 - [x] Docker Compose
+- [x] Exa [doc](https://the.exa.website/)
+- [x] Git
+- [x] Git-Flow
+- [x] Node JS
+- [x] NVM [doc](https://github.com/nvm-sh/nvm)
+- [x] Path
+- [x] SSH
+- [x] System (will update)
+- [x] Terraform
+- [x] Tmux
+- [x] Tmuxinator
+- [x] Vagrant
 - [ ] Spotify Tui
+
+## Linux Aliases
+
+- [x] Package
+- [x] Service
+- [x] System
+
+## Darwin Aliases
+
+- [ ] Package
+- [ ] Service
+- [ ] System
 
 Will always update 🚀 each part OS and services 😃
 
@@ -62,9 +75,7 @@ Add script to load `aliases` to ZSH or BASH config `(.zshrc or bashrc)` on the b
 or
 
 ```bash
-if [[ -d "$HOME/.config/asapshell" ]] ; then
-    source "$HOME/.config/asapshell/aliases"
-fi
+if [[ -d "$HOME/.config/asapshell" ]] source "$HOME/.config/asapshell/aliases"
 ```
 
 Refrence :
