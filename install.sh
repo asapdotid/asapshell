@@ -98,7 +98,7 @@
   }
 
   asapshell_latest_version() {
-    asapshell_echo "develop"
+    asapshell_echo "main"
   }
 
   install_asapshell_from_git() {
