@@ -20,7 +20,9 @@ Shell script utility aliases for (bash or zsh)
 - [x] Tmux
 - [x] Tmuxinator
 - [x] Vagrant
-- [ ] Spotify Tui
+- [x] Spotify Tui
+- [ ] Molecule
+- [ ] Youtube Download (yt-download)
 
 ## Linux Aliases
 
