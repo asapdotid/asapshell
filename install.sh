@@ -145,6 +145,8 @@
       fi
     fi
 
+    [[ ! -f "${INSTALL_DIR}/.env" ]] && command cp -rf "${INSTALL_DIR}/.env.example" "${INSTALL_DIR}/.env"
+
     # Try to fetch tag
     if command git --git-dir="$INSTALL_DIR"/.git --work-tree="$INSTALL_DIR" fetch origin tag "$ASAPSHELL_VERSION" --depth=1 2>/dev/null; then
       :
@@ -230,7 +232,7 @@
         asapshell_echo "=> Appending asapshell source string to $ASAPSHELL_PROFILE"
         command printf "${SOURCE_STR}" >>"$ASAPSHELL_PROFILE"
       else
-        asapshell_echo "=> asapshell source string already in ${ASAPSHELL_PROFILE}"
+        asapshell_echo "=> Asapshell source string already in ${ASAPSHELL_PROFILE}"
       fi
     fi
     if ${BASH_OR_ZSH} && [ -z "${ASAPSHELLPROFILE-}" ]; then
