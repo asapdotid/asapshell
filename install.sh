@@ -52,12 +52,6 @@
     esac
   }
 
-  #
-  # Detect profile file if not specified as environment variable
-  # (eg: PROFILE=~/.myprofile)
-  # The echo'ed path is guaranteed to be an existing file
-  # Otherwise, an empty string is returned
-  #
   asapshell_detect_profile() {
     if [ "${PROFILE-}" = '/dev/null' ]; then
       # the user has specifically requested NOT to have asapshell touch their profile
@@ -107,7 +101,8 @@
     local ASAPSHELL_VERSION
     ASAPSHELL_VERSION="${ASAPSHELL_INSTALL_VERSION:-$(asapshell_latest_version)}"
     local ASAPSHELL_SOURCE_URL
-    ASAPSHELL_SOURCE_URL="https://raw.githubusercontent.com/asapdotid/asapshell/${ASAPSHELL_VERSION}/install.sh"
+    ASAPSHELL_SOURCE_URL="https://github.com/asapdotid/asapshell"
+    # ASAPSHELL_SOURCE_URL="https://raw.githubusercontent.com/asapdotid/asapshell/${ASAPSHELL_VERSION}/install.sh"
     if [ -n "${ASAPSHELL_INSTALL_VERSION:-}" ]; then
       # Check if version is an existing ref
       if command git ls-remote "$ASAPSHELL_SOURCE_URL" "$ASAPSHELL_VERSION" | asapshell_grep -q "$ASAPSHELL_VERSION"; then
@@ -149,6 +144,7 @@
         }
       fi
     fi
+
     # Try to fetch tag
     if command git --git-dir="$INSTALL_DIR"/.git --work-tree="$INSTALL_DIR" fetch origin tag "$ASAPSHELL_VERSION" --depth=1 2>/dev/null; then
       :
@@ -157,10 +153,12 @@
       asapshell_echo >&2 "$fetch_error"
       exit 1
     fi
+
     command git -c advice.detachedHead=false --git-dir="$INSTALL_DIR"/.git --work-tree="$INSTALL_DIR" checkout -f --quiet FETCH_HEAD || {
       asapshell_echo >&2 "Failed to checkout the given version $ASAPSHELL_VERSION. Please report this!"
       exit 2
     }
+
     if [ -n "$(command git --git-dir="$INSTALL_DIR"/.git --work-tree="$INSTALL_DIR" show-ref refs/heads/main)" ]; then
       if command git --no-pager --git-dir="$INSTALL_DIR"/.git --work-tree="$INSTALL_DIR" branch --quiet 2>/dev/null; then
         command git --no-pager --git-dir="$INSTALL_DIR"/.git --work-tree="$INSTALL_DIR" branch --quiet -D main >/dev/null 2>&1
@@ -211,7 +209,6 @@
     SOURCE_STR="\\nexport ASAPSHELL_DIR=\"${PROFILE_INSTALL_DIR}\"\\n[ -s \"\$ASAPSHELL_DIR/aliases\" ] && \\. \"\$ASAPSHELL_DIR/aliases\"  # This loads asapshell\\n"
 
     # shellcheck disable=SC2016
-    COMPLETION_STR='[ -s "$ASAPSHELL_DIR/bash_completion" ] && \. "$ASAPSHELL_DIR/bash_completion"  # This loads aliases bash_completion\n'
     BASH_OR_ZSH=false
 
     if [ -z "${ASAPSHELL_PROFILE-}" ]; then
@@ -235,28 +232,31 @@
       else
         asapshell_echo "=> asapshell source string already in ${ASAPSHELL_PROFILE}"
       fi
-      # shellcheck disable=SC2016
-      if ${BASH_OR_ZSH} && ! command grep -qc '$ASAPSHELL_DIR/bash_completion' "$ASAPSHELL_PROFILE"; then
-        asapshell_echo "=> Appending bash_completion source string to $ASAPSHELL_PROFILE"
-        command printf "$COMPLETION_STR" >>"$ASAPSHELL_PROFILE"
-      else
-        asapshell_echo "=> bash_completion source string already in ${ASAPSHELL_PROFILE}"
-      fi
     fi
     if ${BASH_OR_ZSH} && [ -z "${ASAPSHELLPROFILE-}" ]; then
       asapshell_echo "=> Please also append the following lines to the if you are using bash/zsh shell:"
       command printf "${COMPLETION_STR}"
     fi
 
+    # Source asapsahell
+    # shellcheck source=/dev/null
+    \. "$(asapshell_install_dir)/aliases"
+
+    asapshell_reset
+
+    asapshell_echo "=> Close and reopen your terminal to start using asapshell or run the following to use it now:"
+    command printf "${SOURCE_STR}"
   }
 
   asapshell_reset() {
-    unset -f asapshell_has asapshell_install_dir asapshell_latest_version asapshell_profile_is_bash_or_zsh \
-      asapshell_download install_asapshell_from_git \
-      asapshell_try_profile asapshell_detect_profile \
-      asapshell_do_install asapshell_reset asapshell_default_install_dir asapshell_grep
+    unset -f asapshell_has asapshell_install_dir asapshell_latest_version \
+      asapshell_profile_is_bash_or_zsh asapshell_download install_asapshell_from_git \
+      asapshell_try_profile asapshell_detect_profile asapshell_do_install \
+      asapshell_reset asapshell_default_install_dir asapshell_grep
   }
 
   [ "_$ASAPSHELL_ENV" = "_testing" ] || asapshell_do_install
 
-} # this ensures the entire script is downloaded #
+}
+
+# this ensures the entire script is downloaded #
