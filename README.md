@@ -38,18 +38,20 @@ Shell script utility aliases for (bash or zsh)
 
 Will always update 🚀 each part OS and services 😃
 
-## How to integrate on BASH/ZSH
+## How to setup on BASH/ZSH
 
-Clone this repo to config user:
+### Install & Update Script
+
+To install or update asapshell, you should run the install script. To do that, you may either download and run the script manually, or use the following cURL or Wget command:
 
 ```bash
-git clone https://github.com/asapdotid/asapshell.git "${HOME}"/.config/asapshell
+curl -o- https://raw.githubusercontent.com/asapdotid/asapshell/main/install.sh | bash
 ```
 
-Copy environment example `.env.example` to `.env`
+or
 
 ```bash
-cp -rv "${HOME}"/.config/asapshell/.env.example "${HOME}"/.config/asapshell/.env
+wget -qO- https://raw.githubusercontent.com/asapdotid/asapshell/main/install.sh | bash
 ```
 
 Edit environment file `.env`:
@@ -68,17 +70,30 @@ LAB_LOCATION="$HOME/Labs"
 PROJECT_LOCATION="$HOME/Projects"
 ```
 
-Add script to load `aliases` to ZSH or BASH config `(.zshrc or bashrc)` on the bottom.
+Running either of the above commands downloads a script and runs it. The script clones the asapshell repository to ~/.asapshell, and attempts to add the source lines from the snippet below to the correct profile file (~/.bash_profile, ~/.zshrc, ~/.profile, or ~/.bashrc).
 
 ```bash
-[[ -s $HOME/.config/asapshell/aliases ]] source "$HOME/.config/asapshell/aliases"
+export ASAPSHELL_DIR="$HOME/.asapshell"
+[ -s "$ASAPSHELL_DIR/aliases" ] && \. "$ASAPSHELL_DIR/aliases" # This loads asapshell
 ```
 
-or
+Additional Notes
 
-```bash
-if [[ -d "$HOME/.config/asapshell" ]] source "$HOME/.config/asapshell/aliases"
-```
+If the environment variable $XDG_CONFIG_HOME is present, it will place the asapshell files there.
+
+You can customize the install source, directory, profile, and version using the ASAPSHELL_SOURCE, ASAPSHELL_DIR, PROFILE, and NODE_VERSION variables. Eg: curl ... | ASAPSHELL_DIR="path/to/asapshell". Ensure that the ASAPSHELL_DIR does not contain a trailing slash.
+
+The installer can use git, curl, or wget to download asapshell, whichever is available.
+
+Troubleshooting on Linux
+
+On Linux, after running the install script, if you get asapshell: command not found or see no feedback from your terminal after you type command -v asapshell, simply close your current terminal, open a new terminal, and try verifying again. Alternatively, you can run the following commands for the different shells on the command line:
+
+_bash: source ~/.bashrc_
+
+_zsh: source ~/.zshrc_
+
+_ksh: . ~/.profile_
 
 Refrence :
 
