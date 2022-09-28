@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Initial environment
+export ASAPSHELL_DIR="${ASAPSHELL_DIR:-$(asapshell_default_install_dir)}"
+
 # Helpers
 source "$ASAPSHELL_DIR/helpers/index.sh"
 
@@ -19,3 +22,7 @@ FreeBSD | OpenBSD) source "$ASAPSHELL_DIR/os/bsd/index.sh" ;;
 Darwin) source "$ASAPSHELL_DIR/os/darwin/index.sh" ;;
 *) ;;
 esac
+
+asapshell_default_install_dir() {
+  [ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.asapshell" || printf %s "${XDG_CONFIG_HOME}/asapshell"
+}

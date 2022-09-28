@@ -102,7 +102,6 @@
     ASAPSHELL_VERSION="${ASAPSHELL_INSTALL_VERSION:-$(asapshell_latest_version)}"
     local ASAPSHELL_SOURCE_URL
     ASAPSHELL_SOURCE_URL="https://github.com/asapdotid/asapshell"
-    # ASAPSHELL_SOURCE_URL="https://raw.githubusercontent.com/asapdotid/asapshell/${ASAPSHELL_VERSION}/install.sh"
     if [ -n "${ASAPSHELL_INSTALL_VERSION:-}" ]; then
       # Check if version is an existing ref
       if command git ls-remote "$ASAPSHELL_SOURCE_URL" "$ASAPSHELL_VERSION" | asapshell_grep -q "$ASAPSHELL_VERSION"; then
