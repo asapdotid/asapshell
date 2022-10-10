@@ -2,6 +2,7 @@
 
 alias ssh='TERM=xterm ssh'
 alias ssh:gen='ssh_keygen'
+alias ssh:permission='ssh_fix_permission'
 
 # Function
 
@@ -22,11 +23,11 @@ function ssh_fix_permission() {
   if [ -d "$_ssh_user" ]; then
     #Make the .ssh directory unreadable for other users and groups
     chmod 700 "$_ssh_user"
-    #Make public key readble
-    chmod 600 "$_ssh_user/*.pub"
     #Make the private SSH key read only
-    chmod 400 "$_ssh_user/id"
-
+    chmod 400 "$_ssh_user/{config,id_rsa,id_ed25519}"
+    #Make public key readable
+    chmod 600 "$_ssh_user/{*.pub,authorized_key,known_hosts}"
+    info "Set SSH directory and files permission, done."
   else
     info "Cannot set permission, due to .ssh directory not found."
   fi
