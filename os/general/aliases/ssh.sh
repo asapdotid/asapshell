@@ -1,7 +1,7 @@
 #!/bin/bash
 
 alias ssh='TERM=xterm ssh'
-alias ssh:gen='ssh_keygen'
+alias ssh:gen='ssh_generate_keys'
 alias ssh:permission='ssh_fix_permission'
 
 # Function
@@ -31,4 +31,33 @@ function ssh_fix_permission() {
   else
     info "Cannot set permission, due to .ssh directory not found."
   fi
+}
+
+#SSH generate keys
+function ssh_generate_keys() {
+  PS3='Generate the SSH keys: '
+  ssh_type_keys=("RSA" "ECDSA")
+  select gen_key in "${ssh_type_keys[@]}"; do
+    case $gen_key in
+    "RSA")
+      input "Email address for ssh key: " read r_email_add
+      if [[ -z "$r_email_add" ]]; then
+        ssh-keygen -t rsa -b 4096 -C "$(hostname)-$(date +'%d-%m-%Y')"
+      else
+        ssh-keygen -t rsa -b 4096 -C "$r_email_add"
+      fi
+      info "Done."
+      ;;
+    "ECDSA")
+      input "Email address for ssh key: " read r_email_add
+      if [[ -z "$r_email_add" ]]; then
+        ssh-keygen -o -a 256 -t ed25519 -C "$(hostname)-$(date +'%d-%m-%Y')"
+      else
+        ssh-keygen -o -a 256 -t ed25519 -C "$r_email_add"
+      fi
+      info "Done."
+      ;;
+    *) error "invalid option" ;;
+    esac
+  done
 }
