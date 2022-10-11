@@ -13,10 +13,11 @@ __GSSH="$ASAPSHELL_DIR/os/general/aliases/ssh.sh"
 __GTMUX="$ASAPSHELL_DIR/os/general/aliases/tmux.sh"
 __GTMUXINATOR="$ASAPSHELL_DIR/os/general/aliases/tmuxinator.sh"
 __GVAGRANT="$ASAPSHELL_DIR/os/general/aliases/vagrant.sh"
+__GTERRAFORM="$ASAPSHELL_DIR/os/general/aliases/terraform.sh"
 __GCOMPOSER="$ASAPSHELL_DIR/os/general/aliases/composer.sh"
 __GCUSTOM="$ASAPSHELL_DIR/os/general/aliases/custom.sh"
 __GSPOTIFY_TUI="$ASAPSHELL_DIR/os/general/aliases/spotify-tui.sh"
-__GENERALFILES=($__GEXA $__GPATH $__GSYSTEM $__GDOCKER $__GANSIBLE $__GGIT $__GGIT_FLOW $__GNVM $__GNPM $__GSSH $__GTMUX $__GTMUXINATOR $__GVAGRANT $__GCOMPOSER $__GCUSTOM $__GSPOTIFY_TUI)
+__GENERALFILES=($__GEXA $__GPATH $__GSYSTEM $__GDOCKER $__GANSIBLE $__GGIT $__GGIT_FLOW $__GNVM $__GNPM $__GSSH $__GTMUX $__GTMUXINATOR $__GVAGRANT $__GTERRAFORM $__GCOMPOSER $__GCUSTOM $__GSPOTIFY_TUI)
 
 for i in "${__GENERALFILES[@]}"; do
   if [ -f "$i" ]; then
