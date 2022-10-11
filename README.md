@@ -17,6 +17,7 @@ Shell script utility aliases for (bash or zsh)
 - [x] SSH
 - [x] System (will update)
 - [x] Terraform
+- [x] Terragrunt
 - [x] Tmux
 - [x] Tmuxinator
 - [x] Vagrant
