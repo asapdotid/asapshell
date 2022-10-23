@@ -18,6 +18,10 @@ alias tf:r='terraform refresh'
 alias tf:s='terraform state'
 alias tf:v='terraform validate'
 alias tf:w='terraform workspace'
+alias tf:w:n='terraform workspace new'
+alias tf:w:l='terraform workspace list'
+alias tf:w:s='terraform workspace select'
+alias tf:w:d='terraform workspace delete'
 alias tf:h='terraform -help'
 
 # Function
