@@ -1,6 +1,7 @@
 #!/bin/bash
 
 alias ssh='TERM=xterm ssh'
+alias ssh:-v='ssh -V'
 alias ssh:gen='ssh_generate_keys'
 alias ssh:permission='ssh_fix_permission'
 
@@ -19,7 +20,7 @@ function ssh_keygen() {
 
 #SSH directory and files permission
 function ssh_fix_permission() {
-  _ssh_user="/home/$USER/.ssh"
+  local _ssh_user="/home/$USER/.ssh"
   if [ -d "$_ssh_user" ]; then
     #Make the .ssh directory unreadable for other users and groups
     chmod 700 "$_ssh_user"
