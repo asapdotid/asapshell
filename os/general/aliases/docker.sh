@@ -16,9 +16,10 @@ alias dc:ps:a='docker ps -a'
 alias dc:rm:c='docker rm -f'
 alias dc:rm:i='docker rmi -f'
 alias dc:clean='dc_cleanup'
-alias dc:x='docker_din'
+alias dc:in='docker_din'
 # Docker Compose 2.x
 alias dc:c='docker compose'
+alias dc:-v='docker compose version'
 alias dc:c:c='docker compose config'
 alias dc:c:u='docker compose up'
 alias dc:c:d='docker compose down'
@@ -28,7 +29,7 @@ alias dc:c:t='docker compose top'
 alias dc:c:x='docker compose exec'
 # Docker Compose 1.x
 alias dcc='docker-compose'
-alias dcc:v='docker-compose --version'
+alias dcc:-v='docker-compose --version'
 alias dcc:u='docker-compose up -d'
 alias dcc:d='docker-compose down -v'
 alias dcc:b='docker-compose up -d --build -f'
@@ -41,19 +42,18 @@ function dc_cleanup() {
 
 # Easy container access via din .bashrc/.zshrc helper
 function docker_din() {
-  filter=$1
-
-  user=""
+  local filter=$1
+  local user=""
   if [[ -n "$2" ]]; then
     user="--user $2"
   fi
 
-  shell="bash"
+  local shell="bash"
   if [[ -n "$3" ]]; then
     shell=$3
   fi
 
-  prefix=""
+  local prefix=""
   if [[ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]]; then
     prefix="winpty"
   fi
