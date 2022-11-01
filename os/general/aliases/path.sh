@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Aliases
-alias lab='lab_path'
-alias lab:app='lab_path apps'
-alias lab:a='lab_path ansible'
-alias lab:c='lab_path config'
-alias lab:d='lab_path docker'
-alias lab:i='lab_path infra'
-alias proj='project_path'
+alias h='home_path'
 alias home='home_path'
 alias home:dl='home_path Downloads'
 alias home:doc='home_path Documents'
+alias home:pic='home_path Pictures'
+alias home:mus='home_path Music'
+alias home:vid='home_path Videos'
+alias home:des='home_path Desktop'
+alias lab='lab_path'
+alias pro='project_path'
 
 # Function
 
