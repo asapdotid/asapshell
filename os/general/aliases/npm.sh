@@ -1,7 +1,7 @@
 #!/bin/bash
 # NodeJs NPM #
-alias node:v='node -v'
-alias npm:v='npm -v'
+alias node:-v='node -v'
+alias npm:-v='npm -v'
 alias npm:i='npm init'
 alias npm:in='npm install'
 alias npm:ud='npm update'
