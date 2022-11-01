@@ -1,8 +1,9 @@
 #!/bin/bash
 # Ansible
 alias a='ansible'
+alias a:-v='ansible --version'
 alias a:l='ansible --list-hosts all'
-alias a:i='new_ansible'
+alias a:new='new_ansible'
 alias ap='ansible-playbook'
 # Ansible Galaxy
 alias ag='ansible-galaxy'
@@ -27,32 +28,36 @@ new_ansible() {
   info "4. Staging, Production & Development"
   PS3="Which Ansible project do you want use? [1, 2, 3, 4] : "
   # read -r -p "Which Ansible project do you want use? [1, 2, 3, 4] : " opt
-  select opt in 1 2 3 4
-  do
+  select opt in 1 2 3 4; do
     case $opt in
-      1)
-        ansible_project_init "staging";
-        break;;
-      2)
-        ansible_project_init "production";
-        break;;
-      3)
-        ansible_project_init "staging" "production";
-        break;;
-      4)
-        ansible_project_init "staging" "production" "development";
-        break;;
-      quit)
-        break;;
-      *)
-        error "Invalid option $REPLY";;
+    1)
+      ansible_project_init "staging"
+      break
+      ;;
+    2)
+      ansible_project_init "production"
+      break
+      ;;
+    3)
+      ansible_project_init "staging" "production"
+      break
+      ;;
+    4)
+      ansible_project_init "staging" "production" "development"
+      break
+      ;;
+    quit)
+      break
+      ;;
+    *)
+      error "Invalid option $REPLY"
+      ;;
     esac
   done
 }
 
-ansible_project_init () {
-  for i
-  do
+ansible_project_init() {
+  for i; do
     info "Create inventory $i"
     mkdir -p inventories/$i/{group_vars,host_vars}
     touch inventories/$i/hosts
