@@ -1,10 +1,10 @@
 #!/bin/bash
 # Vagrant
 alias vg='vagrant'
+alias vg:-v='vagrant version'
 alias vg:i='vagrant init'
-alias vg:u='vagrant up'
-alias vg:d='vagrant destroy'
-alias vg:df='vagrant destroy -f'
+alias vg:up='vagrant up'
+alias vg:ds='vagrant destroy -f'
 alias vg:ssh='vagrant ssh'
 alias vg:sshc='vagrant ssh-config'
 alias vg:rdp='vagrant rdp'
