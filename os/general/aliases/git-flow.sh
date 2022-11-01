@@ -1,7 +1,7 @@
 #!/bin/bash
 # Git Flow
 alias gf='git flow'
-alias gf:v='git flow version'
+alias gf:-v='git flow version'
 alias gf:i='git flow init'
 alias gf:f='git flow feature'
 alias gf:fs='git flow feature start'
