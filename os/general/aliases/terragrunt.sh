@@ -1,6 +1,7 @@
 #!/bin/bash
 # Terragrunt
 alias tg='terragrunt'
+alias tg:-v='terragrunt --version'
 alias tg:p='terragrunt plan'
 alias tg:ra:p='terragrunt run-all plan'
 alias tg:a='terragrunt apply'
