@@ -2,21 +2,18 @@
 
 # Aliases
 alias c='clear'
-alias cd~='cd $HOME'
-alias cd.='cd ../'
-alias cd..='cd ../../'
-alias cd...='cd ../../../'
-alias cd....='cd ../../../../'
-alias cd:.='cd_home_dot'
-alias gh='history | grep'
+alias cd='change_dir'
+alias cd.='change_dir 1'
+alias cd..='change_dir 2'
+alias cd...='change_dir 3'
+alias df="df -h"
 alias mkcd='mk_cd'
 alias rm:f='rm -rf'
 alias s:rm:f='sudo rm -rf'
-alias cpv='rsync -ah --info=progress2'
+alias cp:v='rsync -ah --info=progress2'
 alias f:file="find_file"
 alias f:ext="find_ext"
-alias df="df -h"
-alias lt='du -sh * | sort -h'
+alias history='history | grep'
 
 # Function
 
@@ -51,4 +48,16 @@ function find_ext() {
   ext = "*."
   ext += "$@"
   find . -iname $ext 2>&1 | grep -v "Operation not permitted"
+}
+
+function change_dir() {
+  local cd_dir=""
+  if [[ -n $1 ]] && [[ "$1" =~ ^[0-9]+$ ]]; then
+    for ((i = 1; i <= $1; i++)); do
+      cd_dir+="../"
+    done
+    cd $cd_dir
+  else
+    error "Whoops!, please check destination"
+  fi
 }
