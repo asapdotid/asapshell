@@ -1,10 +1,11 @@
 #!/bin/bash
 
+alias edit='$EDITOR'
 alias sozsh='source $HOME/.zshrc'
 alias sobash='source $HOME/.bashrc'
-alias vizsh='$EDITOR $HOME/.zshrc'
-alias vibash='$EDITOR $HOME/.bashrc'
-alias vihosts='sudo $EDITOR /etc/hosts'
+alias edit:zsh='$EDITOR $HOME/.zshrc'
+alias edit:bash='$EDITOR $HOME/.bashrc'
+alias edit:hosts='sudo $EDITOR /etc/hosts'
 
 # Code Editor
 alias code="$VSCODE"
