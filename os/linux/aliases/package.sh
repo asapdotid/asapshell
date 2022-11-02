@@ -4,6 +4,7 @@ alias pkg:i="package_install"
 alias pkg:ui="package_uninstall"
 alias pkg:s="package_search"
 alias pkg:u="package_update"
+alias pkg:clean="package_clean"
 
 # Aliases for ArchLinux AUR (as binaries in community)
 alias yay:u='yay -Syyu'
@@ -35,7 +36,7 @@ function package_uninstall() {
   if helper_os_package pacman; then
     sudo pacman -Rscn $1
   elif helper_os_package apt-get; then
-    sudo apt --purge remove $1
+    sudo apt-get --purge remove $1
   elif helper_os_package yum; then
     sudo yum remove $1
   elif helper_os_package emerge; then
@@ -52,7 +53,7 @@ function package_search() {
   if helper_os_package pacman; then
     sudo pacman -Ss $1
   elif helper_os_package apt-get; then
-    sudo apt search $1
+    sudo apt-get search $1
   elif helper_os_package yum; then
     sudo yum search $1
   elif helper_os_package emerge; then
@@ -69,13 +70,30 @@ function package_update() {
   if helper_os_package pacman; then
     sudo pacman -Syu $1
   elif helper_os_package apt-get; then
-    sudo apt update && sudo apt upgrade
+    sudo apt-get update && sudo apt-get upgrade
   elif helper_os_package yum; then
     sudo yum update && sudo yum upgrade
   elif helper_os_package emerge; then
     sudo emerge --ask --verbose --update --deep --newuse @world
   elif helper_os_package zypper; then
     sudo zypper update && sudo zypper dist-upgrade
+  else
+    error 'No package manager found!'
+  fi
+}
+
+# Package cleaning cache with os package manager
+function package_clean() {
+  if helper_os_package pacman; then
+    sudo pacman -Scc
+  elif helper_os_package apt-get; then
+    sudo apt-get celan --dry-run && sudo apt-get autoremove --purge
+  elif helper_os_package yum; then
+    sudo yum clean all
+  elif helper_os_package emerge; then
+    sudo emerge --depclean --verbose
+  elif helper_os_package zypper; then
+    sudo zypper clean -a
   else
     error 'No package manager found!'
   fi
