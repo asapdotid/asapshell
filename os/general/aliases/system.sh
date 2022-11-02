@@ -2,7 +2,7 @@
 
 # Aliases
 alias c='clear'
-alias cd='change_dir'
+alias cd:='change_dir'
 alias cd.='change_dir 1'
 alias cd..='change_dir 2'
 alias cd...='change_dir 3'
