@@ -5,6 +5,13 @@ alias pkg:ui="package_uninstall"
 alias pkg:s="package_search"
 alias pkg:u="package_update"
 
+# Aliases for ArchLinux AUR (as binaries in community)
+alias yay:u='yay -Syyu'
+alias yay:i='yay -S'
+alias yay:ui='yay -Rscn'
+alias yay:s='yay -Ss'
+alias yay:clean='yay -Scc'
+
 # Function
 # Package install with os package manager
 function package_install() {
