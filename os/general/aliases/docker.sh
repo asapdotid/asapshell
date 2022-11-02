@@ -36,8 +36,8 @@ alias dcc:b='docker-compose up -d --build -f'
 
 # Docker CLeanup
 function dc_cleanup() {
-  docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
-  docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
+  docker rm -v -f $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
+  docker rmi -f $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 }
 
 # Easy container access via din .bashrc/.zshrc helper
