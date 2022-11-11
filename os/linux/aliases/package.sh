@@ -4,6 +4,17 @@ alias pkg:i="package_install"
 alias pkg:ui="package_uninstall"
 alias pkg:s="package_search"
 alias pkg:u="package_update"
+alias pkg:clean="package_clean"
+
+# ArchLinux Pacman repository mirror
+alias pacman:mirror='pacman_mirror'
+
+# Aliases for ArchLinux AUR (as binaries in community)
+alias yay:u='yay -Syyu'
+alias yay:i='yay -S'
+alias yay:ui='yay -Rscn'
+alias yay:s='yay -Ss'
+alias yay:clean='yay -Scc'
 
 # Function
 # Package install with os package manager
@@ -11,7 +22,7 @@ function package_install() {
   if helper_os_package pacman; then
     sudo pacman -S $1
   elif helper_os_package apt-get; then
-    sudo apt install $1
+    sudo apt-get install $1
   elif helper_os_package yum; then
     sudo yum install $1
   elif helper_os_package emerge; then
@@ -28,7 +39,7 @@ function package_uninstall() {
   if helper_os_package pacman; then
     sudo pacman -Rscn $1
   elif helper_os_package apt-get; then
-    sudo apt --purge remove $1
+    sudo apt-get --purge remove $1
   elif helper_os_package yum; then
     sudo yum remove $1
   elif helper_os_package emerge; then
@@ -45,7 +56,7 @@ function package_search() {
   if helper_os_package pacman; then
     sudo pacman -Ss $1
   elif helper_os_package apt-get; then
-    sudo apt search $1
+    sudo apt-get search $1
   elif helper_os_package yum; then
     sudo yum search $1
   elif helper_os_package emerge; then
@@ -62,7 +73,7 @@ function package_update() {
   if helper_os_package pacman; then
     sudo pacman -Syu $1
   elif helper_os_package apt-get; then
-    sudo apt update && sudo apt upgrade
+    sudo apt-get update && sudo apt-get upgrade
   elif helper_os_package yum; then
     sudo yum update && sudo yum upgrade
   elif helper_os_package emerge; then
@@ -72,4 +83,28 @@ function package_update() {
   else
     error 'No package manager found!'
   fi
+}
+
+# Package cleaning cache with os package manager
+function package_clean() {
+  if helper_os_package pacman; then
+    sudo pacman -Scc
+  elif helper_os_package apt-get; then
+    sudo apt-get celan --dry-run && sudo apt-get autoremove --purge
+  elif helper_os_package yum; then
+    sudo yum clean all
+  elif helper_os_package emerge; then
+    sudo emerge --depclean --verbose
+  elif helper_os_package zypper; then
+    sudo zypper clean -a
+  else
+    error 'No package manager found!'
+  fi
+}
+
+# ArchLinux package Pacman repository mirror
+function pacman_mirror() {
+  local country=${1:=all}
+  local protocol=${2:=all}
+  sudo pacman-mirrors --country $country --api --protocols $protocol --set-branch stable
 }
