@@ -18,6 +18,8 @@ function nvm_reinstall() {
   if [[ "$to_version" -eq 'lts' && "$from_version" -eq 'default' ]]; then
     nvm install lts/* --reintsall-packages-from=default --latest-npm
   else
-    nvm install $to_version --reintsall-packages-from=$from_version --latest-npm
+    nvm install $to_version --reintsall-packages-from=$from_version --latest-npm &&
+      nvm alias default $to_version &&
+      nvm use $to_version
   fi
 }
