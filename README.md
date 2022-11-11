@@ -27,7 +27,7 @@ Shell script utility aliases for (bash or zsh)
 
 ## Linux Aliases
 
-- [x] Package
+- [x] Package [read documentation](./docs/linux/package.md)
 - [x] Service
 - [x] System
 

@@ -6,6 +6,9 @@ alias pkg:s="package_search"
 alias pkg:u="package_update"
 alias pkg:clean="package_clean"
 
+# ArchLinux Pacman repository mirror
+alias pacman:mirror='pacman_mirror'
+
 # Aliases for ArchLinux AUR (as binaries in community)
 alias yay:u='yay -Syyu'
 alias yay:i='yay -S'
@@ -19,7 +22,7 @@ function package_install() {
   if helper_os_package pacman; then
     sudo pacman -S $1
   elif helper_os_package apt-get; then
-    sudo apt install $1
+    sudo apt-get install $1
   elif helper_os_package yum; then
     sudo yum install $1
   elif helper_os_package emerge; then
@@ -97,4 +100,11 @@ function package_clean() {
   else
     error 'No package manager found!'
   fi
+}
+
+# ArchLinux package Pacman repository mirror
+function pacman_mirror() {
+  local country=${1:=all}
+  local protocol=${2:=all}
+  sudo pacman-mirrors --country $country --api --protocols $protocol --set-branch stable
 }
