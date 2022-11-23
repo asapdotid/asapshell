@@ -100,6 +100,7 @@ function gca() {
 ### Using EMOJI-LOG (https://github.com/ahmadawais/Emoji-Log).
 #### NEW.
 function gnew() {
+  local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
     read r_name
@@ -115,18 +116,22 @@ function gnew() {
     fi
     git add . && git commit -m "📦 NEW: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
   else
+    input "Add files"
+    read r_files
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
       error "Please give git commit message"
       return 1
     fi
-    git add . && git commit -m "📦 NEW: $r_commit"
+    __add_files=$(helper_array $r_files)
+    git add "$__add_files" && git commit -m "📦 NEW: $r_commit"
   fi
 }
 
 #### IMPROVE.
 function gimp() {
+  local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
     read r_name
@@ -142,18 +147,22 @@ function gimp() {
     fi
     git add . && git commit -m "👌 IMPROVE: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
   else
+    input "Add files"
+    read r_files
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
       error "Please give git commit message"
       return 1
     fi
-    git add . && git commit -m "👌 IMPROVE: $r_commit"
+    __add_files=$(helper_array $r_files)
+    git add "$__add_files" && git commit -m "👌 IMPROVE: $r_commit"
   fi
 }
 
 #### FIX.
 function gfix() {
+  local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
     read r_name
@@ -169,18 +178,22 @@ function gfix() {
     fi
     git add . && git commit -m "🐛 FIX: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
   else
+    input "Add files"
+    read r_files
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
       error "Please give git commit message"
       return 1
     fi
-    git add . && git commit -m "🐛 FIX: $r_commit"
+    __add_files=$(helper_array $r_files)
+    git add "$__add_files" && git commit -m "🐛 FIX: $r_commit"
   fi
 }
 
 #### RELEASE.
 function grls() {
+  local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
     read r_name
@@ -196,18 +209,22 @@ function grls() {
     fi
     git add . && git commit -m "🚀 RELEASE: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
   else
+    input "Add files"
+    read r_files
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
       error "Please give git commit message"
       return 1
     fi
-    git add . && git commit -m "🚀 RELEASE: $r_commit"
+    __add_files=$(helper_array $r_files)
+    git add "$__add_files" && git commit -m "🚀 RELEASE: $r_commit"
   fi
 }
 
 #### DOC.
 function gdoc() {
+  local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
     read r_name
@@ -223,18 +240,22 @@ function gdoc() {
     fi
     git add . && git commit -m "📖 DOC: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
   else
+    input "Add files"
+    read r_files
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
       error "Please give git commit message"
       return 1
     fi
-    git add . && git commit -m "📖 DOC: $r_commit"
+    __add_files=$(helper_array $r_files)
+    git add "$__add_files" && git commit -m "📖 DOC: $r_commit"
   fi
 }
 
 #### TEST.
 function gtst() {
+  local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
     read r_name
@@ -250,18 +271,22 @@ function gtst() {
     fi
     git add . && git commit -m "🤖 TEST: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
   else
+    input "Add files"
+    read r_files
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
       error "Please give git commit message"
       return 1
     fi
-    git add . && git commit -m "🤖 TEST: $r_commit"
+    __add_files=$(helper_array $r_files)
+    git add "$__add_files" && git commit -m "🤖 TEST: $r_commit"
   fi
 }
 
 #### BREAKING CHANGE.
 function gbrk() {
+  local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
     read r_name
@@ -277,12 +302,15 @@ function gbrk() {
     fi
     git add . && git commit -m "‼️ BREAKING: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
   else
+    input "Add files"
+    read r_files
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
       error "Please give git commit message"
       return 1
     fi
-    git add . && git commit -m "‼️ BREAKING: $r_commit"
+    __add_files=$(helper_array $r_files)
+    git add "$__add_files" && git commit -m "‼️ BREAKING: $r_commit"
   fi
 }
