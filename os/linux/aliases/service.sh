@@ -21,13 +21,13 @@ alias sv:u:le='systemctl --user list-units --type=service --state=enabled'
 
 # Function
 function service_setup() {
-  if [[ "$1" -eq "root" && -n "$2" && -n "$3" ]]; then
+  if [[ "$1" == "root" && -n "$2" && -n "$3" ]]; then
     if helper_os_package systemctl; then
       sudo systemctl $2 $3.service
     else
       info "Please check service name!"
     fi
-  elif [[ "$1" -eq "user" && -n "$2" && -n "$3" ]]; then
+  elif [[ "$1" == "user" && -n "$2" && -n "$3" ]]; then
     if helper_os_package systemctl; then
       systemctl --user $2 $3.service
     else
