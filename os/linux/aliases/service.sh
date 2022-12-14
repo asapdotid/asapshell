@@ -1,23 +1,23 @@
 #!/bin/bash
 # Service
 # Handling Service (start, stop, restart) ROOT
-alias s:s:st='service_setup sudo start'
-alias s:s:ss='service_setup sudo status'
-alias s:s:sp='service_setup sudo stop'
-alias s:s:dr='sudo systemctl daemon-reload'
-alias s:s:l='sudo systemctl list-units --type=service'
-alias s:s:la='sudo systemctl list-units --type=service --state=active'
-alias s:s:lr='sudo systemctl list-units --type=service --state=running'
-alias s:s:le='sudo systemctl list-units --type=service --state=enabled'
+alias sv:r:st='service_setup sudo start'
+alias sv:r:ss='service_setup sudo status'
+alias sv:r:sp='service_setup sudo stop'
+alias sv:r:dr='sudo systemctl daemon-reload'
+alias sv:r:l='sudo systemctl list-units --type=service'
+alias sv:r:la='sudo systemctl list-units --type=service --state=active'
+alias sv:r:lr='sudo systemctl list-units --type=service --state=running'
+alias sv:r:le='sudo systemctl list-units --type=service --state=enabled'
 # Handling Service (start, stop, restart) USER
-alias s:u:st='service_setup user start'
-alias s:u:ss='service_setup user status'
-alias s:u:sp='service_setup user stop'
-alias s:u:dr='systemctl --user daemon-reload'
-alias s:u:l='systemctl --user list-units --type=service'
-alias s:u:la='systemctl --user list-units --type=service --state=active'
-alias s:u:lr='systemctl --user list-units --type=service --state=running'
-alias s:u:le='systemctl --user list-units --type=service --state=enabled'
+alias sv:u:st='service_setup user start'
+alias sv:u:ss='service_setup user status'
+alias sv:u:sp='service_setup user stop'
+alias sv:u:dr='systemctl --user daemon-reload'
+alias sv:u:l='systemctl --user list-units --type=service'
+alias sv:u:la='systemctl --user list-units --type=service --state=active'
+alias sv:u:lr='systemctl --user list-units --type=service --state=running'
+alias sv:u:le='systemctl --user list-units --type=service --state=enabled'
 
 # Function
 function service_setup() {
