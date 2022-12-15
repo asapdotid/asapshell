@@ -3,14 +3,16 @@
 # Aliases
 alias h='home_path'
 alias home='home_path'
-alias home:dl='home_path Downloads'
-alias home:doc='home_path Documents'
-alias home:pic='home_path Pictures'
-alias home:mus='home_path Music'
-alias home:vid='home_path Videos'
-alias home:des='home_path Desktop'
+alias h:dl='home_path Downloads'
+alias h:doc='home_path Documents'
+alias h:pic='home_path Pictures'
+alias h:mus='home_path Music'
+alias h:vid='home_path Videos'
+alias h:des='home_path Desktop'
+alias h:conf='home_path .config'
+alias h:ssh='home_path .ssh'
 alias lab='lab_path'
-alias pro='project_path'
+alias project='project_path'
 
 # Function
 

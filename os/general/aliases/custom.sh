@@ -11,7 +11,18 @@ alias edit:hosts='sudo $EDITOR /etc/hosts'
 alias code="$VSCODE"
 
 # Noevim
-alias nv="nvim"
+alias nv='nvim'
 
 # Get IP
-alias myip="curl http://ipecho.net/plain; echo"
+alias myip='get_my_ip'
+
+# list hosts /etc/hosts
+# Using BAT utility like CAT
+alias myhost='bat /etc/hosts'
+
+# Functions
+# Using DIG Utility (Arch linux pacman -Ss bind)
+function get_my_ip() {
+    local myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
+    info "My WAN/Public IP address: ${myip}"
+}
