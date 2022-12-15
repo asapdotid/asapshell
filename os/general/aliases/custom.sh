@@ -24,5 +24,5 @@ alias myhost='bat /etc/hosts'
 # Using DIG Utility (Arch linux pacman -Ss bind)
 function get_my_ip() {
     local myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
-    info "My WAN/Public IP address: ${myip}"
+    info "My WAN/Public IP address: ${YELLOW}${myip}${RESET}"
 }
