@@ -38,6 +38,7 @@ alias dc:con:ls='docker container ls -a'
 alias dc:con:rm='docker container rm -f'
 alias dc:con:logs='docker container logs'
 alias dc:con:exec='docker container exec'
+alias dc:con:top='docker container top'
 alias dc:con:prune='docker container prune -f'
 # Docker swarm
 alias dc:swarm='docker swarm'
