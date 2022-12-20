@@ -3,6 +3,7 @@
 # Exa (https://github.com/ogham/exa)
 # Aliases
 alias l='exa'                                                                             # ls
+alias l:?='exa --help'                                                                    # help
 alias ls='exa -lbF --header --git --icons'                                                # list, size, type, git
 alias lsa='exa -labGF --header --git --icons'                                             # long list
 alias ll='exa -lbGF --header --git --icons'                                               # long list
