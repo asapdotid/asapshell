@@ -2,6 +2,7 @@
 # NodeJs NPM #
 alias node:-v='node -v'
 alias npm:-v='npm -v'
+alias npm:?='npm --help'
 alias npm:i='npm init'
 alias npm:in='npm install'
 alias npm:ud='npm update'
