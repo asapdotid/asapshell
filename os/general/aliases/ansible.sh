@@ -8,7 +8,7 @@ alias a:new='new_ansible'
 alias ap='ansible-playbook'
 # Ansible Galaxy
 alias ag='ansible-galaxy'
-alias ag:?='ansible-galaxy --help'
+alias ag:-h='ansible-galaxy --help'
 alias ag:l='ansible-galaxy list'
 alias ag:i='ansible-galaxy install'
 alias ag:r='ansible-galaxy install'

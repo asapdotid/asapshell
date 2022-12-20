@@ -1,7 +1,7 @@
 #!/bin/bash
 # NVM
 alias nvm:-v='nvm --version'
-alias nvm:?='nvm --help'
+alias nvm:-h='nvm --help'
 alias nvm:l='nvm ls'
 alias nvm:r:l='nvm ls-remote --lts'
 alias nvm:r:ls='nvm ls-remote --lts | grep Latest'

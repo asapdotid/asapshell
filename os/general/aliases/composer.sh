@@ -1,7 +1,7 @@
 #!/bin/bash
 # PHP Composer
 alias com='composer'
-alias com:?='composer --help'
+alias com:-h='composer --help'
 alias com:-v='composer -V'
 alias com:init='composer init'
 alias com:i='composer install'

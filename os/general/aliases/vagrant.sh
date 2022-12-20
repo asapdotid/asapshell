@@ -2,7 +2,7 @@
 # Vagrant
 alias vg='vagrant'
 alias vg:-v='vagrant version'
-alias vg:?='vagrant --help'
+alias vg:-h='vagrant --help'
 alias vg:i='vagrant init'
 alias vg:up='vagrant up'
 alias vg:ds='vagrant destroy -f'

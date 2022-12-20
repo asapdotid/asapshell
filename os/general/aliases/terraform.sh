@@ -2,7 +2,7 @@
 # Terraform
 alias tf='terraform'
 alias tf:-v='terraform -version'
-alias tf:?='terraform -help'
+alias tf:-h='terraform -help'
 alias tf:fmt='terraform fmt'
 alias tf:get='terraform get'
 alias tf:i='terraform init'

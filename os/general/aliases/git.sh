@@ -2,7 +2,7 @@
 # Git Command Alises #
 alias g='git'
 alias g:-v='git --version'
-alias g:?='git --help'
+alias g:-h='git --help'
 alias g:i='git init'
 alias g:s='git status'
 alias g:a.='git add .'

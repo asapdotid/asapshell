@@ -13,9 +13,6 @@ alias code="$VSCODE"
 # Noevim
 alias nv='nvim'
 
-# help aliases
-alias -?='--help'
-
 # Get IP
 alias ip:p='get_public_ip'
 alias ip:l='get_local_ip'
