@@ -2,7 +2,7 @@
 # Ansible
 alias a='ansible'
 alias a:-v='ansible --version'
-alias a:?='ansible --help'
+alias a:-h='ansible --help'
 alias a:l='ansible --list-hosts all'
 alias a:new='new_ansible'
 alias ap='ansible-playbook'
@@ -16,7 +16,7 @@ alias ag:s='ansible-galaxy search'
 alias ag:init='ansible-galaxy init'
 # Ansible Vault
 alias av='ansible-vault'
-alias av:?='ansible-vault --help'
+alias av:-h='ansible-vault --help'
 alias av:c='ansible-vault create'
 alias av:e='ansible-vault encrypt'
 alias av:d='ansible-vault decrypt'
