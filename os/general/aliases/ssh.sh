@@ -48,6 +48,7 @@ function ssh_generate_keys() {
         ssh-keygen -t rsa -b 4096 -C "$r_email_add"
       fi
       info "Done."
+      exit 0
       ;;
     "ECDSA")
       input "Email address for ssh key: " read r_email_add
@@ -57,8 +58,12 @@ function ssh_generate_keys() {
         ssh-keygen -o -a 256 -t ed25519 -C "$r_email_add"
       fi
       info "Done."
+      exit 0
       ;;
-    *) error "invalid option" ;;
+    *)
+      error "invalid option"
+      exit 0
+      ;;
     esac
   done
 }
