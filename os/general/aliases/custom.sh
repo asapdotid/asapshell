@@ -17,6 +17,9 @@ alias nv='nvim'
 alias ip:p='get_public_ip'
 alias ip:l='get_local_ip'
 
+# Get default browser
+alias bowser:g:d='xdg-settings get default-web-browser'
+
 # list hosts /etc/hosts
 # Using BAT utility like CAT
 alias myhost='bat /etc/hosts'
@@ -41,4 +44,10 @@ function get_local_ip() {
     local_ip="ip addr show dev $device"
   fi
   bash -c $local_ip
+}
+
+function set_default_browser() {
+  local browser=$1
+  echo "export BROSER"
+  xdg-mime default $browser x-scheme-handler/http x-scheme-handler/https
 }
