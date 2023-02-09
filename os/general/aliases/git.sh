@@ -30,6 +30,7 @@ alias g:t='git tag'
 alias g:t:dl='git_delete_tag_local'
 alias g:t:dr='git_delete_tag_local_remote'
 alias g:t:da='git_delete_all_tags'
+alias g:t:sync='git_sync_tags'
 alias g:tag='git_tagging'
 alias g:sh='git stash'
 alias g:sh:l='git stash list'
@@ -85,6 +86,11 @@ function git_delete_tag_local_remote() {
 # Git delete tag local
 function git_delete_tag_local() {
   git tag -d "$1"
+}
+
+# Git sync tags against a remote server
+function git_sync_tags() {
+  git tag -l | xargs git tag -d && git fetch -t
 }
 
 # Git Commit, Add all and Push — in one step.
