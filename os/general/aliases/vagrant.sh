@@ -1,5 +1,5 @@
 #!/bin/bash
-# Vagrant
+
 alias vg='vagrant'
 alias vg:-v='vagrant version'
 alias vg:-h='vagrant --help'
@@ -31,3 +31,4 @@ alias vg:p:i='vagrant plugin install'
 alias vg:p:ui='vagrant plugin uninstall'
 alias vg:p:l='vagrant plugin list'
 alias vg:p:u='vagrant plugin update'
+alias vg:port='vagrant port'
