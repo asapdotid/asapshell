@@ -44,18 +44,18 @@ alias g:sh:s='function _gstashsave(){ git stash save $1 };_gstashsave'
 alias g:new='gnew'
 alias g:imp='gimp'
 alias g:fix='gfix'
-alias g:rls='grls'
+alias g:rel='grelease'
 alias g:doc='gdoc'
-alias g:tst='gtst'
-alias g:brk='gbrk'
+alias g:test='gtest'
+alias g:break='gbreak'
 # Git with Emoji with Push
 alias g:new:p='gnew --push'
 alias g:imp:p='gimp --push'
 alias g:fix:p='gfix --push'
-alias g:rls:p='grls --push'
+alias g:rel:p='grelease --push'
 alias g:doc:p='gdoc --push'
-alias g:tst:p='gtst --push'
-alias g:brk:p='gbrk --push'
+alias g:test:p='gtest --push'
+alias g:break:p='gbreak --push'
 
 ## Functions
 # Git taging
@@ -199,7 +199,7 @@ function gfix() {
 }
 
 #### RELEASE.
-function grls() {
+function grelease() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -261,7 +261,7 @@ function gdoc() {
 }
 
 #### TEST.
-function gtst() {
+function gtest() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -292,7 +292,7 @@ function gtst() {
 }
 
 #### BREAKING CHANGE.
-function gbrk() {
+function gbreak() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
