@@ -23,6 +23,7 @@ Shell script utility aliases for (bash or zsh)
 - [x] Vagrant
 - [x] Spotify Tui
 - [x] Molecule
+- [x] GPG
 - [ ] Youtube Download (yt-download)
 
 ## Linux Aliases

@@ -13,9 +13,9 @@ alias llam='exa -labGF --header --git --sort=modified --icons'                  
 alias llal='exa -lbhHigUmuSa --time-style=long-iso --header --git --color-scale --icons'  # all list
 alias llxl='exa -lbhHigUmuSa@ --time-style=long-iso --header --git --color-scale --icons' # all + extended list
 # speciality views
-alias lS='exa -1 --icons' # one column, just names
-alias llt='exa_tree'
-alias llta='exa_tree_dot'
+alias ls:col='exa -1 --icons' # one column, just names
+alias ll:t='exa_tree'
+alias ll:t.='exa_tree_dot'
 
 ## Functions
 function exa_tree() {
