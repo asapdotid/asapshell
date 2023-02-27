@@ -50,7 +50,7 @@ function get_local_ip() {
 
 function set_default_browser() {
   local browser=$1
-  if [ -n "$browser" && command_exists $browser ]; then
+  if command_exists $browser; then
     xdg-mime default $browser.desktop x-scheme-handler/https
     xdg-mime default $browser.desktop x-scheme-handler/http
   else

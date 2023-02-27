@@ -32,5 +32,7 @@ function helper_command_exist() {
 
 # Check application exist
 command_exists () {
+  if [[ -n "$1" ]]; then
     type -p "$1" &> /dev/null;
+  fi
 }
