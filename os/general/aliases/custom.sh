@@ -53,6 +53,7 @@ function set_default_browser() {
   if command_exists $browser; then
     xdg-mime default $browser.desktop x-scheme-handler/https
     xdg-mime default $browser.desktop x-scheme-handler/http
+    info "Make $browser your default browser"
   else
     error "Your system does not have $browser browser app"
   fi
