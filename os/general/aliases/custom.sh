@@ -17,8 +17,10 @@ alias nv='nvim'
 alias ip:p='get_public_ip'
 alias ip:l='get_local_ip'
 
-# Get default browser
-alias bowser:g:d='xdg-settings get default-web-browser'
+# default browser
+alias browser:get='xdg-settings get default-web-browser'
+alias browser:query='xdg-mime query default x-scheme-handler/https'
+alias browser:set='set_default_browser'
 
 # list hosts /etc/hosts
 # Using BAT utility like CAT
@@ -48,6 +50,10 @@ function get_local_ip() {
 
 function set_default_browser() {
   local browser=$1
-  echo "export BROSER"
-  xdg-mime default $browser x-scheme-handler/http x-scheme-handler/https
+  if [[ -n "$browser" && command_exists $browser ]]; then
+    xdg-mime default $browser.desktop x-scheme-handler/https
+    xdg-mime default $browser.desktop x-scheme-handler/http
+  else
+    error "Your system does not have $browser browser app"
+  fi
 }

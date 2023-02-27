@@ -29,3 +29,8 @@ function helper_command_exist() {
     echo true
   fi
 }
+
+# Check application exist
+command_exists () {
+    type -p "$1" &> /dev/null;
+}
