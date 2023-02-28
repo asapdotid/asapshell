@@ -10,5 +10,18 @@
 #   echo "$serviceName does NOT exist."
 # fi
 
-echo "Exit command test"
-exit 0
+# echo "Exit command test"
+# exit 0
+
+while true; do
+  read -p "Are you sure (Yy/Nn)? " yn
+  case $yn in
+  [Yy]*)
+    echo "helo"
+    echo "test"
+    break
+    ;;
+  [Nn]*) exit ;;
+  *) echo "Please answer yes or no." ;;
+  esac
+done

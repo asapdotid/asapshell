@@ -28,7 +28,7 @@ alias g:push:t='function _gpushtag(){ git push ${1:-origin} --tags };_gpushtag'
 alias g:push:db='function _gpushbranchdelete(){ git push $1 --delete --force $2 };_gpushbranchdelete'
 alias g:t='git tag'
 alias g:t:dl='git_delete_tag_local'
-alias g:t:dr='git_delete_tag_local_remote'
+alias g:t:dlr='git_delete_tag_local_remote'
 alias g:t:da='git_delete_all_tags'
 alias g:t:sync='git_sync_tags'
 alias g:tag='git_tagging'
@@ -72,10 +72,20 @@ git_stash_apply_n() {
 
 # Git delete all tags local and remote
 git_delete_all_tags() {
-  git tag -d $(git tag -l)
-  git fetch
-  git push ${1:-origin} --delete $(git tag -l)
-  git tag -d $(git tag -l)
+  while true; do
+    read -p "Are you sure (Yy/Nn)? " yn
+    case $yn in
+    [Yy]*)
+      git tag -d $(git tag -l)
+      git fetch
+      git push ${1:-origin} --delete $(git tag -l)
+      git tag -d $(git tag -l)
+      break
+      ;;
+    [Nn]*) exit ;;
+    *) echo "Please answer yes or no." ;;
+    esac
+  done
 }
 
 # Git delete tag local and remote
