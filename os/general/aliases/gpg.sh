@@ -5,7 +5,12 @@ alias gpg:dec='gpg_decryption'
 
 # Function
 function gpg_decryption() {
-  local __output=$2
   local __source=$1
-  gpg --quiet --batch --yes --decrypt --passphrase="$LARGE_SECRET_PASSPHRASE" --output "$__output" "$__source"
+  local __output=$2
+  local __passphrase=$3
+  if [[ -n "$__source" && -n "$__output" && -n "$__passphrase" ]]; then
+    gpg --quiet --batch --yes --decrypt --passphrase="$__passphrase" --output "$__output" "$__source"
+  else
+    error "Please provide source pgp file, output and passphrase."
+  fi
 }
