@@ -7,13 +7,16 @@ alias cd.='change_dir 1'
 alias cd..='change_dir 2'
 alias cd...='change_dir 3'
 alias df="df -h"
-alias mkcd='mk_cd'
+alias du="du -sh"
 alias rm:f='rm -rf'
 alias s:rm:f='sudo rm -rf'
-alias cp:v='rsync -ah --info=progress2'
-alias f:file="find_file"
-alias f:ext="find_ext"
+alias cp:r='cp -rv'
+alias s:cp:r='sudo cp -rv'
+alias cp:sync='rsync -azP'
+alias find:f="find_file"
+alias find:ext="find_ext"
 alias history='history | grep'
+alias mkcd='mk_cd'
 
 # Function
 

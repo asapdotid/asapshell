@@ -72,28 +72,47 @@ git_stash_apply_n() {
 
 # Git delete all tags local and remote
 git_delete_all_tags() {
-  read -p "Are you sure (y/n)?" choice
+  input "Are you sure delete all tags (y/n)?"
+  read choice
   case "$choice" in
   y | Y)
     git tag -d $(git tag -l)
     git fetch
     git push ${1:-origin} --delete $(git tag -l)
     git tag -d $(git tag -l)
-    break
     ;;
-  n | N) exit ;;
-  *) error "invalid" ;;
+  *) return 1 ;;
   esac
 }
 
 # Git delete tag local and remote
 function git_delete_tag_local_remote() {
-  git tag -d "$2" && git push ${1:-origin} :refs/tags/${2}
+  input "Are you sure delete local and repository tag (y/n)?"
+  read choice
+  case "$choice" in
+  y | Y)
+    input "Repository (origin)"
+    read _repository
+    input "Tag"
+    read _tag
+    git tag -d "$_tag" && git push ${_repository:-origin} :refs/tags/${_tag}
+    ;;
+  *) return 1 ;;
+  esac
 }
 
 # Git delete tag local
 function git_delete_tag_local() {
-  git tag -d "$1"
+  input "Are you sure delete local tag (y/n)?"
+  read choice
+  case "$choice" in
+  y | Y)
+    input "Tag"
+    read _tag
+    git tag -d "$_tag"
+    ;;
+  *) return 1 ;;
+  esac
 }
 
 # Git sync tags against a remote server
@@ -117,10 +136,10 @@ function gca() {
 function gnew() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
-    input "Remote name"
+    input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please give git Repository name"
       return 1
     fi
     input "Commit message"
@@ -148,10 +167,10 @@ function gnew() {
 function gimp() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
-    input "Remote name"
+    input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please give git repository name"
       return 1
     fi
     input "Commit message"
@@ -179,10 +198,10 @@ function gimp() {
 function gfix() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
-    input "Remote name"
+    input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please give git repository name"
       return 1
     fi
     input "Commit message"
@@ -210,10 +229,10 @@ function gfix() {
 function grelease() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
-    input "Remote name"
+    input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please give git repository name"
       return 1
     fi
     input "Commit message"
@@ -241,10 +260,10 @@ function grelease() {
 function gdoc() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
-    input "Remote name"
+    input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please give git repository name"
       return 1
     fi
     input "Commit message"
@@ -272,10 +291,10 @@ function gdoc() {
 function gtest() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
-    input "Remote name"
+    input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please give git repository name"
       return 1
     fi
     input "Commit message"
@@ -303,10 +322,10 @@ function gtest() {
 function gbreak() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
-    input "Remote name"
+    input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please give git repository name"
       return 1
     fi
     input "Commit message"

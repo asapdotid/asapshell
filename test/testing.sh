@@ -9,19 +9,3 @@
 # else
 #   echo "$serviceName does NOT exist."
 # fi
-
-# echo "Exit command test"
-# exit 0
-
-read -p "Continue (y/n)?" choice
-case "$choice" in
-y | Y)
-  echo "yes"
-  echo "ok"
-  ;;
-n | N)
-  echo "no"
-  echo "not"
-  ;;
-*) echo "invalid" ;;
-esac
