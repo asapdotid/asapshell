@@ -13,15 +13,15 @@
 # echo "Exit command test"
 # exit 0
 
-while true; do
-  read -p "Are you sure (Yy/Nn)? " yn
-  case $yn in
-  [Yy]*)
-    echo "helo"
-    echo "test"
-    break
-    ;;
-  [Nn]*) exit ;;
-  *) echo "Please answer yes or no." ;;
-  esac
-done
+read -p "Continue (y/n)?" choice
+case "$choice" in
+y | Y)
+  echo "yes"
+  echo "ok"
+  ;;
+n | N)
+  echo "no"
+  echo "not"
+  ;;
+*) echo "invalid" ;;
+esac

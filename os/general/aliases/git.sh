@@ -72,20 +72,18 @@ git_stash_apply_n() {
 
 # Git delete all tags local and remote
 git_delete_all_tags() {
-  while true; do
-    read -p "Are you sure (Yy/Nn)? " yn
-    case $yn in
-    [Yy]*)
-      git tag -d $(git tag -l)
-      git fetch
-      git push ${1:-origin} --delete $(git tag -l)
-      git tag -d $(git tag -l)
-      break
-      ;;
-    [Nn]*) exit ;;
-    *) echo "Please answer yes or no." ;;
-    esac
-  done
+  read -p "Are you sure (y/n)?" choice
+  case "$choice" in
+  y | Y)
+    git tag -d $(git tag -l)
+    git fetch
+    git push ${1:-origin} --delete $(git tag -l)
+    git tag -d $(git tag -l)
+    break
+    ;;
+  n | N) exit ;;
+  *) error "invalid" ;;
+  esac
 }
 
 # Git delete tag local and remote
