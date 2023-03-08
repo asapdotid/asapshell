@@ -40,6 +40,8 @@ alias g:sh:an='git_stash_apply_n'
 alias g:sh:p='git stash pop'
 alias g:sh:c='git stash clear'
 alias g:sh:s='function _gstashsave(){ git stash save $1 };_gstashsave'
+alias g:ui:untrack='git update-index --assume-unchanged'
+alias g:ui:track='git update-index --no-assume-unchanged'
 # Git with Emoji
 alias g:new='gnew'
 alias g:imp='gimp'

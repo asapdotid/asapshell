@@ -15,7 +15,7 @@ alias llxl='exa -lbhHigUmuSa@ --time-style=long-iso --header --git --color-scale
 # speciality views
 alias ls:col='exa -1 --icons' # one column, just names
 alias ll:t='exa_tree'
-alias ll:t.='exa_tree_dot'
+alias lla:t='exa_tree_dot'
 
 ## Functions
 function exa_tree() {
