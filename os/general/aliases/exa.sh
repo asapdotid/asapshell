@@ -20,10 +20,12 @@ alias lla:t='exa_tree_dot'
 ## Functions
 function exa_tree() {
   local _level=${1:-1}
-  exa -lhmB --git --icons --tree --level=$_level
+  local _dir=${2:-.}
+  exa -lhmB --git --icons --tree --level=$_level $_dir
 }
 
 function exa_tree_dot() {
   local _level=${1:-1}
-  exa -lahmB --git --icons --tree --level=$_level
+  local _dir=${2:-.}
+  exa -lahmB --git --icons --tree --level=$_level $_dir
 }
