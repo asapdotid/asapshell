@@ -8,17 +8,19 @@ alias nvm:r:ls='nvm ls-remote --lts | grep Latest'
 alias nvm:r:v='nvm version-remote --lts'
 alias nvm:i='nvm install'
 alias nvm:ui='nvm uninstall'
-alias nvm:ri='nvm_reinstall'
-alias nvm:u='nvm use'
-alias nvm:a:d='nvm alias default'
+alias nvm:up='nvm_upgrade_version'
+alias nvm:use='nvm use'
+alias nvm:default='nvm alias default'
 
 # Function
-function nvm_reinstall() {
-  if [[ -n "$1" && -n "$2" ]]; then
-    nvm install $1 --reintsall-packages-from=$2 --latest-npm &&
-      nvm alias default $1 &&
-      nvm use $1
+function nvm_upgrade_version() {
+  local _vfrom=${1:-current}
+  local _vto=${2:-stable}
+  if [[ -n "$_vfrom" && -n "$_vto" ]]; then
+    nvm install $_vto --reintsall-packages-from=$_vfrom --latest-npm &&
+      nvm alias default $_vto &&
+      nvm use $_vto
   else
-    error "please provide install version and reinstall package (nvm:ri 16.18.1 16.17.0)"
+    error "please provide install version (nvm:up 14.0.0 16.0.0)"
   fi
 }
