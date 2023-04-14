@@ -13,7 +13,8 @@ alias pbpaste='xsel --clipboard --output'
 alias code="$VSCODE"
 
 # Noevim
-alias nv='nvim'
+alias v='nvim'
+alias vim='nvim'
 
 # Get IP
 alias ip:p='get_public_ip'
