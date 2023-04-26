@@ -21,10 +21,12 @@ alias vg:ps='vagrant push'
 alias vg:sh='vagrant share'
 alias vg:b='vagrant box'
 alias vg:b:a='vagrant_box_add'
-alias vg:b:r='vagrant box remove'
+alias vg:b:r='vagrant_box_remove'
+alias vg:b:ra='vagrant box remove --all'
 alias vg:b:l='vagrant box list'
 alias vg:b:o='vagrant box outdated --global'
 alias vg:b:u='vagrant_box_update'
+alias vg:b:ua='vagrant box update --box --all'
 alias vg:b:prune='vagrant box prune'
 alias vg:p='vagrant plugin'
 alias vg:p:i='vagrant plugin install'
@@ -41,7 +43,7 @@ function vagrant_box_add() {
     info "Please, provide box name!"
   else
     if [[ -z "$_ver" ]]; then
-      vagrant box add "$_box" --all
+      vagrant box add "$_box"
     else
       vagrant box add "$_box" --box-version "$_ver"
     fi
@@ -55,9 +57,23 @@ function vagrant_box_update() {
     info "Please, provide box name!"
   else
     if [[ -z "$_ver" ]]; then
-      vagrant box update --box "$_box" --all
+      vagrant box update --box "$_box"
     else
       vagrant box update --box "$_box" --box-version "$_ver"
+    fi
+  fi
+}
+
+function vagrant_box_remove() {
+  local _box=$1
+  local _ver=$2
+  if [[ -z "$_box" ]]; then
+    info "Please, provide box name!"
+  else
+    if [[ -z "$_ver" ]]; then
+      vagrant box remove --box "$_box"
+    else
+      vagrant box remove --box "$_box" --box-version "$_ver"
     fi
   fi
 }
