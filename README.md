@@ -24,6 +24,7 @@ Shell script utility aliases for (bash or zsh)
 - [x] Spotify Tui
 - [x] Molecule
 - [x] GPG
+- [x] Composer (PHP)
 - [ ] Youtube Download (yt-download)
 
 ## Linux Aliases
@@ -31,6 +32,7 @@ Shell script utility aliases for (bash or zsh)
 - [x] Package [read documentation](./docs/linux/package.md)
 - [x] Service
 - [x] System
+- [x] Express VPN (cli)
 
 ## Darwin Aliases
 
