@@ -17,7 +17,7 @@ alias g:d:c='git rm -r --cached'
 alias g:f='git fetch'
 alias g:f:a='git fetch --all'
 alias g:mr='git_merge'
-alias g:mr:n='git merge --no-ff --no-commit'
+alias g:mr:n='git_merge_no_ff'
 alias g:r:a='git remote add'
 alias g:r:r='git remote rm'
 alias g:r:v='git remote -v'
@@ -164,7 +164,12 @@ function git_commit() {
 
 # Git Merge
 function git_merge() {
-  git merge --no-ff --edit -m "🔀 MERGE: $(git symbolic-ref --short HEAD) <-- from: $1"
+  git merge --edit -m "🔀 MERGE: $(git symbolic-ref --short HEAD) <-- from: $1" $1
+}
+
+# Git Merge
+function git_merge_no_ff() {
+  git merge --no-ff --edit -m "🔀 MERGE: $(git symbolic-ref --short HEAD) <-- from: $1" $1
 }
 
 ### Better Git Logs.
