@@ -164,12 +164,12 @@ function git_commit() {
 
 # Git Merge
 function git_merge() {
-  git merge --edit -m "🔀 MERGE: $(git symbolic-ref --short HEAD) <-- from: $1" $1
+  git merge --edit -m "🔀 MERGE: Branch $(git symbolic-ref --short HEAD) <-- from: $1" $1
 }
 
 # Git Merge
 function git_merge_no_ff() {
-  git merge --no-ff --edit -m "🔀 MERGE: $(git symbolic-ref --short HEAD) <-- from: $1" $1
+  git merge --no-ff --edit -m "🔀 MERGE: Branch $(git symbolic-ref --short HEAD) <-- from: $1" $1
 }
 
 ### Better Git Logs.
