@@ -1,6 +1,6 @@
 #!/bin/bash
 
-// ExpressVPN
+# ExpressVPN
 alias vpn:e:-v="expressvpn --version"
 alias vpn:e:-h="expressvpn --help"
 alias vpn:e:act="expressvpn activate"
@@ -13,7 +13,7 @@ alias vpn:e:autocon="expressvpn_autoconnect"
 alias vpn:e:track="expressvpn_block_track"
 alias vpn:e:diagnostic="expressvpn_send_diagnostics"
 
-// ExpressVPN functions
+# ExpressVPN functions
 function expressvpn_autoconnect() {
   if [ -z "$1" ]; then
     error "Please provide true or false"
