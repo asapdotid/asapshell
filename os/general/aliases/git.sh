@@ -42,6 +42,7 @@ alias g:sh:c='git stash clear'
 alias g:sh:s='function _gstashsave(){ git stash save $1 };_gstashsave'
 alias g:ui:untrack='git update-index --assume-unchanged'
 alias g:ui:track='git update-index --no-assume-unchanged'
+alias g:rm:cached='git rm -r --cached --ignore-unmatch'
 # Git Commit with Emoji
 alias g:new='git_new'
 alias g:imp='git_imp'
