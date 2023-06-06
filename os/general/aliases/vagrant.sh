@@ -35,6 +35,9 @@ alias vg:p:l='vagrant plugin list'
 alias vg:p:u='vagrant plugin update'
 alias vg:port='vagrant port'
 
+# Vagrant default provider
+[[ -s "$VAGRANT_DEFAULT_PROVIDER" ]] && export VAGRANT_DEFAULT_PROVIDER
+
 # Functions
 function vagrant_box_add() {
   local _box=$1
