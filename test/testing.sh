@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Initial environment
+export ASAPSHELL_DIR="${ASAPSHELL_DIR:-$(asapshell_default_install_dir)}"
+
+# Helpers
+source "$ASAPSHELL_DIR/helpers/index.sh"
+
 # Test service
 # serviceName=docker
 
