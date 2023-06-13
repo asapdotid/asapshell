@@ -20,14 +20,14 @@ function ssh_keygen() {
 
 #SSH directory and files permission
 function ssh_fix_permission() {
-  local _ssh_user="/home/$USER/.ssh"
-  if [ -d "$_ssh_user" ]; then
+  local __ssh_user="/home/$USER/.ssh"
+  if [ -d "$__ssh_user" ]; then
     #Make the .ssh directory unreadable for other users and groups
-    chmod 700 "$_ssh_user"
+    chmod 700 $__ssh_user >/dev/null 2>&1
     #Make the private SSH key read only
-    chmod 400 "$_ssh_user/{config,id_rsa,id_ed25519}"
+    chmod 600 $__ssh_user/* >/dev/null 2>&1
     #Make public key readable
-    chmod 600 "$_ssh_user/{*.pub,authorized_key,known_hosts}"
+    chmod 644 $__ssh_user/{*.pub,authorized_key,known_hosts} >/dev/null 2>&1
     info "Set SSH directory and files permission, done."
   else
     info "Cannot set permission, due to .ssh directory not found."
@@ -36,33 +36,47 @@ function ssh_fix_permission() {
 
 #SSH generate keys
 function ssh_generate_keys() {
+  local __ssh_user="/home/$USER/.ssh"
   PS3='Generate the SSH keys: '
-  ssh_type_keys=("RSA" "ECDSA")
-  select gen_key in "${ssh_type_keys[@]}"; do
+  select gen_key in "RSA" "ECDSA" "Quit"; do
     case $gen_key in
     "RSA")
-      input "Email address for ssh key: " read r_email_add
-      if [[ -z "$r_email_add" ]]; then
-        ssh-keygen -t rsa -b 4096 -C "$(hostname)-$(date +'%d-%m-%Y')"
+      input "The name for your SSH RSA key file: "
+      read r_file_name_key
+      input "Flag to create a new SSH RSA key pair: "
+      read r_flag_key_pair
+      if [ -z "$r_file_name_key" ] && [ -z "$r_flag_key_pair" ]; then
+        __ssh_rsa_file_key=${__ssh_user}/id_rsa
+        __ssh_rsa_flag_key=$(hostname)-$(date +'%d-%m-%Y')
       else
-        ssh-keygen -t rsa -b 4096 -C "$r_email_add"
+        __ssh_rsa_file_key=${__ssh_user}/${r_file_name_key}_rsa
+        __ssh_rsa_flag_key=${r_flag_key_pair}-$(date +'%d-%m-%Y')
       fi
-      info "Done."
-      exit 0
+      ssh-keygen -t rsa -b 4096 -f ${__ssh_rsa_file_key} -C ${__ssh_rsa_flag_key}
+      info "Done, create RSA key name ${__ssh_rsa_file_key}."
+      break
       ;;
     "ECDSA")
-      input "Email address for ssh key: " read r_email_add
-      if [[ -z "$r_email_add" ]]; then
-        ssh-keygen -o -a 256 -t ed25519 -C "$(hostname)-$(date +'%d-%m-%Y')"
+      input "The name for your SSH ECDSA key file: "
+      read r_file_name_key
+      input "Flag to create a new SSH ECDSA key pair: "
+      read r_flag_key_pair
+      if [ -z "$r_file_name_key" ] && [ -z "$r_flag_key_pair" ]; then
+        __ssh_ecdsa_file_key=${__ssh_user}/id_ed25519
+        __ssh_ecdsa_flag_key=$(hostname)-$(date +'%d-%m-%Y')
       else
-        ssh-keygen -o -a 256 -t ed25519 -C "$r_email_add"
+        __ssh_ecdsa_file_key=${__ssh_user}/${r_file_name_key}_ed25519
+        __ssh_ecdsa_flag_key=${r_flag_key_pair}-$(date +'%d-%m-%Y')
       fi
-      info "Done."
-      exit 0
+      ssh-keygen -o -a 256 -t ed25519 -f ${__ssh_ecdsa_file_key} -C ${__ssh_ecdsa_flag_key}
+      info "Done, create ECDSA key name ${__ssh_ecdsa_file_key}."
+      break
+      ;;
+    "Quit")
+      break
       ;;
     *)
-      error "invalid option"
-      exit 0
+      error "Invalid option, select RSA or ECDSA"
       ;;
     esac
   done

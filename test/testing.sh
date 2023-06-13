@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Initial environment
+export ASAPSHELL_DIR="${ASAPSHELL_DIR:-$(asapshell_default_install_dir)}"
+
+# Helpers
+source "$ASAPSHELL_DIR/helpers/index.sh"
+
 # Test service
 # serviceName=docker
 
@@ -12,16 +18,3 @@
 
 # echo "Exit command test"
 # exit 0
-
-read -p "Continue (y/n)?" choice
-case "$choice" in
-y | Y)
-  echo "yes"
-  echo "ok"
-  ;;
-n | N)
-  echo "no"
-  echo "not"
-  ;;
-*) echo "invalid" ;;
-esac
