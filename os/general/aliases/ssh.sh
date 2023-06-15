@@ -41,15 +41,25 @@ function ssh_generate_keys() {
   select gen_key in "RSA" "ECDSA" "Quit"; do
     case $gen_key in
     "RSA")
-      input "The name for your SSH RSA key file: "
+      input "The name for your SSH RSA key file "
       read r_file_name_key
-      input "Flag to create a new SSH RSA key pair: "
+      input "Flag to create a new SSH RSA key pair "
       read r_flag_key_pair
+      input "Target directory for SSH RSA key pair default ${__ssh_user} (optional) "
+      read r_target_key_dir
       if [ -z "$r_file_name_key" ] && [ -z "$r_flag_key_pair" ]; then
-        __ssh_rsa_file_key=${__ssh_user}/id_rsa
+        if [ -z "$r_target_key_dir" ]; then
+          __ssh_rsa_file_key=${__ssh_user}/id_rsa
+        else
+          __ssh_rsa_file_key=${r_target_key_dir}/id_rsa
+        fi
         __ssh_rsa_flag_key=$(hostname)-$(date +'%d-%m-%Y')
       else
-        __ssh_rsa_file_key=${__ssh_user}/${r_file_name_key}_rsa
+        if [ -z "$r_target_key_dir" ]; then
+          __ssh_rsa_file_key=${__ssh_user}/${r_file_name_key}_rsa
+        else
+          __ssh_rsa_file_key=${r_target_key_dir}/${r_file_name_key}_rsa
+        fi
         __ssh_rsa_flag_key=${r_flag_key_pair}-$(date +'%d-%m-%Y')
       fi
       ssh-keygen -t rsa -b 4096 -f ${__ssh_rsa_file_key} -C ${__ssh_rsa_flag_key}
@@ -57,15 +67,25 @@ function ssh_generate_keys() {
       break
       ;;
     "ECDSA")
-      input "The name for your SSH ECDSA key file: "
+      input "The name for your SSH ECDSA key file "
       read r_file_name_key
-      input "Flag to create a new SSH ECDSA key pair: "
+      input "Flag to create a new SSH ECDSA key pair "
       read r_flag_key_pair
+      input "Target directory for SSH RSA key pair default ${__ssh_user} (optional) "
+      read r_target_key_dir
       if [ -z "$r_file_name_key" ] && [ -z "$r_flag_key_pair" ]; then
-        __ssh_ecdsa_file_key=${__ssh_user}/id_ed25519
+        if [ -z "$r_target_key_dir" ]; then
+          __ssh_ecdsa_file_key=${__ssh_user}/id_ed25519
+        else
+          __ssh_ecdsa_file_key=${r_target_key_dir}/id_ed25519
+        fi
         __ssh_ecdsa_flag_key=$(hostname)-$(date +'%d-%m-%Y')
       else
-        __ssh_ecdsa_file_key=${__ssh_user}/${r_file_name_key}_ed25519
+        if [ -z "$r_target_key_dir" ]; then
+          __ssh_ecdsa_file_key=${__ssh_user}/${r_file_name_key}_ed25519
+        else
+          __ssh_ecdsa_file_key=${r_target_key_dir}/${r_file_name_key}_ed25519
+        fi
         __ssh_ecdsa_flag_key=${r_flag_key_pair}-$(date +'%d-%m-%Y')
       fi
       ssh-keygen -o -a 256 -t ed25519 -f ${__ssh_ecdsa_file_key} -C ${__ssh_ecdsa_flag_key}
