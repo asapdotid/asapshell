@@ -25,6 +25,7 @@ Shell script utility aliases for (bash or zsh)
 - [x] Molecule
 - [x] GPG
 - [x] Composer (PHP)
+- [x] Google CLoud cli (gcloud & gsutil)
 - [ ] Youtube Download (yt-download)
 
 ## Linux Aliases
