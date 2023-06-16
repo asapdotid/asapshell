@@ -7,17 +7,6 @@ alias ssh:permission='ssh_fix_permission'
 
 # Function
 
-#Generate SSH Key
-function ssh_keygen() {
-  if [ -z "$1" ]; then
-    case $i in
-    rsa) ssh-keygen -t rsa -b 4096 -C "$(hostname)-$(date +'%d-%m-%Y')" ;;
-    ed) ssh-keygen -o -a 256 -t ed25519 -C "$(hostname)-$(date +'%d-%m-%Y')" ;;
-    *) ;;
-    esac
-  fi
-}
-
 #SSH directory and files permission
 function ssh_fix_permission() {
   local __ssh_user="/home/$USER/.ssh"
@@ -97,6 +86,7 @@ function ssh_generate_keys() {
       ;;
     *)
       error "Invalid option, select RSA or ECDSA"
+      break
       ;;
     esac
   done
