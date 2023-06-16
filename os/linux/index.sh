@@ -1,10 +1,11 @@
 #!/bin/bash
 
-__LSYSTEM="$ASAPSHELL_DIR/os/linux/aliases/system.sh"
-__LPACKAGE="$ASAPSHELL_DIR/os/linux/aliases/package.sh"
-__LSERVICE="$ASAPSHELL_DIR/os/linux/aliases/service.sh"
-__LVPN="$ASAPSHELL_DIR/os/linux/aliases/vpn.sh"
-__LINUXFILES=($__LSYSTEM $__LPACKAGE $__LSERVICE $__LVPN)
+__LINUXFILES=(
+  "$ASAPSHELL_DIR/os/linux/aliases/system.sh"
+  "$ASAPSHELL_DIR/os/linux/aliases/package.sh"
+  "$ASAPSHELL_DIR/os/linux/aliases/service.sh"
+  "$ASAPSHELL_DIR/os/linux/aliases/vpn.sh"
+)
 
 for i in "${__LINUXFILES[@]}"; do
   if [ -f "$i" ]; then

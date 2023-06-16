@@ -1,10 +1,11 @@
 #!/bin/bash
 
-__HLOG="$ASAPSHELL_DIR/helpers/loging.sh"
-__HCOMMAND="$ASAPSHELL_DIR/helpers/command.sh"
-__HOPERATORS="$ASAPSHELL_DIR/helpers/operators.sh"
-__HFIXING="$ASAPSHELL_DIR/helpers/fixing.sh"
-__HELPERFILES=($__HLOG $__HCOMMAND $__HOPERATORS $__HFIXING)
+__HELPERFILES=(
+  "$ASAPSHELL_DIR/helpers/loging.sh"
+  "$ASAPSHELL_DIR/helpers/command.sh"
+  "$ASAPSHELL_DIR/helpers/operators.sh"
+  "$ASAPSHELL_DIR/helpers/fixing.sh"
+)
 
 for i in "${__HELPERFILES[@]}"; do
   if [ -f "$i" ]; then
