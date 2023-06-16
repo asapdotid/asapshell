@@ -20,7 +20,8 @@ __GCOMPOSER="$ASAPSHELL_DIR/os/general/aliases/composer.sh"
 __GCUSTOM="$ASAPSHELL_DIR/os/general/aliases/custom.sh"
 __GSPOTIFY_TUI="$ASAPSHELL_DIR/os/general/aliases/spotify-tui.sh"
 __GGPG="$ASAPSHELL_DIR/os/general/aliases/gpg.sh"
-__GENERALFILES=($__GEXA $__GPATH $__GSYSTEM $__GDOCKER $__GANSIBLE $__GGIT $__GGIT_FLOW $__GNVM $__GNPM $__GSSH $__GTMUX $__GTMUXINATOR $__GVAGRANT $__GTERRAFORM $__GTERRAGRUNT $__GMOLECULE $__GCOMPOSER $__GCUSTOM $__GSPOTIFY_TUI $__GGPG)
+__GGOOGLE_CLI="$ASAPSHELL_DIR/os/general/aliases/google-cli.sh"
+__GENERALFILES=($__GEXA $__GPATH $__GSYSTEM $__GDOCKER $__GANSIBLE $__GGIT $__GGIT_FLOW $__GNVM $__GNPM $__GSSH $__GTMUX $__GTMUXINATOR $__GVAGRANT $__GTERRAFORM $__GTERRAGRUNT $__GMOLECULE $__GCOMPOSER $__GCUSTOM $__GSPOTIFY_TUI $__GGPG $__GGOOGLE_CLI)
 
 for i in "${__GENERALFILES[@]}"; do
   if [ -f "$i" ]; then
