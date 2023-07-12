@@ -16,7 +16,7 @@ alias nvm:set='nvm_set_version'
 # Function
 function nvm_upgrade_version() {
   local _vfrom=${1:-current}
-  local _vto=${2:-stable}
+  local _vto=${2:-'lts/*'}
   local _vset=$3
   if [[ -n "$_vfrom" && -n "$_vto" ]]; then
     if [[ -n "$_vset" && "--set" == "$_vset" ]]; then
