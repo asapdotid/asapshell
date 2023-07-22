@@ -15,6 +15,3 @@ source "$ASAPSHELL_DIR/helpers/index.sh"
 # else
 #   echo "$serviceName does NOT exist."
 # fi
-
-# echo "Exit command test"
-# exit 0
