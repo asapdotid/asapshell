@@ -22,7 +22,7 @@ alias vg:sh='vagrant share'
 alias vg:b='vagrant box'
 alias vg:b:a='vagrant_box_add'
 alias vg:b:r='vagrant_box_remove'
-alias vg:b:ra='vagrant box remove --all'
+alias vg:b:ra='vagrant_box_remove_all'
 alias vg:b:l='vagrant box list'
 alias vg:b:o='vagrant box outdated --global'
 alias vg:b:u='vagrant_box_update'
@@ -79,4 +79,8 @@ function vagrant_box_remove() {
       vagrant box remove --box "$_box" --box-version "$_ver"
     fi
   fi
+}
+
+function vagrant_box_remove_all() {
+  vagrant box list | cut -f 1 -d ' ' | xargs -L 1 vagrant box remove -f
 }
