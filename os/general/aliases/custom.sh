@@ -31,7 +31,7 @@ alias myhost='bat /etc/hosts'
 
 # Functions
 # Using DIG Utility (Arch linux pacman -Ss bind)
-function get_public_ip() {
+get_public_ip() {
   local myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
   if [[ -z "$myip" ]]; then
     public_ip=$(curl --silent icanhazip.com)
@@ -41,7 +41,7 @@ function get_public_ip() {
   info "My WAN/Public IP address: ${YELLOW}${public_ip}${RESET}"
 }
 
-function get_local_ip() {
+get_local_ip() {
   local device=$1
   if [[ -z "$device" ]]; then
     local_ip="ip addr"
@@ -51,7 +51,7 @@ function get_local_ip() {
   bash -c $local_ip
 }
 
-function set_default_browser() {
+set_default_browser() {
   local browser=$1
   if command_exists $browser; then
     xdg-mime default $browser.desktop x-scheme-handler/https

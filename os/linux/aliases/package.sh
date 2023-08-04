@@ -16,9 +16,9 @@ alias yay:ui='yay -Rscn'
 alias yay:s='yay -Ss'
 alias yay:clean='yay -Scc'
 
-# Function
+# Functions
 # Package install with os package manager
-function package_install() {
+package_install() {
   if helper_os_package pacman; then
     sudo pacman -S $1
   elif helper_os_package apt-get; then
@@ -35,7 +35,7 @@ function package_install() {
 }
 
 # Package uninstall with os package manager
-function package_uninstall() {
+package_uninstall() {
   if helper_os_package pacman; then
     sudo pacman -Rscn $1
   elif helper_os_package apt-get; then
@@ -52,7 +52,7 @@ function package_uninstall() {
 }
 
 # Package search with os package manager
-function package_search() {
+package_search() {
   if helper_os_package pacman; then
     sudo pacman -Ss $1
   elif helper_os_package apt-get; then
@@ -69,7 +69,7 @@ function package_search() {
 }
 
 # Package update with os package manager
-function package_update() {
+package_update() {
   if helper_os_package pacman; then
     sudo pacman -Syu $1
   elif helper_os_package apt-get; then
@@ -86,7 +86,7 @@ function package_update() {
 }
 
 # Package cleaning cache with os package manager
-function package_clean() {
+package_clean() {
   if helper_os_package pacman; then
     sudo pacman -Scc
   elif helper_os_package apt-get; then
@@ -103,7 +103,7 @@ function package_clean() {
 }
 
 # ArchLinux package Pacman repository mirror
-function pacman_mirror() {
+pacman_mirror() {
   local country=${1:=all}
   local protocol=${2:=all}
   sudo pacman-mirrors --country $country --api --protocols $protocol --set-branch stable

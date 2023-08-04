@@ -4,7 +4,7 @@ __HELPERFILES=(
   "$ASAPSHELL_DIR/helpers/loging.sh"
   "$ASAPSHELL_DIR/helpers/command.sh"
   "$ASAPSHELL_DIR/helpers/operators.sh"
-  "$ASAPSHELL_DIR/helpers/fixing.sh"
+  "$ASAPSHELL_DIR/helpers/utility.sh"
 )
 
 for i in "${__HELPERFILES[@]}"; do

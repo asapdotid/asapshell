@@ -2,11 +2,11 @@
 # spotify-tui
 alias spot="launchspt"
 
+# Functions
 # Spotify-tui & spotifyd-fpull
-function launchspt() {
+launchspt() {
   if [[ ! $(pgrep "spotifyd") ]]; then
     spotifyd
   fi
-
   spt
 }

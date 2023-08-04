@@ -22,6 +22,7 @@ __GENERALFILES=(
   "$ASAPSHELL_DIR/os/general/aliases/spotify-tui.sh"
   "$ASAPSHELL_DIR/os/general/aliases/gpg.sh"
   "$ASAPSHELL_DIR/os/general/aliases/google-cli.sh"
+  "$ASAPSHELL_DIR/os/general/aliases/utility.sh"
 )
 
 for i in "${__GENERALFILES[@]}"; do

@@ -22,7 +22,7 @@ alias asv:e='ansible-vault encrypt'
 alias asv:d='ansible-vault decrypt'
 alias asv:v='ansible-vault view'
 
-## Functions
+# Functions
 new_ansible() {
   info "Ansible initial project:"
   info "1. Staging"

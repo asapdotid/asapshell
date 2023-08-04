@@ -5,10 +5,9 @@ alias ssh:-v='ssh -V'
 alias ssh:gen='ssh_generate_keys'
 alias ssh:permission='ssh_fix_permission'
 
-# Function
-
+# Functions
 #SSH directory and files permission
-function ssh_fix_permission() {
+ssh_fix_permission() {
   local __ssh_user="/home/$USER/.ssh"
   if [ -d "$__ssh_user" ]; then
     #Make the .ssh directory unreadable for other users and groups
@@ -24,7 +23,7 @@ function ssh_fix_permission() {
 }
 
 #SSH generate keys
-function ssh_generate_keys() {
+ssh_generate_keys() {
   local __ssh_user="/home/$USER/.ssh"
   PS3='Generate the SSH keys: '
   select gen_key in "RSA" "ECDSA" "Quit"; do
