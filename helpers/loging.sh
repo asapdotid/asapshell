@@ -8,6 +8,10 @@ info() {
   log "${GREEN}INFO ${RESET} ==> ${@}"
 }
 
+info_blue() {
+  log "${BLUE}INFO ${RESET} ==> ${@}"
+}
+
 warn() {
   log "${YELLOW}WARN ${RESET} ==> ${@}"
 }
