@@ -19,8 +19,8 @@ alias sv:u:la='systemctl --user list-units --type=service --state=active'
 alias sv:u:lr='systemctl --user list-units --type=service --state=running'
 alias sv:u:le='systemctl --user list-units --type=service --state=enabled'
 
-# Function
-function service_setup() {
+# Functions
+service_setup() {
   if [[ "$1" == "root" && -n "$2" && -n "$3" ]]; then
     if helper_os_package systemctl; then
       sudo systemctl $2 $3.service

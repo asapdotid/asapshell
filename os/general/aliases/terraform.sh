@@ -27,4 +27,4 @@ alias tf:w:sh='terraform workspace show'
 alias tf:w:d='terraform workspace delete'
 alias tf:h='terraform -help'
 
-# Function
+# Functions

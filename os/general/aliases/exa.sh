@@ -17,14 +17,14 @@ alias ls:col='exa -1 --icons' # one column, just names
 alias ll:t='exa_tree'
 alias lla:t='exa_tree_dot'
 
-## Functions
-function exa_tree() {
+# Functions
+exa_tree() {
   local _level=${1:-1}
   local _dir=${2:-.}
   exa -lhmB --git --icons --tree --level=$_level $_dir
 }
 
-function exa_tree_dot() {
+exa_tree_dot() {
   local _level=${1:-1}
   local _dir=${2:-.}
   exa -lahmB --git --icons --tree --level=$_level $_dir

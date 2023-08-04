@@ -15,9 +15,8 @@ alias lab='lab_path'
 alias project='project_path'
 
 # Function
-
-#Change home directory
-function home_path() {
+# Change home directory
+home_path() {
   if [ -z "$1" ]; then
     cd $HOME
     exa -labGF --header --git --icons $HOME
@@ -29,8 +28,8 @@ function home_path() {
   fi
 }
 
-#Change to Labs directory
-function lab_path() {
+# Change to Labs directory
+lab_path() {
   if [ -z "$1" ]; then
     cd $LAB_LOCATION
     exa -labGF --header --git --icons $LAB_LOCATION
@@ -42,8 +41,8 @@ function lab_path() {
   fi
 }
 
-#Change to Projects directory
-function project_path() {
+# Change to Projects directory
+project_path() {
   if [ -z "$1" ]; then
     cd $PROJECT_LOCATION
     exa -labGF --header --git --icons $PROJECT_LOCATION

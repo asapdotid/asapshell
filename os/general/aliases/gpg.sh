@@ -3,8 +3,8 @@
 alias gpg:enc='gpg --symmetric --cipher-algo AES256'
 alias gpg:dec='gpg_decryption'
 
-# Function
-function gpg_decryption() {
+# Functions
+gpg_decryption() {
   local __source=$1
   local __output=$2
   local __passphrase=$3

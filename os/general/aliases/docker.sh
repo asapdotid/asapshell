@@ -69,14 +69,15 @@ alias dc-com:d='docker-compose down --remove-orphans -v'
 alias dc-com:build='docker-compose up -d --build -f'
 alias dc-com:logs='docker-compose logs'
 
+# Functions
 # Docker CLeanup
-function docker_cleanup() {
+docker_cleanup() {
   docker rm -v -f $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
   docker rmi -f $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 }
 
 # Easy container access via din .bashrc/.zshrc helper
-function docker_in_docker() {
+docker_in_docker() {
   local filter=$1
   local user=""
   if [[ -n "$2" ]]; then

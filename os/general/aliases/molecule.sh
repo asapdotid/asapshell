@@ -41,7 +41,7 @@ alias mol:d:li='molecule --debug login'
 alias mol:s:li='molecule login --scenario-name'
 alias mol:mx='molecule matrix subcommand'
 alias mol:d:mx='molecule --debug matrix subcommand'
-alias mol:s:mx='function _molmatrix(){ molecule matrix --scenario-name $1 subcommand };_molmatrix'
+alias mol:s:mx='molecule_matrix'
 alias mol:pp='molecule prepare'
 alias mol:d:pp='molecule --debug prepare'
 alias mol:s:pp='molecule prepare --scenario-name'
@@ -58,3 +58,13 @@ alias mol:p:t='molecule test --parallel'
 alias mol:v='molecule verify'
 alias mol:d:v='molecule --debug verify'
 alias mol:s:v='molecule verify --scenario-name'
+
+# Functions
+molecule_matrix() {
+  local sce_name=$1
+  if [ -z "$sce_name" ]; then
+    error "Please, provide scenario name!"
+  else
+    molecule matrix --scenario-name $sce_name subcommand
+  fi
+}

@@ -14,13 +14,14 @@ alias gc:con='gcloud container'
 alias gc:com='gcloud compute'
 alias gc:app='gcloud app'
 
+# Functions
 # Gsutil
 alias gs='gsutil'
 alias gs:l='gsutil ls'
 alias gs:b='gsutil_bucket_utility'
 alias gs:fd='gsutil_folder_file_utility'
 
-function gsutil_bucket_utility() {
+gsutil_bucket_utility() {
   PS3='Bucket Utility to create (mb) or remove (rb) bucket: '
   select bucket_utility in "Create" "Remove" "Quit"; do
     case $bucket_utility in
@@ -55,7 +56,7 @@ function gsutil_bucket_utility() {
   done
 }
 
-function gsutil_folder_file_utility() {
+gsutil_folder_file_utility() {
   PS3='Bucket directory of file utility on bucket: '
   select bucket_utility in "Copy" "Remove" "Move" "Quit"; do
     case $bucket_utility in

@@ -13,8 +13,8 @@ alias nvm:use='nvm use'
 alias nvm:default='nvm alias default'
 alias nvm:set='nvm_set_version'
 
-# Function
-function nvm_upgrade_version() {
+# Functions
+nvm_upgrade_version() {
   local _vfrom=${1:-current}
   local _vto=${2:-stable}
   local _vset=$3
@@ -31,7 +31,7 @@ function nvm_upgrade_version() {
   fi
 }
 
-function nvm_set_version() {
+nvm_set_version() {
   local _vto=${1}
   if [[ -n "$_vto" ]]; then
     nvm alias default $_vto &&

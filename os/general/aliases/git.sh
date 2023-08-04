@@ -10,7 +10,7 @@ alias g:aa='git add -All'
 alias g:b='git branch'
 alias g:b:d='git branch -d'
 alias g:cl='git clone'
-alias g:cm='function _gcommit(){ git commit -m $1 };_gcommit'
+alias g:cm='_gcommit(){ git commit -m $1 };_gcommit'
 alias g:co='git checkout'
 alias g:co:b='git checkout -b'
 alias g:d:c='git rm -r --cached'
@@ -22,10 +22,10 @@ alias g:r:a='git remote add'
 alias g:r:r='git remote rm'
 alias g:r:v='git remote -v'
 alias g:r:n='git remote set-url'
-alias g:pull='function _gpull(){ git pull ${1:-origin} "$(git symbolic-ref --short HEAD)" };_gpull'
-alias g:push='function _gpush(){ git push ${1:-origin} "$(git symbolic-ref --short HEAD)" };_gpush'
-alias g:push:t='function _gpushtag(){ git push ${1:-origin} --tags };_gpushtag'
-alias g:push:db='function _gpushbranchdelete(){ git push $1 --delete --force $2 };_gpushbranchdelete'
+alias g:pull='git_pull'
+alias g:push='git_push'
+alias g:push:t='git_push_tag'
+alias g:push:db='git_push_delete_branch'
 alias g:t='git tag'
 alias g:t:dl='git_delete_tag_local'
 alias g:t:dlr='git_delete_tag_local_remote'
@@ -39,7 +39,7 @@ alias g:sh:a='git stash apply'
 alias g:sh:an='git_stash_apply_n'
 alias g:sh:p='git stash pop'
 alias g:sh:c='git stash clear'
-alias g:sh:s='function _gstashsave(){ git stash save $1 };_gstashsave'
+alias g:sh:s='git_stash_save'
 alias g:ui:untrack='git update-index --assume-unchanged'
 alias g:ui:track='git update-index --no-assume-unchanged'
 alias g:rm:cached='git rm -r --cached --ignore-unmatch'
@@ -90,7 +90,31 @@ alias g:text:p='git_text --push'
 alias g:comment:p='git_comments --push'
 alias g:develop:p='git_develop --push'
 
-## Functions
+# Functions
+git_pull() {
+  git pull ${1:-origin} "$(git symbolic-ref --short HEAD)"
+}
+
+git_push() {
+  git push ${1:-origin} "$(git symbolic-ref --short HEAD)"
+}
+
+git_push_tag() {
+  git push ${1:-origin} --tags
+}
+
+git_push_delete_branch() {
+  if [ -z "$2" ]; then
+    error "Please provide a branch name"
+  else
+    git push ${1:-origin} --delete --force $2
+  fi
+}
+
+git_stash_save() {
+  git stash save $1
+}
+
 # Git taging
 git_tagging() {
   git tag -a $1 -m "${2}"
@@ -119,7 +143,7 @@ git_delete_all_tags() {
 }
 
 # Git delete tag local and remote
-function git_delete_tag_local_remote() {
+git_delete_tag_local_remote() {
   input "Are you sure delete local and repository tag (y/n)?"
   read choice
   case "$choice" in
@@ -135,7 +159,7 @@ function git_delete_tag_local_remote() {
 }
 
 # Git delete tag local
-function git_delete_tag_local() {
+git_delete_tag_local() {
   input "Are you sure delete local tag (y/n)?"
   read choice
   case "$choice" in
@@ -149,34 +173,34 @@ function git_delete_tag_local() {
 }
 
 # Git sync tags against a remote server
-function git_sync_tags() {
+git_sync_tags() {
   git tag -l | xargs git tag -d && git fetch -t
 }
 
 # Git Commit, Add all and Push — in one step.
-function git_commit_push() {
+git_commit_push() {
   git add . && git commit -m "$2" && git push ${1:-origin} "$(git symbolic-ref --short HEAD)"
 }
 
 # Git Commit, Add all — in one step.
-function git_commit() {
+git_commit() {
   git add . && git commit -m "$1"
 }
 
 # Git Merge
-function git_merge() {
+git_merge() {
   git merge --edit -m "🔀 MERGE: Branch $(git symbolic-ref --short HEAD) <-- from: $1" $1
 }
 
 # Git Merge
-function git_merge_no_ff() {
+git_merge_no_ff() {
   git merge --no-ff --edit -m "🔀 MERGE: Branch $(git symbolic-ref --short HEAD) <-- from: $1" $1
 }
 
 ### Better Git Logs.
 ### Using EMOJI-LOG (https://github.com/ahmadawais/Emoji-Log).
 #### NEW.
-function git_new() {
+git_new() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Repository name"
@@ -207,7 +231,7 @@ function git_new() {
 }
 
 #### IMPROVE.
-function git_imp() {
+git_imp() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Repository name"
@@ -238,7 +262,7 @@ function git_imp() {
 }
 
 #### FIX.
-function git_fix() {
+git_fix() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Repository name"
@@ -269,7 +293,7 @@ function git_fix() {
 }
 
 #### RELEASE.
-function git_release() {
+git_release() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Repository name"
@@ -300,7 +324,7 @@ function git_release() {
 }
 
 #### DEPLOY.
-function git_deploy() {
+git_deploy() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -331,7 +355,7 @@ function git_deploy() {
 }
 
 #### FIX CI.
-function git_fix_ci() {
+git_fix_ci() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -362,7 +386,7 @@ function git_fix_ci() {
 }
 
 #### DOC.
-function git_doc() {
+git_doc() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Repository name"
@@ -393,7 +417,7 @@ function git_doc() {
 }
 
 #### TEST.
-function git_test() {
+git_test() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Repository name"
@@ -424,7 +448,7 @@ function git_test() {
 }
 
 #### BREAKING CHANGE.
-function git_break() {
+git_break() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Repository name"
@@ -455,7 +479,7 @@ function git_break() {
 }
 
 #### REMOVE CODE/FILES.
-function git_remove() {
+git_remove() {
   local __remove_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -486,7 +510,7 @@ function git_remove() {
 }
 
 #### CRITICAL HOTFIX.
-function git_hotfix() {
+git_hotfix() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -517,7 +541,7 @@ function git_hotfix() {
 }
 
 #### NEW FEATURE.
-function git_feature() {
+git_feature() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -548,7 +572,7 @@ function git_feature() {
 }
 
 #### ADD/UPDATE.
-function git_add_update() {
+git_add_update() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -579,7 +603,7 @@ function git_add_update() {
 }
 
 #### FIX SECURITY.
-function git_fix_security() {
+git_fix_security() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -610,7 +634,7 @@ function git_fix_security() {
 }
 
 #### ADD/UPDATE SECRET.
-function git_add_update_secret() {
+git_add_update_secret() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -641,7 +665,7 @@ function git_add_update_secret() {
 }
 
 #### WORKING IN PROGRESS.
-function git_wip() {
+git_wip() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -672,7 +696,7 @@ function git_wip() {
 }
 
 #### RFACTOR CODE
-function git_refactor_code() {
+git_refactor_code() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -703,7 +727,7 @@ function git_refactor_code() {
 }
 
 #### CONFIG
-function git_config() {
+git_config() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -734,7 +758,7 @@ function git_config() {
 }
 
 #### TYPOS
-function git_typos() {
+git_typos() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -765,7 +789,7 @@ function git_typos() {
 }
 
 #### ADD/UPDATE LICENSE
-function git_license() {
+git_license() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -796,7 +820,7 @@ function git_license() {
 }
 
 #### ADD/UPDATE ASSETS
-function git_assets() {
+git_assets() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -827,7 +851,7 @@ function git_assets() {
 }
 
 #### ADD/UPDATE ASSETS
-function git_assets() {
+git_assets() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -858,7 +882,7 @@ function git_assets() {
 }
 
 #### DEPRECETED
-function git_depreceted() {
+git_depreceted() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -889,7 +913,7 @@ function git_depreceted() {
 }
 
 #### TEXT
-function git_text() {
+git_text() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -920,7 +944,7 @@ function git_text() {
 }
 
 #### COMMENTS
-function git_comments() {
+git_comments() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"
@@ -951,7 +975,7 @@ function git_comments() {
 }
 
 #### DEVELOP
-function git_develop() {
+git_develop() {
   local __add_files
   if [[ -n "$1" && $1 == "--push" ]]; then
     input "Remote name"

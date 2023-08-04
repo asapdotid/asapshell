@@ -27,8 +27,9 @@ alias vpn:s:dis="sudo surfshark-vpn down"
 alias vpn:s:status="sudo surfshark-vpn status"
 alias vpn:s:logout="sudo surfshark-vpn forgot"
 
+# Functions
 # ExpressVPN functions
-function expressvpn_autoconnect() {
+expressvpn_autoconnect() {
   if [ -z "$1" ]; then
     error "Please provide true or false"
   else
@@ -40,7 +41,7 @@ function expressvpn_autoconnect() {
   fi
 }
 
-function expressvpn_block_track() {
+expressvpn_block_track() {
   if [ -z "$1" ]; then
     error "Please provide true or false"
   else
@@ -52,7 +53,7 @@ function expressvpn_block_track() {
   fi
 }
 
-function expressvpn_send_diagnostics() {
+expressvpn_send_diagnostics() {
   if [ -z "$1" ]; then
     error "Please provide true or false"
   else
