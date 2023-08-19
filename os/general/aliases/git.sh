@@ -25,6 +25,7 @@ alias g:r:n='git remote set-url'
 alias g:pull='git_pull'
 alias g:push='git_push'
 alias g:push:t='git_push_tag'
+alias g:push:ob='git_push_other_branch'
 alias g:push:db='git_push_delete_branch'
 alias g:t='git tag'
 alias g:t:dl='git_delete_tag_local'
@@ -109,6 +110,22 @@ git_push_delete_branch() {
   else
     git push ${1:-origin} --delete --force $2
   fi
+}
+
+git_push_other_branch() {
+  input "Repository name"
+  read r_name
+  if [ -z "$r_name" ]; then
+    error "Please give git Repository name"
+    return 1
+  fi
+  input "Branch target"
+  read r_target
+  if [ -z "$r_target" ]; then
+    error "Please give target branch"
+    return 1
+  fi
+  git push ${r_name:-origin} $(git symbolic-ref --short HEAD):$r_target
 }
 
 git_stash_save() {
