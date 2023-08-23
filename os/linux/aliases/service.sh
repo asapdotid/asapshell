@@ -2,6 +2,7 @@
 # Service
 # Handling Service (start, stop, restart) ROOT
 alias sv:r:st='service_setup sudo start'
+alias sv:r:rt='service_setup sudo restart'
 alias sv:r:ss='service_setup sudo status'
 alias sv:r:sp='service_setup sudo stop'
 alias sv:r:dr='sudo systemctl daemon-reload'
@@ -11,6 +12,7 @@ alias sv:r:lr='sudo systemctl list-units --type=service --state=running'
 alias sv:r:le='sudo systemctl list-units --type=service --state=enabled'
 # Handling Service (start, stop, restart) USER
 alias sv:u:st='service_setup user start'
+alias sv:u:rt='service_setup user restart'
 alias sv:u:ss='service_setup user status'
 alias sv:u:sp='service_setup user stop'
 alias sv:u:dr='systemctl --user daemon-reload'
