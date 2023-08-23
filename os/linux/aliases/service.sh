@@ -1,10 +1,10 @@
 #!/bin/bash
 # Service
 # Handling Service (start, stop, restart) ROOT
-alias sv:r:st='service_setup sudo start'
-alias sv:r:rt='service_setup sudo restart'
-alias sv:r:ss='service_setup sudo status'
-alias sv:r:sp='service_setup sudo stop'
+alias sv:r:st='service_setup root start'
+alias sv:r:rt='service_setup root restart'
+alias sv:r:ss='service_setup root status'
+alias sv:r:sp='service_setup root stop'
 alias sv:r:dr='sudo systemctl daemon-reload'
 alias sv:r:l='sudo systemctl list-units --type=service'
 alias sv:r:la='sudo systemctl list-units --type=service --state=active'
