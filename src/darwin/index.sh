@@ -1,7 +1,7 @@
 #!/bin/bash
 
 __DARWINFILES=(
-  "$ASAPSHELL_DIR/os/darwin/aliases/system.sh"
+  "$_SOURCE_FILE/darwin/aliases/system.sh"
 )
 
 for i in "${__DARWINFILES[@]}"; do
