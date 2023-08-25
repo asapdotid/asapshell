@@ -105,24 +105,24 @@ git_push_tag() {
 }
 
 git_push_delete_branch() {
-  if [ -z "$2" ]; then
-    error "Please provide a branch name"
-  else
-    git push ${1:-origin} --delete --force $2
-  fi
-}
-
-git_push_other_branch() {
-  input "Repository name"
+  input "Repository name (default: origin)"
   read r_name
-  if [ -z "$r_name" ]; then
-    error "Please give git Repository name"
-    return 1
-  fi
   input "Branch target"
   read r_target
   if [ -z "$r_target" ]; then
-    error "Please give target branch"
+    error "Please provide target branch"
+    return 1
+  fi
+  git push ${r_name:-origin} --delete --force $r_target
+}
+
+git_push_other_branch() {
+  input "Repository name (default: origin)"
+  read r_name
+  input "Branch target"
+  read r_target
+  if [ -z "$r_target" ]; then
+    error "Please provide target branch"
     return 1
   fi
   git push ${r_name:-origin} $(git symbolic-ref --short HEAD):$r_target
@@ -134,8 +134,20 @@ git_stash_save() {
 
 # Git taging
 git_tagging() {
-  git tag -a $1 -m "${2}"
-  git push origin "$(git symbolic-ref --short HEAD)" $1
+  input "Tag name"
+  read t_name
+  if [ -z "$t_name" ]; then
+    error "Please provide tag name"
+    return 1
+  fi
+  input "Tag message"
+  read t_message
+  if [ -z "$t_message" ]; then
+    error "Please provide tag message"
+    return 1
+  fi
+  git tag -a $t_name -m "${t_message}"
+  git push origin "$(git symbolic-ref --short HEAD)" $t_name
 }
 
 # Get or pop out a specific stash in Git
@@ -165,11 +177,11 @@ git_delete_tag_local_remote() {
   read choice
   case "$choice" in
   y | Y)
-    input "Repository (origin)"
-    read _repository
+    input "Repository (default: origin)"
+    read t_repository
     input "Tag"
-    read _tag
-    git tag -d "$_tag" && git push ${_repository:-origin} :refs/tags/${_tag}
+    read t_tag
+    git tag -d "$_tag" && git push ${t_repository:-origin} :refs/tags/${t_tag}
     ;;
   *) return 1 ;;
   esac
@@ -182,8 +194,8 @@ git_delete_tag_local() {
   case "$choice" in
   y | Y)
     input "Tag"
-    read _tag
-    git tag -d "$_tag"
+    read t_tag
+    git tag -d "$t_tag"
     ;;
   *) return 1 ;;
   esac
@@ -223,13 +235,13 @@ git_new() {
     input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git Repository name"
+      error "Please provide git Repository name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "📦 NEW: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -239,7 +251,7 @@ git_new() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -254,13 +266,13 @@ git_imp() {
     input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git repository name"
+      error "Please provide git repository name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "⚡️ IMPROVE: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -270,7 +282,7 @@ git_imp() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -285,13 +297,13 @@ git_fix() {
     input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git repository name"
+      error "Please provide git repository name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🐛 FIX: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -301,7 +313,7 @@ git_fix() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -316,13 +328,13 @@ git_release() {
     input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git repository name"
+      error "Please provide git repository name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🔖 RELEASE: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -332,7 +344,7 @@ git_release() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -347,13 +359,13 @@ git_deploy() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🚀 DEPLOY: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -363,7 +375,7 @@ git_deploy() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -378,13 +390,13 @@ git_fix_ci() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "💚 FIX CI: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -394,7 +406,7 @@ git_fix_ci() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -409,13 +421,13 @@ git_doc() {
     input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git repository name"
+      error "Please provide git repository name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "📖 DOC: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -425,7 +437,7 @@ git_doc() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -440,13 +452,13 @@ git_test() {
     input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git repository name"
+      error "Please provide git repository name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🧪 TEST: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -456,7 +468,7 @@ git_test() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -471,13 +483,13 @@ git_break() {
     input "Repository name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git repository name"
+      error "Please provide git repository name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "‼️ BREAKING: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -487,7 +499,7 @@ git_break() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -502,13 +514,13 @@ git_remove() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🔥 REMOVE: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -518,7 +530,7 @@ git_remove() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __remove_files=$(helper_array $r_files)
@@ -533,13 +545,13 @@ git_hotfix() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🚑 CRITICAL HOTFIX: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -549,7 +561,7 @@ git_hotfix() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -564,13 +576,13 @@ git_feature() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "✨ NEW FEATURE: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -580,7 +592,7 @@ git_feature() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -595,13 +607,13 @@ git_add_update() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "✅ ADD/UPDATE: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -611,7 +623,7 @@ git_add_update() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -626,13 +638,13 @@ git_fix_security() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🔒️ FIX SECURITY: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -642,7 +654,7 @@ git_fix_security() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -657,13 +669,13 @@ git_add_update_secret() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🔐 ADD/UPDATE SECRET: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -673,7 +685,7 @@ git_add_update_secret() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -688,13 +700,13 @@ git_wip() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🚧 WIP: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -704,7 +716,7 @@ git_wip() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -719,13 +731,13 @@ git_refactor_code() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "♻️ REFACTOR: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -735,7 +747,7 @@ git_refactor_code() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -750,13 +762,13 @@ git_config() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🔧 CONFIG: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -766,7 +778,7 @@ git_config() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -781,13 +793,13 @@ git_typos() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "✏️ FIX TYPOS: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -797,7 +809,7 @@ git_typos() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -812,13 +824,13 @@ git_license() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "📄 LICENSE: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -828,7 +840,7 @@ git_license() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -843,13 +855,13 @@ git_assets() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🍱 ASSETS: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -859,7 +871,7 @@ git_assets() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -874,13 +886,13 @@ git_assets() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🍱 ASSETS: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -890,7 +902,7 @@ git_assets() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -905,13 +917,13 @@ git_depreceted() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🗑️ DEPRECETED: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -921,7 +933,7 @@ git_depreceted() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -936,13 +948,13 @@ git_text() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "💬 TEXT: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -952,7 +964,7 @@ git_text() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -967,13 +979,13 @@ git_comments() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "💡 COMMENTS: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -983,7 +995,7 @@ git_comments() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
@@ -998,13 +1010,13 @@ git_develop() {
     input "Remote name"
     read r_name
     if [ -z "$r_name" ]; then
-      error "Please give git remote name"
+      error "Please provide git remote name"
       return 1
     fi
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     git add . && git commit -m "🔨 DEVELOPMENT: $r_commit" && git push ${r_name:-origin} "$(git symbolic-ref --short HEAD)"
@@ -1014,7 +1026,7 @@ git_develop() {
     input "Commit message"
     read r_commit
     if [ -z "$r_commit" ]; then
-      error "Please give git commit message"
+      error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array $r_files)
