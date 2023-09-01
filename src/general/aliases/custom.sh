@@ -44,11 +44,11 @@ get_public_ip() {
 get_local_ip() {
   local device=$1
   if [[ -z "$device" ]]; then
-    local_ip="ip addr"
+    local_ip=$(ip route | grep src | awk -F 'src' '{print $NF; exit}' | awk '{print $1}')
   else
-    local_ip="ip addr show dev $device"
+    local_ip=$(ip addr show dev $device)
   fi
-  bash -c $local_ip
+  info "My Local IP address: ${YELLOW}${local_ip}${RESET}"
 }
 
 set_default_browser() {
