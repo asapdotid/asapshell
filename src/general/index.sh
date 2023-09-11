@@ -23,6 +23,7 @@ __GENERALFILES=(
   "$_SOURCE_FILE/general/aliases/gpg.sh"
   "$_SOURCE_FILE/general/aliases/google-cli.sh"
   "$_SOURCE_FILE/general/aliases/utility.sh"
+  "$_SOURCE_FILE/general/aliases/bun.sh"
 )
 
 for i in "${__GENERALFILES[@]}"; do
