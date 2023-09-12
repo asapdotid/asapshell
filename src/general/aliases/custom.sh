@@ -3,11 +3,13 @@
 alias edit='$EDITOR'
 alias sozsh='source $HOME/.zshrc'
 alias sobash='source $HOME/.bashrc'
-alias edit:zsh='$EDITOR $HOME/.zshrc'
-alias edit:bash='$EDITOR $HOME/.bashrc'
-alias edit:hosts='sudo $EDITOR /etc/hosts'
+alias e:zsh='$EDITOR $HOME/.zshrc'
+alias e:bash='$EDITOR $HOME/.bashrc'
+alias e:hosts='sudo $EDITOR /etc/hosts'
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
+alias cmx='cmatrix'
+alias aquarium='asciiquarium -t'
 
 # Code Editor
 alias code="$VSCODE"
