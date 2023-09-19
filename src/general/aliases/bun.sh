@@ -1,3 +1,18 @@
 #!/bin/bash
 # Bun aliases
 alias bunx='bun x'
+alias bun:a='bun add'
+alias bun:a:d='bun add --dev'
+alias bun:a:o='bun add --optional'
+alias bun:a:g='bun add --global'
+alias bun:u='bun update'
+alias bun:r='bun remove'
+alias bun:i='bun install'
+alias bun:i:p='bun install --production'
+alias bun:i:fl='bun install --frozen-lockfile'
+alias bun:i:d='bun install --dry-run'
+alias bun:p:l='bun pm ls'
+alias bun:p:la='bun pm ls --all'
+alias bun:p:gl='bun pm -g ls'
+alias bun:c='bun pm cache'
+alias bun:c:r='bun pm cache -rm'
