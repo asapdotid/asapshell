@@ -7,22 +7,25 @@ export ASAPSHELL_DIR=${ASAPSHELL_DIR:-$(asapshell_default_install_dir)}
 _SOURCE_FILE=$ASAPSHELL_DIR/src
 
 # Helpers
-source $ASAPSHELL_DIR/helpers/index.sh
+# shellcheck source=/dev/null
+source "$ASAPSHELL_DIR/helpers/index.sh"
 
 # Config
-source $ASAPSHELL_DIR/config/index.sh
+# shellcheck source=/dev/null
+source "$ASAPSHELL_DIR/config/index.sh"
 
 # General aliases
-source $_SOURCE_FILE/general/index.sh
+# shellcheck source=/dev/null
+source "$_SOURCE_FILE/general/index.sh"
 
 ### Get os name via uname ###
 _myos=$(uname -s)
 
 ### add alias as per os using $_myos ###
 case $_myos in
-Linux) source $_SOURCE_FILE/linux/index.sh ;;
-FreeBSD | OpenBSD) source $_SOURCE_FILE/bsd/index.sh ;;
-Darwin) source $_SOURCE_FILE/darwin/index.sh ;;
+Linux) source "$_SOURCE_FILE/linux/index.sh" ;;
+FreeBSD | OpenBSD) source "$_SOURCE_FILE/bsd/index.sh" ;;
+Darwin) source "$_SOURCE_FILE/darwin/index.sh" ;;
 *) ;;
 esac
 

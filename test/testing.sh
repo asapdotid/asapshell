@@ -15,3 +15,8 @@ source "$ASAPSHELL_DIR/helpers/index.sh"
 # else
 #   echo "$serviceName does NOT exist."
 # fi
+
+# expr substr $(uname -s) 1 5
+x=$(uname -s)
+version="${x#####*}"
+echo "$version"

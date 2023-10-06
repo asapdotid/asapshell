@@ -11,11 +11,11 @@ ssh_fix_permission() {
   local __ssh_user="/home/$USER/.ssh"
   if [ -d "$__ssh_user" ]; then
     #Make the .ssh directory unreadable for other users and groups
-    chmod 700 $__ssh_user >/dev/null 2>&1
+    chmod 700 "$__ssh_user" >/dev/null 2>&1
     #Make the private SSH key read only
-    chmod 600 $__ssh_user/* >/dev/null 2>&1
+    chmod 600 "$__ssh_user"/* >/dev/null 2>&1
     #Make public key readable
-    chmod 644 $__ssh_user/{*.pub,authorized_key,known_hosts} >/dev/null 2>&1
+    chmod 644 "$__ssh_user"/{*.pub,authorized_key,known_hosts} >/dev/null 2>&1
     info "Set SSH directory and files permission, done."
   else
     info "Cannot set permission, due to .ssh directory not found."
@@ -50,7 +50,7 @@ ssh_generate_keys() {
         fi
         __ssh_rsa_flag_key=${r_flag_key_pair}-$(date +'%d-%m-%Y')
       fi
-      ssh-keygen -t rsa -b 4096 -f ${__ssh_rsa_file_key} -C ${__ssh_rsa_flag_key}
+      ssh-keygen -t rsa -b 4096 -f "${__ssh_rsa_file_key}" -C "${__ssh_rsa_flag_key}"
       info "Done, create RSA key name ${__ssh_rsa_file_key}."
       break
       ;;
@@ -76,7 +76,7 @@ ssh_generate_keys() {
         fi
         __ssh_ecdsa_flag_key=${r_flag_key_pair}-$(date +'%d-%m-%Y')
       fi
-      ssh-keygen -o -a 256 -t ed25519 -f ${__ssh_ecdsa_file_key} -C ${__ssh_ecdsa_flag_key}
+      ssh-keygen -o -a 256 -t ed25519 -f" ${__ssh_ecdsa_file_key}" -C "${__ssh_ecdsa_flag_key}"
       info "Done, create ECDSA key name ${__ssh_ecdsa_file_key}."
       break
       ;;

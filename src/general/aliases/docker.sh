@@ -72,14 +72,16 @@ alias dc-com:logs='docker-compose logs'
 # Functions
 # Docker CLeanup
 docker_cleanup() {
-  docker rm -v -f $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
-  docker rmi -f $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
+  docker rm -v -f "$(docker ps --filter status=exited -q 2>/dev/null)" 2>/dev/null
+  docker rmi -f "$(docker images --filter dangling=true -q 2>/dev/null)" 2>/dev/null
 }
 
 # Easy container access via din .bashrc/.zshrc helper
 docker_in_docker() {
   local filter=$1
   local user=""
+  local kernel
+  local ex
   if [[ -n "$2" ]]; then
     user="--user $2"
   fi
@@ -90,8 +92,10 @@ docker_in_docker() {
   fi
 
   local prefix=""
-  if [[ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]]; then
+  kernel=$(uname -s)
+  if [[ "${kernel#####*}" == "MINGW" ]]; then
     prefix="winpty"
   fi
-  ${prefix} docker exec -it ${user} $(docker ps --filter name=${filter} -q | head -1) ${shell}
+  ex=$(docker ps --filter name="$filter" -q | head -1)
+  ${prefix} docker exec -it "$user" "$ex" "$shell"
 }

@@ -65,6 +65,6 @@ molecule_matrix() {
   if [ -z "$sce_name" ]; then
     error "Please, provide scenario name!"
   else
-    molecule matrix --scenario-name $sce_name subcommand
+    molecule matrix --scenario-name "$sce_name" subcommand
   fi
 }

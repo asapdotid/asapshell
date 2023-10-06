@@ -20,15 +20,15 @@ alias yay:clean='yay -Scc'
 # Package install with os package manager
 package_install() {
   if helper_os_package pacman; then
-    sudo pacman -S $1
+    sudo pacman -S "$1"
   elif helper_os_package apt-get; then
-    sudo apt-get install $1
+    sudo apt-get install "$1"
   elif helper_os_package yum; then
-    sudo yum install $1
+    sudo yum install "$1"
   elif helper_os_package emerge; then
-    sudo emerge --ask --verbose $1
+    sudo emerge --ask --verbose "$1"
   elif helper_os_package zypper; then
-    sudo zypper install $1
+    sudo zypper install "$1"
   else
     error 'No package manager found!'
   fi
@@ -37,15 +37,15 @@ package_install() {
 # Package uninstall with os package manager
 package_uninstall() {
   if helper_os_package pacman; then
-    sudo pacman -Rscn $1
+    sudo pacman -Rscn "$1"
   elif helper_os_package apt-get; then
-    sudo apt-get --purge remove $1
+    sudo apt-get --purge remove "$1"
   elif helper_os_package yum; then
-    sudo yum remove $1
+    sudo yum remove "$1"
   elif helper_os_package emerge; then
-    sudo emerge --ask --verbose --depclean $1
+    sudo emerge --ask --verbose --depclean "$1"
   elif helper_os_package zypper; then
-    sudo zypper remove $1
+    sudo zypper remove "$1"
   else
     error 'No package manager found!'
   fi
@@ -54,15 +54,15 @@ package_uninstall() {
 # Package search with os package manager
 package_search() {
   if helper_os_package pacman; then
-    sudo pacman -Ss $1
+    sudo pacman -Ss "$1"
   elif helper_os_package apt-get; then
-    sudo apt-get search $1
+    sudo apt-get search "$1"
   elif helper_os_package yum; then
-    sudo yum search $1
+    sudo yum search "$1"
   elif helper_os_package emerge; then
-    sudo emerge --search $1
+    sudo emerge --search "$1"
   elif helper_os_package zypper; then
-    sudo zypper search $1
+    sudo zypper search "$1"
   else
     error 'No package manager found!'
   fi
@@ -71,7 +71,7 @@ package_search() {
 # Package update with os package manager
 package_update() {
   if helper_os_package pacman; then
-    sudo pacman -Syu $1
+    sudo pacman -Syu "$1"
   elif helper_os_package apt-get; then
     sudo apt-get update && sudo apt-get upgrade
   elif helper_os_package yum; then
@@ -106,5 +106,5 @@ package_clean() {
 pacman_mirror() {
   local country=${1:=all}
   local protocol=${2:=all}
-  sudo pacman-mirrors --country $country --api --protocols $protocol --set-branch stable
+  sudo pacman-mirrors --country "$country" --api --protocols "$protocol" --set-branch stable
 }

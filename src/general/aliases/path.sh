@@ -18,10 +18,10 @@ alias project='project_path'
 # Change home directory
 home_path() {
   if [ -z "$1" ]; then
-    cd $HOME
+    cd "$HOME" || return
     exa -labGF --header --git --icons $HOME
   elif [[ ! -z "$1" && -d "$HOME/$1" ]]; then
-    cd "$HOME/$1"
+    cd "$HOME/$1" || return
     exa -labGF --header --git --icons "$HOME/$1"
   else
     error "Directory doest not exist in the Home"
@@ -31,10 +31,10 @@ home_path() {
 # Change to Labs directory
 lab_path() {
   if [ -z "$1" ]; then
-    cd $LAB_LOCATION
-    exa -labGF --header --git --icons $LAB_LOCATION
+    cd "$LAB_LOCATION" || return
+    exa -labGF --header --git --icons "$LAB_LOCATION"
   elif [[ ! -z "$1" && -d "$LAB_LOCATION/$1" ]]; then
-    cd "$LAB_LOCATION/$1"
+    cd "$LAB_LOCATION/$1" || return
     exa -labGF --header --git --icons "$LAB_LOCATION/$1"
   else
     error "Directory doest not exist in the Labs"
@@ -44,10 +44,10 @@ lab_path() {
 # Change to Projects directory
 project_path() {
   if [ -z "$1" ]; then
-    cd $PROJECT_LOCATION
-    exa -labGF --header --git --icons $PROJECT_LOCATION
+    cd "$PROJECT_LOCATION" || return
+    exa -labGF --header --git --icons "$PROJECT_LOCATION"
   elif [[ ! -z "$1" && -d "$PROJECT_LOCATION/$1" ]]; then
-    cd "$PROJECT_LOCATION/$1"
+    cd "$PROJECT_LOCATION/$1" || return
     exa -labGF --header --git --icons "$PROJECT_LOCATION/$1"
   else
     error "Directory doest not exist in the Projects"

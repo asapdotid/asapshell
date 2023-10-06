@@ -5,7 +5,7 @@
 #   sudo apt-get install git
 # fi
 function helper_os_package() {
-  [ -x "$(which $1)" ]
+  [ -x "$(which "$1")" ]
 }
 
 # Using this Function
@@ -14,16 +14,14 @@ function helper_os_package() {
 # done
 function helper_command_exists() {
   # check if command exists and fail otherwise
-  command -v "$1" >/dev/null 2>&1
-  if [[ $? -ne 0 ]]; then
+  if ! command -v "$1" >/dev/null 2>&1; then
     error "I require $1 but it's not installed. Abort."
   fi
 }
 
 function helper_command_exist() {
   # check if command exists and fail otherwise
-  command -v "$1" >/dev/null 2>&1
-  if [[ $? -ne 0 ]]; then
+  if ! command -v "$1" >/dev/null 2>&1; then
     echo false
   else
     echo true

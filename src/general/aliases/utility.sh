@@ -29,11 +29,11 @@ test_cors() {
     done
 
     if [ "$verbose" = "true" ]; then
-      curl -s -X GET $url -H 'Cache-Control: no-cache' --head
+      curl -s -X GET "$url" -H 'Cache-Control: no-cache' --head
     fi
-    origin=$(curl -s -X GET $url -H 'Cache-Control: no-cache' --head | grep -i access-control)
+    origin=$(curl -s -X GET "$url" -H 'Cache-Control: no-cache' --head | grep -i access-control)
 
-    if [ $? -eq 0 ]; then
+    if [ -n "$origin" ]; then
       info "$url $origin"
     else
       error "$url does not support CORS"

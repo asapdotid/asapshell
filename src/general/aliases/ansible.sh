@@ -62,8 +62,8 @@ new_ansible() {
 ansible_project_init() {
   for i; do
     info "Create inventory $i"
-    mkdir -p inventories/$i/{group_vars,host_vars}
-    touch inventories/$i/hosts
+    mkdir -p "inventories/$i/{group_vars,host_vars}"
+    touch "inventories/$i/hosts"
   done
   info "Create directory group_vars host_vars library module_utils filter_plugins"
   mkdir -p group_vars host_vars library module_utils filter_plugins
