@@ -8,6 +8,7 @@ alias pkg:clean="package_clean"
 
 # ArchLinux Pacman repository mirror
 alias pacman:mirror='pacman_mirror'
+alias pacman:fix:glib='pacman_glibc_locales'
 
 # Aliases for ArchLinux AUR (as binaries in community)
 alias yay:u='yay -Syyu'
@@ -107,4 +108,9 @@ pacman_mirror() {
   local country=${1:=all}
   local protocol=${2:=all}
   sudo pacman-mirrors --country "$country" --api --protocols "$protocol" --set-branch stable
+}
+
+# ArchLinux Pacman fi
+pacman_glibc_locales() {
+  sudo pacman -Syu glibc-locales --overwrite /usr/lib/locale/\*/\*
 }
