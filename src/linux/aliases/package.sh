@@ -8,7 +8,7 @@ alias pkg:clean="package_clean"
 
 # ArchLinux Pacman repository mirror
 alias pacman:mirror='pacman_mirror'
-alias pacman:fix:glib='pacman_glibc_locales'
+alias pacman:up:fix='pacman_glibc_locales'
 
 # Aliases for ArchLinux AUR (as binaries in community)
 alias yay:u='yay -Syyu'
