@@ -74,9 +74,9 @@ function vagrant_box_remove() {
     info "Please, provide box name!"
   else
     if [[ -z "$_ver" ]]; then
-      vagrant box remove --box "$_box"
+      vagrant box remove "$_box"
     else
-      vagrant box remove --box "$_box" --box-version "$_ver"
+      vagrant box remove "$_box" --box-version "$_ver"
     fi
   fi
 }
