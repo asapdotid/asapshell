@@ -44,6 +44,7 @@ alias g:sh:s='git_stash_save'
 alias g:ui:untrack='git update-index --assume-unchanged'
 alias g:ui:track='git update-index --no-assume-unchanged'
 alias g:rm:cached='git rm -r --cached --ignore-unmatch'
+
 # Git Commit with Emoji
 alias g:new='git_new'
 alias g:imp='git_imp'
@@ -67,6 +68,7 @@ alias g:depreceted='git_depreceted'
 alias g:text='git_text'
 alias g:comment='git_comments'
 alias g:develop='git_develop'
+
 # Git Push with Emoji
 alias g:new:p='git_new --push'
 alias g:imp:p='git_imp --push'
