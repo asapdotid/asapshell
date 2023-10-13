@@ -38,8 +38,11 @@ cd_home_dot() {
 
 # Make directory and change directory
 mk_cd() {
-  mkdir -p "$1"
-  cd "$1" || return
+  if [[ -n "$1" ]]; then
+    mkdir -p -- "$1" && cd -P -- "$1" || return
+  else
+    error "Please check your directory destination first!"
+  fi
 }
 
 # Search for a specific file
