@@ -9,18 +9,18 @@ alias e:hosts='sudo $EDITOR /etc/hosts'
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 alias cmx='cmatrix'
-alias aquarium='asciiquarium -t'
+alias asq='asciiquarium -t'
 
 # Code Editor
-alias code='echo $VSCODE'
+alias code='system_code_editor'
 
 # Noevim
 alias v='nvim'
 alias vim='nvim'
 
 # Get IP
-alias ip:p='get_public_ip'
 alias ip:l='get_local_ip'
+alias ip:p='get_public_ip'
 
 # default browser
 alias browser:get='xdg-settings get default-web-browser'
@@ -32,7 +32,19 @@ alias browser:set='set_default_browser'
 alias myhost='bat /etc/hosts'
 
 # Functions
+# Get Local IP
+get_local_ip() {
+  local device=$1
+  if [[ -z "$device" ]]; then
+    local_ip=$(ip route | grep src | awk -F 'src' '{print $NF; exit}' | awk '{print $1}')
+  else
+    local_ip=$(ip addr show dev "$device")
+  fi
+  info "My Local IP address: ${YELLOW}${local_ip}${RESET}"
+}
+
 # Using DIG Utility (Arch linux pacman -Ss bind)
+# Get Public IP
 get_public_ip() {
   local myip
   myip=$(dig +short myip.opendns.com @resolver1.opendns.com)
@@ -44,16 +56,7 @@ get_public_ip() {
   info "My WAN/Public IP address: ${YELLOW}${public_ip}${RESET}"
 }
 
-get_local_ip() {
-  local device=$1
-  if [[ -z "$device" ]]; then
-    local_ip=$(ip route | grep src | awk -F 'src' '{print $NF; exit}' | awk '{print $1}')
-  else
-    local_ip=$(ip addr show dev "$device")
-  fi
-  info "My Local IP address: ${YELLOW}${local_ip}${RESET}"
-}
-
+# Set default browser
 set_default_browser() {
   local browser=$1
   if command_exists "$browser"; then
@@ -62,5 +65,34 @@ set_default_browser() {
     info "Make $browser your default browser"
   else
     error "Your system does not have $browser browser app"
+  fi
+}
+
+# Code editor
+system_code_editor() {
+  local code_editor=${VSCODE:-'code'}
+  if command_exists "$code_editor"; then
+    case "$code_editor" in
+          "vim")
+        vim "$@"
+        ;;
+      "nvim")
+        nvim "$@"
+        ;;
+      "code")
+        code "$@"
+        ;;
+      "vscodium")
+        vscodium "$@"
+        ;;
+      "sublime")
+        subl "$@"
+        ;;
+      *)
+        vi "$@"
+        ;;
+    esac
+  else
+    error "Your system does not have $code_editor editor app"
   fi
 }
