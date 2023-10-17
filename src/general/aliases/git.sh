@@ -96,7 +96,7 @@ alias g:develop:p='git_develop --push'
 # Functions
 git_commit() {
   input "Commit message"
-  read c_message
+  read -r c_message
   if [ -z "$c_message" ]; then
     error "Please provide commit message"
     return 1
@@ -117,10 +117,10 @@ git_push_tag() {
 }
 
 git_push_delete_branch() {
-  input "Repository name (default: origin)"
-  read r_name
+  input "Repository name (default: origin) (default: origin)"
+  read -r r_name
   input "Branch target"
-  read r_target
+  read -r r_target
   if [ -z "$r_target" ]; then
     error "Please provide target branch"
     return 1
@@ -129,10 +129,10 @@ git_push_delete_branch() {
 }
 
 git_push_other_branch() {
-  input "Repository name (default: origin)"
-  read r_name
+  input "Repository name (default: origin) (default: origin)"
+  read -r r_name
   input "Branch target"
-  read r_target
+  read -r r_target
   if [ -z "$r_target" ]; then
     error "Please provide target branch"
     return 1
@@ -147,13 +147,13 @@ git_stash_save() {
 # Git taging
 git_tagging() {
   input "Tag name"
-  read t_name
+  read -r t_name
   if [ -z "$t_name" ]; then
     error "Please provide tag name"
     return 1
   fi
   input "Tag message"
-  read t_message
+  read -r t_message
   if [ -z "$t_message" ]; then
     error "Please provide tag message"
     return 1
@@ -171,7 +171,7 @@ git_stash_apply_n() {
 # Git delete all tags local and remote
 git_delete_all_tags() {
   input "Are you sure delete all tags (y/n)?"
-  read choice
+  read -r choice
   case "$choice" in
   y | Y)
     git tag -d "$(git tag -l)"
@@ -186,13 +186,13 @@ git_delete_all_tags() {
 # Git delete tag local and remote
 git_delete_tag_local_remote() {
   input "Are you sure delete local and repository tag (y/n)?"
-  read choice
+  read -r choice
   case "$choice" in
   y | Y)
     input "Repository (default: origin)"
-    read t_repository
+    read -r t_repository
     input "Tag"
-    read t_tag
+    read -r t_tag
     git tag -d "$t_tag" && git push "${t_repository:-origin}" :refs/tags/"${t_tag}"
     ;;
   *) return 1 ;;
@@ -202,11 +202,11 @@ git_delete_tag_local_remote() {
 # Git delete tag local
 git_delete_tag_local() {
   input "Are you sure delete local tag (y/n)?"
-  read choice
+  read -r choice
   case "$choice" in
   y | Y)
     input "Tag"
-    read t_tag
+    read -r t_tag
     git tag -d "$t_tag"
     ;;
   *) return 1 ;;
@@ -244,14 +244,10 @@ git_merge_no_ff() {
 git_new() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git Repository name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -259,9 +255,9 @@ git_new() {
     git add . && git commit -m "📦 NEW: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -275,14 +271,10 @@ git_new() {
 git_imp() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git repository name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -290,9 +282,9 @@ git_imp() {
     git add . && git commit -m "⚡️ IMPROVE: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -306,14 +298,10 @@ git_imp() {
 git_fix() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git repository name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -321,9 +309,9 @@ git_fix() {
     git add . && git commit -m "🐛 FIX: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -337,14 +325,10 @@ git_fix() {
 git_release() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git repository name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -352,9 +336,9 @@ git_release() {
     git add . && git commit -m "🔖 RELEASE: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -368,14 +352,10 @@ git_release() {
 git_deploy() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -383,9 +363,9 @@ git_deploy() {
     git add . && git commit -m "🚀 DEPLOY: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -399,14 +379,10 @@ git_deploy() {
 git_fix_ci() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -414,9 +390,9 @@ git_fix_ci() {
     git add . && git commit -m "💚 FIX CI: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -430,14 +406,10 @@ git_fix_ci() {
 git_doc() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git repository name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -445,9 +417,9 @@ git_doc() {
     git add . && git commit -m "📖 DOC: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -461,14 +433,10 @@ git_doc() {
 git_test() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git repository name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -476,9 +444,9 @@ git_test() {
     git add . && git commit -m "🧪 TEST: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -492,14 +460,10 @@ git_test() {
 git_break() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git repository name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -507,9 +471,9 @@ git_break() {
     git add . && git commit -m "‼️ BREAKING: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -523,14 +487,10 @@ git_break() {
 git_remove() {
   local __remove_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -538,9 +498,9 @@ git_remove() {
     git add . && git commit -m "🔥 REMOVE: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -554,14 +514,10 @@ git_remove() {
 git_hotfix() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -569,9 +525,9 @@ git_hotfix() {
     git add . && git commit -m "🚑 CRITICAL HOTFIX: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -585,14 +541,10 @@ git_hotfix() {
 git_feature() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -600,9 +552,9 @@ git_feature() {
     git add . && git commit -m "✨ NEW FEATURE: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -616,14 +568,10 @@ git_feature() {
 git_add_update() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -631,9 +579,9 @@ git_add_update() {
     git add . && git commit -m "✅ ADD/UPDATE: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -647,14 +595,10 @@ git_add_update() {
 git_fix_security() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -662,9 +606,9 @@ git_fix_security() {
     git add . && git commit -m "🔒️ FIX SECURITY: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -678,14 +622,10 @@ git_fix_security() {
 git_add_update_secret() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -693,9 +633,9 @@ git_add_update_secret() {
     git add . && git commit -m "🔐 ADD/UPDATE SECRET: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -709,14 +649,10 @@ git_add_update_secret() {
 git_wip() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -724,9 +660,9 @@ git_wip() {
     git add . && git commit -m "🚧 WIP: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -740,14 +676,10 @@ git_wip() {
 git_refactor_code() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -755,9 +687,9 @@ git_refactor_code() {
     git add . && git commit -m "♻️ REFACTOR: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -771,14 +703,10 @@ git_refactor_code() {
 git_config() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -786,9 +714,9 @@ git_config() {
     git add . && git commit -m "🔧 CONFIG: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -802,14 +730,10 @@ git_config() {
 git_typos() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -817,9 +741,9 @@ git_typos() {
     git add . && git commit -m "✏️ FIX TYPOS: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -833,14 +757,10 @@ git_typos() {
 git_license() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -848,9 +768,9 @@ git_license() {
     git add . && git commit -m "📄 LICENSE: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -864,14 +784,10 @@ git_license() {
 git_assets() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -879,9 +795,9 @@ git_assets() {
     git add . && git commit -m "🍱 ASSETS: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -895,14 +811,10 @@ git_assets() {
 git_assets() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -910,9 +822,9 @@ git_assets() {
     git add . && git commit -m "🍱 ASSETS: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -926,14 +838,10 @@ git_assets() {
 git_depreceted() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -941,9 +849,9 @@ git_depreceted() {
     git add . && git commit -m "🗑️ DEPRECETED: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -957,14 +865,10 @@ git_depreceted() {
 git_text() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -972,9 +876,9 @@ git_text() {
     git add . && git commit -m "💬 TEXT: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -988,14 +892,10 @@ git_text() {
 git_comments() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -1003,9 +903,9 @@ git_comments() {
     git add . && git commit -m "💡 COMMENTS: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -1019,14 +919,10 @@ git_comments() {
 git_develop() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Remote name"
-    read r_name
-    if [ -z "$r_name" ]; then
-      error "Please provide git remote name"
-      return 1
-    fi
+    input "Repository name (default: origin)"
+    read -r r_name
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
@@ -1034,9 +930,9 @@ git_develop() {
     git add . && git commit -m "🔨 DEVELOPMENT: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
-    read r_files
+    read -r r_files
     input "Commit message"
-    read r_commit
+    read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
