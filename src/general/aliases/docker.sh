@@ -118,6 +118,19 @@ alias dc:sw:jt='docker swarm join-token'
 alias dc:sw:ul='docker swarm unlock'
 alias dc:sw:ulk='docker swarm unlock-key'
 
+# Docker context
+alias dc:ctx='docker context'
+alias dc:ctx:-h='docker context --help'
+alias dc:ctx:l='docker context ls'
+alias dc:ctx:r='docker context rm'
+alias dc:ctx:u='docker context update'
+alias dc:ctx:use='docker context use'
+alias dc:ctx:s='docker context show'
+alias dc:ctx:c='docker context create'
+alias dc:ctx:e='docker context export'
+alias dc:ctx:i='docker context import'
+alias dc:ctx:is='docker context inspect'
+
 # Functions
 # Docker CLeanup
 docker_cleanup() {
