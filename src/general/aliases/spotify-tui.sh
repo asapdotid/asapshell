@@ -3,9 +3,11 @@
 alias spot="launchspt"
 
 # Functions
-# Spotify-tui & spotifyd-fpull
+# Spotify-tui & spotifyd
 launchspt() {
-  if [[ ! $(pgrep "spotifyd") ]]; then
+  local SERVICE="spotifyd"
+  if [ ! $(pgrep -x "$SERVICE") ]
+  then
     spotifyd --no-daemon
   fi
   spt
