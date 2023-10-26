@@ -6,7 +6,7 @@ alias spot="launchspt"
 # Spotify-tui & spotifyd-fpull
 launchspt() {
   if [[ ! $(pgrep "spotifyd") ]]; then
-    spotifyd
+    spotifyd --no-daemon
   fi
   spt
 }
