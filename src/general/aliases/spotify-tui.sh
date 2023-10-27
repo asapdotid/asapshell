@@ -8,7 +8,7 @@ launchspt() {
   local SERVICE="spotifyd"
   if [ ! $(pgrep -x "$SERVICE") ]
   then
-    spotifyd --no-daemon
+    spotifyd
   fi
   spt
 }
