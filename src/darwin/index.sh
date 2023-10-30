@@ -6,6 +6,7 @@ __DARWINFILES=(
 
 for i in "${__DARWINFILES[@]}"; do
   if [ -f "$i" ]; then
+    # shellcheck source=/dev/null
     source "$i"
   else
     error "$i does not exist."

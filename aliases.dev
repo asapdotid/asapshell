@@ -17,8 +17,14 @@ _myos="$(uname -s)"
 
 ### add alias as per os using $_myos ###
 case $_myos in
-Linux) source "$ASAPSHELL_DIR/os/linux/index.sh" ;;
-FreeBSD | OpenBSD) source "$ASAPSHELL_DIR/os/bsd/index.sh" ;;
-Darwin) source "$ASAPSHELL_DIR/os/darwin/index.sh" ;;
+Linux)
+  # shellcheck source=/dev/null
+  source "$ASAPSHELL_DIR/os/linux/index.sh" ;;
+FreeBSD | OpenBSD)
+  # shellcheck source=/dev/null
+  source "$ASAPSHELL_DIR/os/bsd/index.sh" ;;
+Darwin)
+  # shellcheck source=/dev/null
+  source "$ASAPSHELL_DIR/os/darwin/index.sh" ;;
 *) ;;
 esac
