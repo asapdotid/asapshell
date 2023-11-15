@@ -72,7 +72,7 @@ package_search() {
 # Package update with os package manager
 package_update() {
   if helper_os_package pacman; then
-    sudo pacman -Syu "$1"
+    sudo pacman -Syyu
   elif helper_os_package apt-get; then
     sudo apt-get update && sudo apt-get upgrade
   elif helper_os_package yum; then
