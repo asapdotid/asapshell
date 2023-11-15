@@ -8,8 +8,12 @@ alias e:bash='$EDITOR $HOME/.bashrc'
 alias e:hosts='sudo $EDITOR /etc/hosts'
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
+alias cp='cp -v'
+alias cp:i='cp -iv'
+alias cp:r='cp -rv'
 alias cmx='cmatrix'
 alias asq='asciiquarium -t'
+alias mail='neomutt'
 
 # Code Editor
 alias code='system_code_editor'
@@ -73,24 +77,24 @@ system_code_editor() {
   local code_editor=${VSCODE:-'code'}
   if command_exists "$code_editor"; then
     case "$code_editor" in
-          "vim")
-        vim "$@"
-        ;;
-      "nvim")
-        nvim "$@"
-        ;;
-      "code")
-        code "$@"
-        ;;
-      "vscodium")
-        vscodium "$@"
-        ;;
-      "sublime")
-        subl "$@"
-        ;;
-      *)
-        vi "$@"
-        ;;
+    "vim")
+      vim "$@"
+      ;;
+    "nvim")
+      nvim "$@"
+      ;;
+    "code")
+      code "$@"
+      ;;
+    "vscodium")
+      vscodium "$@"
+      ;;
+    "sublime")
+      subl "$@"
+      ;;
+    *)
+      vi "$@"
+      ;;
     esac
   else
     error "Your system does not have $code_editor editor app"
