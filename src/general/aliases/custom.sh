@@ -14,6 +14,7 @@ alias cp:r='cp -rv'
 alias cmx='cmatrix'
 alias asq='asciiquarium -t'
 alias mail='neomutt'
+alias lg='lazygit'
 
 # Code Editor
 alias code='system_code_editor'
