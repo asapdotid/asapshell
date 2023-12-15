@@ -4,7 +4,7 @@ alias ch:sh='change_shell'
 
 # Functions
 change_shell() {
-  info "Change shell"
+  info "Change shell (currently using: $(get_shell))"
   input "Shell name (zsh, bash or fish)"
   read -r i_shell
   input "Target user"
