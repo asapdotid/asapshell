@@ -17,8 +17,8 @@ alias cmx='cmatrix'
 alias asq='asciiquarium -t'
 alias mail='neomutt'
 alias lg='lazygit'
-alias u:rsync='rsync -avzh --stats --progress'
-alias s:rsync='sudo rsync -avzh --stats --progress'
+alias u:rsync='rsync -az --progress'
+alias s:rsync='sudo rsync -az --progress'
 
 # Code Editor
 alias code='system_code_editor'
