@@ -25,13 +25,16 @@ _myos=$(uname -s)
 case $_myos in
 Linux)
   # shellcheck source=/dev/null
-  source "$_SOURCE_FILE/linux/index.sh" ;;
+  source "$_SOURCE_FILE/linux/index.sh"
+  ;;
 FreeBSD | OpenBSD)
   # shellcheck source=/dev/null
-  source "$_SOURCE_FILE/bsd/index.sh" ;;
+  source "$_SOURCE_FILE/bsd/index.sh"
+  ;;
 Darwin)
   # shellcheck source=/dev/null
-  source "$_SOURCE_FILE/darwin/index.sh" ;;
+  source "$_SOURCE_FILE/darwin/index.sh"
+  ;;
 *) ;;
 esac
 

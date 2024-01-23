@@ -26,6 +26,8 @@ alias code='system_code_editor'
 # Noevim
 alias v='nvim'
 alias vim='nvim'
+alias v:clean='rm -rf {~/.cache/nvim,~/.local/share/nvim,~/.local/state/nvim}/'
+alias nvim:clean='rm -rf {~/.cache/nvim,~/.local/share/nvim,~/.local/state/nvim}/'
 
 # Get IP
 alias ip:l='get_local_ip'
@@ -39,6 +41,10 @@ alias browser:set='set_default_browser'
 # list hosts /etc/hosts
 # Using BAT utility like CAT
 alias myhost='bat /etc/hosts'
+
+# XPLR Utility
+# https://github.com/sayanarijit/xplr
+alias xp='xplr'
 
 # Functions
 # Get Local IP
