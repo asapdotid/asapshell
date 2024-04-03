@@ -1,43 +1,12 @@
 #!/bin/bash
 
-# Initial environment
-export ASAPSHELL_DIR=${ASAPSHELL_DIR:-$(asapshell_default_install_dir)}
-
-# Source files variables
-_SOURCE_FILE=$ASAPSHELL_DIR/src
-
-# Helpers
+# Initial environment variables
 # shellcheck source=/dev/null
-source "$ASAPSHELL_DIR/helpers/index.sh"
+ASAPSHELL_DIR=$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.asapshell" || printf %s "${XDG_CONFIG_HOME}/asapshell")
 
-# Config
-# shellcheck source=/dev/null
-source "$ASAPSHELL_DIR/config/index.sh"
+# Source files
+source "$ASAPSHELL_DIR/src/index.sh"
 
-# General aliases
-# shellcheck source=/dev/null
-source "$_SOURCE_FILE/general/index.sh"
-
-### Get os name via uname ###
-_myos=$(uname -s)
-
-### add alias as per os using $_myos ###
-case $_myos in
-Linux)
-  # shellcheck source=/dev/null
-  source "$_SOURCE_FILE/linux/index.sh"
-  ;;
-FreeBSD | OpenBSD)
-  # shellcheck source=/dev/null
-  source "$_SOURCE_FILE/bsd/index.sh"
-  ;;
-Darwin)
-  # shellcheck source=/dev/null
-  source "$_SOURCE_FILE/darwin/index.sh"
-  ;;
-*) ;;
-esac
-
-asapshell_default_install_dir() {
-  [ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.asapshell" || printf %s "${XDG_CONFIG_HOME}/asapshell"
-}
+# Load aliases
+include_aliases "$ASAPSHELL_DIR"
+publish_aliases "$ASAPSHELL_DIR"

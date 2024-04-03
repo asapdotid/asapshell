@@ -1,16 +1,17 @@
 #!/bin/bash
 
 # Initial environment
+# shellcheck source=/dev/null
 export ASAPSHELL_DIR="$PWD"
 
 # Helpers
-source "$ASAPSHELL_DIR/helpers/index.sh"
+source "$ASAPSHELL_DIR/src/helpers/index.sh"
 
 # Config
-source "$ASAPSHELL_DIR/config/index.sh"
+source "$ASAPSHELL_DIR/src/config/index.sh"
 
 # General aliases
-source "$ASAPSHELL_DIR/os/general/index.sh"
+source "$ASAPSHELL_DIR/src/general/index.sh"
 
 ### Get os name via uname ###
 _myos="$(uname -s)"
@@ -19,12 +20,15 @@ _myos="$(uname -s)"
 case $_myos in
 Linux)
   # shellcheck source=/dev/null
-  source "$ASAPSHELL_DIR/os/linux/index.sh" ;;
+  source "$ASAPSHELL_DIR/src/linux/index.sh"
+  ;;
 FreeBSD | OpenBSD)
   # shellcheck source=/dev/null
-  source "$ASAPSHELL_DIR/os/bsd/index.sh" ;;
+  source "$ASAPSHELL_DIR/src/bsd/index.sh"
+  ;;
 Darwin)
   # shellcheck source=/dev/null
-  source "$ASAPSHELL_DIR/os/darwin/index.sh" ;;
+  source "$ASAPSHELL_DIR/src/darwin/index.sh"
+  ;;
 *) ;;
 esac

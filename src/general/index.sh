@@ -1,36 +1,45 @@
 #!/bin/bash
 
-__GENERALFILES=(
-  "$_SOURCE_FILE/general/aliases/exa.sh"
-  "$_SOURCE_FILE/general/aliases/path.sh"
-  "$_SOURCE_FILE/general/aliases/system.sh"
-  "$_SOURCE_FILE/general/aliases/docker.sh"
-  "$_SOURCE_FILE/general/aliases/ansible.sh"
-  "$_SOURCE_FILE/general/aliases/git.sh"
-  "$_SOURCE_FILE/general/aliases/git-flow.sh"
-  "$_SOURCE_FILE/general/aliases/nvm.sh"
-  "$_SOURCE_FILE/general/aliases/npm.sh"
-  "$_SOURCE_FILE/general/aliases/ssh.sh"
-  "$_SOURCE_FILE/general/aliases/tmux.sh"
-  "$_SOURCE_FILE/general/aliases/tmuxinator.sh"
-  "$_SOURCE_FILE/general/aliases/vagrant.sh"
-  "$_SOURCE_FILE/general/aliases/terraform.sh"
-  "$_SOURCE_FILE/general/aliases/terragrunt.sh"
-  "$_SOURCE_FILE/general/aliases/molecule.sh"
-  "$_SOURCE_FILE/general/aliases/composer.sh"
-  "$_SOURCE_FILE/general/aliases/custom.sh"
-  "$_SOURCE_FILE/general/aliases/spotify-tui.sh"
-  "$_SOURCE_FILE/general/aliases/gpg.sh"
-  "$_SOURCE_FILE/general/aliases/google-cli.sh"
-  "$_SOURCE_FILE/general/aliases/utility.sh"
-  "$_SOURCE_FILE/general/aliases/bun.sh"
-)
+function general_aliases() {
+  local __SOURCE_DIR=$1
+  if [ -d "$__SOURCE_DIR" ]; then
+    local __GENERALFILES=(
+      "$__SOURCE_DIR/general/aliases/exa.sh"
+      "$__SOURCE_DIR/general/aliases/path.sh"
+      "$__SOURCE_DIR/general/aliases/system.sh"
+      "$__SOURCE_DIR/general/aliases/docker.sh"
+      "$__SOURCE_DIR/general/aliases/ansible.sh"
+      "$__SOURCE_DIR/general/aliases/git.sh"
+      "$__SOURCE_DIR/general/aliases/git-flow.sh"
+      "$__SOURCE_DIR/general/aliases/nvm.sh"
+      "$__SOURCE_DIR/general/aliases/npm.sh"
+      "$__SOURCE_DIR/general/aliases/ssh.sh"
+      "$__SOURCE_DIR/general/aliases/tmux.sh"
+      "$__SOURCE_DIR/general/aliases/tmuxinator.sh"
+      "$__SOURCE_DIR/general/aliases/vagrant.sh"
+      "$__SOURCE_DIR/general/aliases/terraform.sh"
+      "$__SOURCE_DIR/general/aliases/terragrunt.sh"
+      "$__SOURCE_DIR/general/aliases/molecule.sh"
+      "$__SOURCE_DIR/general/aliases/composer.sh"
+      "$__SOURCE_DIR/general/aliases/custom.sh"
+      "$__SOURCE_DIR/general/aliases/spotify-tui.sh"
+      "$__SOURCE_DIR/general/aliases/gpg.sh"
+      "$__SOURCE_DIR/general/aliases/google-cli.sh"
+      "$__SOURCE_DIR/general/aliases/utility.sh"
+      "$__SOURCE_DIR/general/aliases/bun.sh"
+      "$__SOURCE_DIR/general/aliases/laravel.sh"
+    )
 
-for i in "${__GENERALFILES[@]}"; do
-  if [ -f "$i" ]; then
-    # shellcheck source=/dev/null
-    source "$i"
+    for i in "${__GENERALFILES[@]}"; do
+      if [ -f "$i" ]; then
+        # shellcheck source=/dev/null
+        source "$i"
+      else
+        error "$i does not exist."
+      fi
+    done
   else
-    error "$i does not exist."
+    error "$__SOURCE_DIR does not exist."
+    return 1
   fi
-done
+}
