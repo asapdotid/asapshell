@@ -6,7 +6,7 @@ function include_aliases() {
   local __DIR=$1
   local __SOURCE_DIR="$__DIR/src"
   if [ -d "$__DIR" ] && [ -d "$__SOURCE_DIR" ]; then
-    source "$__SOURCE_DIR/config/environment.sh"
+    source "$__SOURCE_DIR/config/index.sh"
     source "$__SOURCE_DIR/helpers/index.sh"
     source "$__SOURCE_DIR/general/index.sh"
   else
@@ -19,7 +19,9 @@ function publish_aliases() {
   local __DIR=$1
   local __SOURCE_DIR="$__DIR/src"
   if [ -d "$__DIR" ] && [ -d "$__SOURCE_DIR" ]; then
+    load_config "$__SOURCE_DIR"
     load_environments "$__DIR"
+    print_welcome_message "$WELCOME_MESSAGE" "$APP_NAME"
     load_helpers "$__SOURCE_DIR"
     general_aliases "$__SOURCE_DIR"
     load_based_on_os "$__SOURCE_DIR"
