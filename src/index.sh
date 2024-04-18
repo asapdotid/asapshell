@@ -21,7 +21,6 @@ function publish_aliases() {
   if [ -d "$__DIR" ] && [ -d "$__SOURCE_DIR" ]; then
     load_config "$__SOURCE_DIR"
     load_environments "$__DIR"
-    print_welcome_message "$WELCOME_MESSAGE" "$APP_NAME"
     load_helpers "$__SOURCE_DIR"
     general_aliases "$__SOURCE_DIR"
     load_based_on_os "$__SOURCE_DIR"
