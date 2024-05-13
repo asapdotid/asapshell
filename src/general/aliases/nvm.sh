@@ -20,11 +20,11 @@ nvm_upgrade_version() {
   local _vset=$3
   if [[ -n "$_vfrom" && -n "$_vto" ]]; then
     if [[ -n "$_vset" && "--set" == "$_vset" ]]; then
-      nvm install --reintsall-packages-from="$_vfrom" --latest-npm "$_vto" &&
+      nvm install --reinstall-packages-from="$_vfrom" --latest-npm "$_vto" &&
         nvm alias default "$_vto" &&
         nvm use "$_vto"
     else
-      nvm install --reintsall-packages-from="$_vfrom" --latest-npm "$_vto"
+      nvm install --reinstall-packages-from="$_vfrom" --latest-npm "$_vto"
     fi
   else
     error "please provide install version (nvm:up 14.0.0 16.0.0 --set)"
