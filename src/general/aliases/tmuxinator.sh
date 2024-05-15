@@ -2,8 +2,8 @@
 # Tmuxinator
 alias mux='tmuxinator'
 alias mux:-v='tmuxinator version'
-alias mux:st='tmuxinator start'
-alias mux:sp='tmuxinator stop'
+alias mux:s='tmuxinator start'
+alias mux:st='tmuxinator stop'
 alias mux:n='tmuxinator new'
 alias mux:l='tmuxinator list'
 alias mux:e='tmuxinator edit'
