@@ -19,6 +19,7 @@ alias mail='neomutt'
 alias lg='lazygit'
 alias u:rsync='rsync -az --progress'
 alias s:rsync='sudo rsync -az --progress'
+alias kill:s='kill_process_by_name'
 
 # Code Editor
 alias code='system_code_editor'
@@ -109,5 +110,14 @@ system_code_editor() {
     esac
   else
     error "Your system does not have $code_editor editor app"
+  fi
+}
+
+kill_process_by_name() {
+  local name=$1
+  if [[ -z "$name" ]]; then
+    ps -aux | pgrep "$name" | sudo killall - "$name"
+  else
+    error "Please provide service name!"
   fi
 }
