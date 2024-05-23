@@ -4,7 +4,7 @@ function general_aliases() {
   local __SOURCE_DIR=$1
   if [ -d "$__SOURCE_DIR" ]; then
     local __GENERALFILES=(
-      "$__SOURCE_DIR/general/aliases/exa.sh"
+      "$__SOURCE_DIR/general/aliases/eza.sh"
       "$__SOURCE_DIR/general/aliases/path.sh"
       "$__SOURCE_DIR/general/aliases/system.sh"
       "$__SOURCE_DIR/general/aliases/docker.sh"
