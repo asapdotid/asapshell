@@ -18,8 +18,8 @@ alias ze:dump:l="zellij_dump_layout"
 # Functions
 zellij_dump_layout() {
   local name=$1
-  if [[ -z "$name" ]]; then
-    zellij --dump-layout "$name" >"$HOME/.config/zellij/layouts/$name.kdl"
+  if [ -n "$name" ]; then
+    zellij setup --dump-layout "$name" >"$HOME/.config/zellij/layouts/$name.kdl"
   else
     error "Please provide layout name!"
   fi
