@@ -28,6 +28,7 @@ function general_aliases() {
       "$__SOURCE_DIR/general/aliases/utility.sh"
       "$__SOURCE_DIR/general/aliases/bun.sh"
       "$__SOURCE_DIR/general/aliases/laravel.sh"
+      "$__SOURCE_DIR/general/aliases/zellij.sh"
     )
 
     for i in "${__GENERALFILES[@]}"; do

@@ -26,8 +26,10 @@ alias code='system_code_editor'
 
 # Noevim
 alias v='nvim'
+alias vi='nvim'
 alias vim='nvim'
 alias v:clean='rm -rf {~/.cache/nvim,~/.local/share/nvim,~/.local/state/nvim}/'
+alias vi:clean='rm -rf {~/.cache/nvim,~/.local/share/nvim,~/.local/state/nvim}/'
 alias nvim:clean='rm -rf {~/.cache/nvim,~/.local/share/nvim,~/.local/state/nvim}/'
 
 # Get IP
