@@ -93,7 +93,14 @@ alias g:text:p='git_text --push'
 alias g:comment:p='git_comments --push'
 alias g:develop:p='git_develop --push'
 
+alias g:diff='butdiff'
+
 # Functions
+
+batdiff() {
+  git diff --name-only --relative --diff-filter=d | xargs bat --diff
+}
+
 git_commit() {
   input "Commit message"
   read -r c_message
