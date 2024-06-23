@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alias ze="zellij"
+alias ze="zellij --layout welcome"
 alias ze:-v="zellij --version"
 alias ze:-h="zellij --help"
 alias ze:as="zellij attach"
