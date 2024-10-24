@@ -30,6 +30,7 @@ function general_aliases() {
       "$__SOURCE_DIR/general/aliases/laravel.sh"
       "$__SOURCE_DIR/general/aliases/zellij.sh"
       "$__SOURCE_DIR/general/aliases/bat.sh"
+      "$__SOURCE_DIR/general/aliases/hashing.sh"
     )
 
     for i in "${__GENERALFILES[@]}"; do
