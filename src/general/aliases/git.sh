@@ -47,56 +47,37 @@ alias g:rm:cached='git rm -r --cached --ignore-unmatch'
 
 # Git Commit with Emoji
 alias g:new='git_new'
+alias g:feat='git_feat'
 alias g:imp='git_imp'
 alias g:fix='git_fix'
+alias g:cho='git_cho'
 alias g:rel='git_release'
 alias g:doc='git_doc'
 alias g:test='git_test'
-alias g:break='git_break'
-alias g:remove='git_remove'
-alias g:hotfix='git_hotfix'
-alias g:feature='git_feature'
-alias g:deploy='git_deploy'
-alias g:ci='git_fix_ci'
-alias g:security='git_fix_security'
-alias g:secret='git_add_update_secret'
-alias g:wip='git_wip'
-alias g:conf='git_config'
-alias g:lic='git_license'
-alias g:asset='git_assets'
-alias g:depreceted='git_depreceted'
-alias g:text='git_text'
-alias g:comment='git_comments'
-alias g:develop='git_develop'
+alias g:ci='git_ci'
+alias g:ref='git_refactor'
+alias g:stl='git_style'
+alias g:bld='git_build'
+alias g:rev='git_revert'
 
 # Git Push with Emoji
 alias g:new:p='git_new --push'
+alias g:ft:p='git_feat --push'
 alias g:imp:p='git_imp --push'
 alias g:fix:p='git_fix --push'
-alias g:rel:p='git_release --push'
+alias g:cho:p='git_cho --push'
 alias g:doc:p='git_doc --push'
 alias g:test:p='git_test --push'
-alias g:break:p='git_break --push'
-alias g:remove:p='git_remove --push'
-alias g:hotfix:p='git_hotfix --push'
-alias g:feature:p='git_feature --push'
-alias g:deploy:p='git_deploy --push'
-alias g:ci:p='git_fix_ci --push'
-alias g:security:p='git_fix_security --push'
-alias g:secret:p='git_add_update_secret --push'
-alias g:wip:p='git_wip --push'
-alias g:conf:p='git_config --push'
-alias g:lic:p='git_license --push'
-alias g:asset:p='git_assets --push'
-alias g:depreceted:p='git_depreceted --push'
-alias g:text:p='git_text --push'
-alias g:comment:p='git_comments --push'
-alias g:develop:p='git_develop --push'
+alias g:ci:p='git_ci --push'
+alias g:ref:p='git_refactor --push'
+alias g:rel:p='git_release --push'
+alias g:stl:p='git_style --push'
+alias g:bld:p='git_build --push'
+alias g:rev:p='git_revert --push'
 
-alias g:diff='butdiff'
+alias g:diff='batdiff --staged'
 
 # Functions
-
 batdiff() {
   git diff --name-only --relative --diff-filter=d | xargs bat --diff
 }
@@ -237,17 +218,16 @@ git_commit() {
 
 # Git Merge
 git_merge() {
-  git merge --edit -m "🔀 MERGE: Branch $(git symbolic-ref --short HEAD) <-- from: $1" "$1"
+  git merge --edit -m "🔀 merge: branch $(git symbolic-ref --short HEAD) <-- from: $1" "$1"
 }
 
 # Git Merge
 git_merge_no_ff() {
-  git merge --no-ff --edit -m "🔀 MERGE: Branch $(git symbolic-ref --short HEAD) <-- from: $1" "$1"
+  git merge --no-ff --edit -m "🔀 merge: branch $(git symbolic-ref --short HEAD) <-- from: $1" "$1"
 }
 
-### Better Git Logs.
-### Using EMOJI-LOG (https://github.com/ahmadawais/Emoji-Log).
-#### NEW.
+## New Feature.
+## feat – a new feature is introduced with the changes
 git_new() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
@@ -259,7 +239,7 @@ git_new() {
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "📦 NEW: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "📦 feat(new): $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
@@ -270,61 +250,119 @@ git_new() {
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "📦 NEW: $r_commit"
+    git add "$__add_files" && git commit -m "📦 feat(new): $r_commit"
   fi
 }
 
-#### IMPROVE.
+## Feature
+## feat – a new feature is introduced with the changes
+git_feat() {
+  local __add_files
+  if [[ -n "$1" && "$1" == "--push" ]]; then
+    input "Repository name (default: origin)"
+    read -r r_name
+    input "Feature commit message"
+    read -r r_commit
+    if [ -z "$r_commit" ]; then
+      error "Please provide git commit message"
+      return 1
+    fi
+    git add . && git commit -m "✨ feat: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+  else
+    input "Add files"
+    read -r r_files
+    input "Feature commit message"
+    read -r r_commit
+    if [ -z "$r_commit" ]; then
+      error "Please provide git commit message"
+      return 1
+    fi
+    __add_files=$(helper_array "$r_files")
+    git add "$__add_files" && git commit -m "✨ feat: $r_commit"
+  fi
+}
+
+## Performance Improvements.
+## perf – performance improvements
 git_imp() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
-    input "Commit message"
+    input "Improvements commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "⚡️ IMPROVE: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "⚡️ perf: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
-    input "Commit message"
+    input "Improvements commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "⚡️ IMPROVE: $r_commit"
+    git add "$__add_files" && git commit -m "⚡ perf: $r_commit"
   fi
 }
 
-#### FIX.
+## Chore
+## chore – changes that do not relate to a fix or feature and don't modify src or test files (for example updating dependencies)
+git_chore() {
+  local __add_files
+  if [[ -n "$1" && "$1" == "--push" ]]; then
+    input "Repository name (default: origin)"
+    read -r r_name
+    input "Chore commit message"
+    read -r r_commit
+    if [ -z "$r_commit" ]; then
+      error "Please provide git commit message"
+      return 1
+    fi
+    git add . && git commit -m "🛠 chore: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+  else
+    input "Add files"
+    read -r r_files
+    input "Chore commit message"
+    read -r r_commit
+    if [ -z "$r_commit" ]; then
+      error "Please provide git commit message"
+      return 1
+    fi
+    __add_files=$(helper_array "$r_files")
+    git add "$__add_files" && git commit -m "🛠 chore: $r_commit"
+  fi
+}
+
+## Fix
+## fix – a bug fix has occurred
 git_fix() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
-    input "Commit message"
+    input "Bug fix commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "🐛 FIX: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🐛 fix: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
-    input "Commit message"
+    input "Bug fix commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🐛 FIX: $r_commit"
+    git add "$__add_files" && git commit -m "🐛 fix: $r_commit"
   fi
 }
 
@@ -334,358 +372,119 @@ git_release() {
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
-    input "Commit message"
+    input "Release commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "🔖 RELEASE: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🔖 release: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
-    input "Commit message"
+    input "Release commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🔖 RELEASE: $r_commit"
+    git add "$__add_files" && git commit -m "🔖 release: $r_commit"
   fi
 }
 
-#### DEPLOY.
-git_deploy() {
+## CI
+## ci – changes to our CI configuration files and scripts
+git_ci() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
-    input "Commit message"
+    input "CI commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "🚀 DEPLOY: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🚀 ci: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array $r_files)
-    git add "$__add_files" && git commit -m "🚀 DEPLOY: $r_commit"
-  fi
-}
-
-#### FIX CI.
-git_fix_ci() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "💚 FIX CI: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
+    input "CI commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "💚 FIX CI: $r_commit"
+    git add "$__add_files" && git commit -m "🚀 ci: $r_commit"
   fi
 }
 
-#### DOC.
+## Documentation
+## docs – updates to documentation such as a the README or other markdown files
 git_doc() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
-    input "Commit message"
+    input "Documentation commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "📖 DOC: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "📖 doc: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
-    input "Commit message"
+    input "Documentation commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "📖 DOC: $r_commit"
+    git add "$__add_files" && git commit -m "📖 doc: $r_commit"
   fi
 }
 
-#### TEST.
+## Testing
+## test – changes to our test suite
 git_test() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
-    input "Commit message"
+    input "Test commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "🧪 TEST: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🧪 test: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
-    input "Commit message"
+    input "Test commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🧪 TEST: $r_commit"
+    git add "$__add_files" && git commit -m "🧪 test: $r_commit"
   fi
 }
 
-#### BREAKING CHANGE.
-git_break() {
+## Refactor.
+## refactor – refactored code that neither fixes a bug nor adds a feature
+git_refactor() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "‼️ BREAKING: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "‼️ BREAKING: $r_commit"
-  fi
-}
-
-#### REMOVE CODE/FILES.
-git_remove() {
-  local __remove_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "🔥 REMOVE: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __remove_files=$(helper_array "$r_files")
-    git add "$__remove_files" && git commit -m "🔥 REMOVE: $r_commit"
-  fi
-}
-
-#### CRITICAL HOTFIX.
-git_hotfix() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "🚑 CRITICAL HOTFIX: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🚑 HOTFIX: $r_commit"
-  fi
-}
-
-#### NEW FEATURE.
-git_feature() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "✨ NEW FEATURE: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "✨ NEW FEATURE: $r_commit"
-  fi
-}
-
-#### ADD/UPDATE.
-git_add_update() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "✅ ADD/UPDATE: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "✅ ADD/UPDATE: $r_commit"
-  fi
-}
-
-#### FIX SECURITY.
-git_fix_security() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "🔒️ FIX SECURITY: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🔒️ FIX SECURITY: $r_commit"
-  fi
-}
-
-#### ADD/UPDATE SECRET.
-git_add_update_secret() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "🔐 ADD/UPDATE SECRET: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🔐 ADD/UPDATE SECRET: $r_commit"
-  fi
-}
-
-#### WORKING IN PROGRESS.
-git_wip() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "🚧 WIP: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🚧 WIP: $r_commit"
-  fi
-}
-
-#### RFACTOR CODE
-git_refactor_code() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
+    input "Refactor commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
@@ -695,7 +494,7 @@ git_refactor_code() {
   else
     input "Add files"
     read -r r_files
-    input "Commit message"
+    input "Refactor commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
@@ -706,245 +505,86 @@ git_refactor_code() {
   fi
 }
 
-#### CONFIG
-git_config() {
+## Style
+## style – changes that do not affect the meaning of the code, likely related to code formatting such as white-space, missing semi-colons, and so on.
+git_style() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
-    input "Commit message"
+    input "Style commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "🔧 CONFIG: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🔧 style: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
-    input "Commit message"
+    input "Style commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🔧 CONFIG: $r_commit"
+    git add "$__add_files" && git commit -m "🔧 style: $r_commit"
   fi
 }
 
-#### TYPOS
-git_typos() {
+## Build
+## build – changes that affect the build system or external dependencies
+git_build() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
-    input "Commit message"
+    input "Build commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "✏️ FIX TYPOS: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🧰 build: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
-    input "Commit message"
+    input "Build commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "✏️ FIX TYPOS: $r_commit"
+    git add "$__add_files" && git commit -m "🧰 build: $r_commit"
   fi
 }
 
-#### ADD/UPDATE LICENSE
-git_license() {
+## Revert
+## revert – revert a previously committed change
+git_revert() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
-    input "Commit message"
+    input "Revert commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "📄 LICENSE: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🔙 revert: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
-    input "Commit message"
+    input "Revert commit message"
     read -r r_commit
     if [ -z "$r_commit" ]; then
       error "Please provide git commit message"
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "📄 LICENSE: $r_commit"
-  fi
-}
-
-#### ADD/UPDATE ASSETS
-git_assets() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "🍱 ASSETS: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🍱 ASSETS: $r_commit"
-  fi
-}
-
-#### ADD/UPDATE ASSETS
-git_assets() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "🍱 ASSETS: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🍱 ASSETS: $r_commit"
-  fi
-}
-
-#### DEPRECETED
-git_depreceted() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "🗑️ DEPRECETED: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🗑️ DEPRECETED: $r_commit"
-  fi
-}
-
-#### TEXT
-git_text() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "💬 TEXT: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "💬 TEXT: $r_commit"
-  fi
-}
-
-#### COMMENTS
-git_comments() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "💡 COMMENTS: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "💡 COMMENTS: $r_commit"
-  fi
-}
-
-#### DEVELOP
-git_develop() {
-  local __add_files
-  if [[ -n "$1" && "$1" == "--push" ]]; then
-    input "Repository name (default: origin)"
-    read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "🔨 DEVELOPMENT: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
-  else
-    input "Add files"
-    read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🔨 DEVELOPMENT: $r_commit"
+    git add "$__add_files" && git commit -m "🔙 revert: $r_commit"
   fi
 }
