@@ -47,7 +47,7 @@ alias g:rm:cached='git rm -r --cached --ignore-unmatch'
 
 # Git Commit with Emoji
 alias g:new='git_new'
-alias g:feat='git_feat'
+alias g:ft='git_feat'
 alias g:imp='git_imp'
 alias g:fix='git_fix'
 alias g:cho='git_cho'

@@ -52,4 +52,4 @@ call_generate_hash() {
 }
 
 # Aliases
-alias ghash='call_generate_hash'
+alias gen:hash='call_generate_hash'
