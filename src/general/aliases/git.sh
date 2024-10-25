@@ -46,36 +46,36 @@ alias g:ui:track='git update-index --no-assume-unchanged'
 alias g:rm:cached='git rm -r --cached --ignore-unmatch'
 
 # Git Commit with Emoji
-alias g:new='git_new'
+alias g:n='git_new'
 alias g:ft='git_feat'
-alias g:imp='git_imp'
-alias g:fix='git_fix'
-alias g:cho='git_cho'
-alias g:rel='git_release'
-alias g:doc='git_doc'
-alias g:test='git_test'
+alias g:pe='git_performance'
+alias g:fi='git_fix'
+alias g:ch='git_chore'
+alias g:re='git_release'
+alias g:dc='git_doc'
+alias g:te='git_test'
 alias g:ci='git_ci'
-alias g:ref='git_refactor'
-alias g:stl='git_style'
-alias g:bld='git_build'
-alias g:rev='git_revert'
+alias g:rf='git_refactor'
+alias g:st='git_style'
+alias g:bl='git_build'
+alias g:rv='git_revert'
 
 # Git Push with Emoji
-alias g:new:p='git_new --push'
+alias g:n:p='git_new --push'
 alias g:ft:p='git_feat --push'
-alias g:imp:p='git_imp --push'
-alias g:fix:p='git_fix --push'
-alias g:cho:p='git_cho --push'
-alias g:doc:p='git_doc --push'
+alias g:pe:p='git_performance --push'
+alias g:fi:p='git_fix --push'
+alias g:ch:p='git_chore --push'
+alias g:dc:p='git_doc --push'
 alias g:test:p='git_test --push'
 alias g:ci:p='git_ci --push'
-alias g:ref:p='git_refactor --push'
-alias g:rel:p='git_release --push'
-alias g:stl:p='git_style --push'
-alias g:bld:p='git_build --push'
-alias g:rev:p='git_revert --push'
+alias g:rf:p='git_refactor --push'
+alias g:rl:p='git_release --push'
+alias g:st:p='git_style --push'
+alias g:bl:p='git_build --push'
+alias g:rv:p='git_revert --push'
 
-alias g:diff='batdiff --staged'
+alias g:df='batdiff --staged'
 
 # Functions
 batdiff() {
@@ -239,7 +239,7 @@ git_new() {
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "📦 feat(new): $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🎉 feat(new): $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
@@ -250,7 +250,7 @@ git_new() {
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "📦 feat(new): $r_commit"
+    git add "$__add_files" && git commit -m "🎉 feat(new): $r_commit"
   fi
 }
 
@@ -284,7 +284,7 @@ git_feat() {
 
 ## Performance Improvements.
 ## perf – performance improvements
-git_imp() {
+git_performance() {
   local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
@@ -295,7 +295,7 @@ git_imp() {
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "⚡️ perf: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🚀 perf: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
@@ -306,7 +306,7 @@ git_imp() {
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "⚡ perf: $r_commit"
+    git add "$__add_files" && git commit -m "🚀 perf: $r_commit"
   fi
 }
 
@@ -323,7 +323,7 @@ git_chore() {
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "🛠 chore: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "♻️ chore: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
@@ -334,7 +334,7 @@ git_chore() {
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🛠 chore: $r_commit"
+    git add "$__add_files" && git commit -m "♻️ chore: $r_commit"
   fi
 }
 
@@ -406,7 +406,7 @@ git_ci() {
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "🚀 ci: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "⚙️ ci: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
@@ -417,7 +417,7 @@ git_ci() {
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🚀 ci: $r_commit"
+    git add "$__add_files" && git commit -m "⚙️ ci: $r_commit"
   fi
 }
 
@@ -434,7 +434,7 @@ git_doc() {
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "📖 doc: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "📚 doc: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
@@ -445,7 +445,7 @@ git_doc() {
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "📖 doc: $r_commit"
+    git add "$__add_files" && git commit -m "📚 doc: $r_commit"
   fi
 }
 
@@ -462,7 +462,7 @@ git_test() {
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "🧪 test: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🚨 test: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
@@ -473,7 +473,7 @@ git_test() {
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🧪 test: $r_commit"
+    git add "$__add_files" && git commit -m "🚨 test: $r_commit"
   fi
 }
 
@@ -490,7 +490,7 @@ git_refactor() {
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "♻️ REFACTOR: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "📦 REFACTOR: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
@@ -501,7 +501,7 @@ git_refactor() {
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "♻️ REFACTOR: $r_commit"
+    git add "$__add_files" && git commit -m "📦 REFACTOR: $r_commit"
   fi
 }
 
@@ -518,7 +518,7 @@ git_style() {
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "🔧 style: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "💎 style: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
@@ -529,7 +529,7 @@ git_style() {
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🔧 style: $r_commit"
+    git add "$__add_files" && git commit -m "💎 style: $r_commit"
   fi
 }
 
@@ -546,7 +546,7 @@ git_build() {
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "🧰 build: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🛠 build: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
@@ -557,7 +557,7 @@ git_build() {
       return 1
     fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🧰 build: $r_commit"
+    git add "$__add_files" && git commit -m "🛠 build: $r_commit"
   fi
 }
 
