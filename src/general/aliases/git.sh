@@ -233,24 +233,12 @@ git_new() {
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
-    git add . && git commit -m "🎉 feat(new): $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🎉 feat: Inital commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
-    input "Commit message"
-    read -r r_commit
-    if [ -z "$r_commit" ]; then
-      error "Please provide git commit message"
-      return 1
-    fi
     __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🎉 feat(new): $r_commit"
+    git add "$__add_files" && git commit -m "🎉 feat: Inital commit"
   fi
 }
 
