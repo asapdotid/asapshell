@@ -2,18 +2,18 @@
 
 # Eza (https://github.com/eza-community/eza)
 # Aliases
-alias l='eza'                                                                                            # ls
-alias l:-h='eza --help'                                                                                  # help
-alias ls='eza -lbF --header --git --icons --color=always'                                                # list, size, type, git
-alias lsa='eza -labF --header --git --icons --color=always'                                              # long list
-alias ll='eza -lbGF --header --git --icons --color=always'                                               # long list
-alias lla='eza -labGF --header --git --icons --color=always'                                             # long list
-alias llm='eza -lbGF --header --git --sort=modified --icons --color=always'                              # long list, modified date sort
-alias llam='eza -labGF --header --git --sort=modified --icons --color=always'                            # long list, modified date sort
-alias llal='eza -lbhHigUmuSa --time-style=long-iso --header --git --color-scale --icons --color=always'  # all list
-alias llxl='eza -lbhHigUmuSa@ --time-style=long-iso --header --git --color-scale --icons --color=always' # all + extended list
+alias l='eza'
+alias l:-h='eza --help'
+alias ls='eza -lbF --header --git --icons --color=always --group-directories-first'
+alias lsa='eza -labF --header --git --icons --color=always --group-directories-first'
+alias ll='eza -lbGF --header --git --icons --color=always --group-directories-first'
+alias lla='eza -labGF --header --git --icons --color=always --group-directories-first'
+alias llm='eza -lbGF --header --git --sort=modified --icons --color=always --group-directories-first'
+alias llam='eza -labGF --header --git --sort=modified --icons --color=always --group-directories-first'
+alias llal='eza -lbhHigUmuSa --time-style=long-iso --header --git --color-scale --icons --color=always --group-directories-first'
+alias llxl='eza -lbhHigUmuSa@ --time-style=long-iso --header --git --color-scale --icons --color=always --group-directories-first'
 # speciality views
-alias ls:col='eza -1 --icons --color=always' # one column, just names
+alias ls:col='eza -1 --icons --color=always --group-directories-first'
 alias ll:t='eza_tree'
 alias lla:t='eza_tree_dot'
 

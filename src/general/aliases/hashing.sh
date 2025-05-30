@@ -25,10 +25,10 @@ generate_hash() {
   read -r -p "Enter the password you want to hash: " password
 
   command="mkpasswd -m $hash_method"
-  if [ ! -z "$salt" ]; then
+  if [ -n "$salt" ]; then
     command="$command -S $salt"
   fi
-  if [ ! -z "$rounds" ]; then
+  if [ -n "$rounds" ]; then
     command="$command -R $rounds"
   fi
 

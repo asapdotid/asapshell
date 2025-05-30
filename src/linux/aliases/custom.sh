@@ -20,6 +20,6 @@ change_shell() {
   if [ "$i_user" == "root" ]; then
     sudo bash -c 'chsh -s "$(which $i_shell)" "$i_user"'
   else
-    chsh -s "$(which $i_shell)" "$i_user"
+    chsh -s "$(which "$i_shell")" "$i_user"
   fi
 }

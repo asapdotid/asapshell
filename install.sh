@@ -207,7 +207,7 @@
     local PROFILE_INSTALL_DIR
     PROFILE_INSTALL_DIR="$(asapshell_install_dir | command sed "s:^$HOME:\$HOME:")"
 
-    SOURCE_STR="\\nexport ASAPSHELL_DIR=\"${PROFILE_INSTALL_DIR}\"\\n[ -s \"\$ASAPSHELL_DIR/aliases\" ] && \\. \"\$ASAPSHELL_DIR/aliases\"  # This loads asapshell\\n"
+    SOURCE_STR="\\nexport ASAPSHELL_DIR=\"${PROFILE_INSTALL_DIR}\"\\n[ -s \"\$ASAPSHELL_DIR/asapshell\" ] && \\. \"\$ASAPSHELL_DIR/asapshell\"  # This loads asapshell\\n"
 
     # shellcheck disable=SC2016
     BASH_OR_ZSH=false
@@ -227,7 +227,7 @@
       if asapshell_profile_is_bash_or_zsh "${ASAPSHELL_PROFILE-}"; then
         BASH_OR_ZSH=true
       fi
-      if ! command grep -qc '/aliases' "$ASAPSHELL_PROFILE"; then
+      if ! command grep -qc '/asapshell' "$ASAPSHELL_PROFILE"; then
         asapshell_echo "=> Appending asapshell source string to $ASAPSHELL_PROFILE"
         command printf "${SOURCE_STR}" >>"$ASAPSHELL_PROFILE"
       else
@@ -241,7 +241,7 @@
 
     # Source asapsahell
     # shellcheck source=/dev/null
-    \. "$(asapshell_install_dir)/aliases"
+    \. "$(asapshell_install_dir)/asapshell"
 
     asapshell_reset
 

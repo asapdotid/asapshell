@@ -27,8 +27,8 @@ gsutil_bucket_utility() {
     case $bucket_utility in
     "Create")
       input "Create bucket name"
-      read bucket_name
-      if [ ! -z "$bucket_name" ]; then
+      read -r bucket_name
+      if [ -n "$bucket_name" ]; then
         gsutil mb gs://"${bucket_name}"
       else
         error "Bucket name is empty!"
@@ -37,8 +37,8 @@ gsutil_bucket_utility() {
       ;;
     "Remove")
       input "Remove bucket name"
-      read bucket_name
-      if [ ! -z "$bucket_name" ]; then
+      read -r bucket_name
+      if [ -n "$bucket_name" ]; then
         gsutil rb gs://"${bucket_name}"
       else
         error "Bucket name is empty!"
@@ -62,11 +62,11 @@ gsutil_folder_file_utility() {
     case $bucket_utility in
     "Copy")
       input "Bucket name"
-      read bucket_name
+      read -r bucket_name
       input "Copy file/directory source"
-      read file_dir_source
+      read -r file_dir_source
       input "Bucket file/directory target"
-      read file_dir_target
+      read -r file_dir_target
       if [[ -n "$bucket_name" && -n "$file_dir_source" && -n "$file_dir_target" ]]; then
         gsutil cp "${file_dir_source}" "gs://${bucket_name}/${file_dir_target}"
       else
@@ -76,9 +76,9 @@ gsutil_folder_file_utility() {
       ;;
     "Remove")
       input "Bucket name"
-      read bucket_name
+      read -r bucket_name
       input "Remove file/directory name"
-      read file_dir_name
+      read -r file_dir_name
       if [[ -n "$bucket_name" && -n "$file_dir_name" ]]; then
         gsutil rm "gs://${bucket_name}/${file_dir_name}"
       else
@@ -88,11 +88,11 @@ gsutil_folder_file_utility() {
       ;;
     "Move")
       input "Bucket name"
-      read bucket_name
+      read -r bucket_name
       input "Move file/directory source"
-      read file_dir_source
+      read -r file_dir_source
       input "Bucket file/directory target"
-      read file_dir_target
+      read -r file_dir_target
       if [[ -n "$bucket_name" && -n "$file_dir_source" && -n "$file_dir_target" ]]; then
         gsutil mv "${file_dir_source}" "gs://${bucket_name}/${file_dir_target}"
       else

@@ -5,7 +5,7 @@
 #   sudo apt-get install git
 # fi
 function helper_os_package() {
-  [ -x "$(which "$1")" ]
+  [ -x "$(command -v "$1")" ]
 }
 
 # Using this Function
@@ -31,6 +31,6 @@ function helper_command_exist() {
 # Check application exist
 command_exists() {
   if [[ -n "$1" ]]; then
-    type -p "$1" &> /dev/null;
+    type -p "$1" &>/dev/null
   fi
 }

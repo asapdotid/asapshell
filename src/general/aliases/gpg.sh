@@ -1,7 +1,11 @@
 #!/bin/bash
 
-alias gpg:enc='gpg_encryption'
-alias gpg:dec='gpg_decryption'
+alias gpg:e='gpg_encryption'
+alias gpg:d='gpg_decryption'
+# verify signature for isos
+alias gpg:k:ch="gpg2 --keyserver-options auto-key-retrieve --verify"
+# receive the key of a developer
+alias gpg:k:re="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 
 # Functions
 gpg_encryption() {

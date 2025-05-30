@@ -8,11 +8,6 @@ alias e:bash='$EDITOR $HOME/.bashrc'
 alias e:hosts='sudo $EDITOR /etc/hosts'
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
-alias cp='cp -v'
-alias cp:i='cp -iv'
-alias cp:r='cp -rv'
-alias s:cp:r='sudo cp -rv'
-alias mv='mv -v'
 alias cmx='cmatrix'
 alias asq='asciiquarium -t'
 alias mail='neomutt'
@@ -122,4 +117,15 @@ kill_process_by_name() {
   else
     error "Please provide service name!"
   fi
+}
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+### COUNTDOWN
+cdown() {
+  N=$1
+  while [[ $((--N)) -gt 0 ]]; do
+    echo "$N" | figlet -c | lolcat && sleep 1
+  done
 }

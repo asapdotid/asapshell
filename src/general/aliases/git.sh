@@ -75,21 +75,18 @@ alias g:st:p='git_style --push'
 alias g:bl:p='git_build --push'
 alias g:rv:p='git_revert --push'
 
-alias g:df='batdiff --staged'
-
 # Functions
-batdiff() {
-  git diff --name-only --relative --diff-filter=d | xargs bat --diff
-}
+# Git string array helper
+git_add_files_commit() {
+  local files=$1
+  local commit=$2
 
-git_commit() {
-  input "Commit message"
-  read -r c_message
-  if [ -z "$c_message" ]; then
-    error "Please provide commit message"
+  if [ -z "$files" ] && [ -z "$commit" ]; then
+    error "Please provide target files and commit message"
     return 1
   fi
-  git commit -m "$c_message"
+
+  for v in $(tr ',' '\n' <<<"$files"); do git add "$v" && git commit -m "$commit"; done
 }
 
 git_pull() {
@@ -212,8 +209,17 @@ git_commit_push() {
 }
 
 # Git Commit, Add all — in one step.
+# shellcheck disable=SC2317
 git_commit() {
-  git add . && git commit -m "$1"
+  input "Commit message"
+  read -r c_message
+
+  if [ -z "$c_message" ]; then
+    error "Please provide commit message"
+    return 1
+  fi
+
+  git add . && git commit -m "$c_message"
 }
 
 # Git Merge
@@ -226,10 +232,8 @@ git_merge_no_ff() {
   git merge --no-ff --edit -m "🔀 merge: branch $(git symbolic-ref --short HEAD) <-- from: $1" "$1"
 }
 
-## New Feature.
 ## feat – a new feature is introduced with the changes
 git_new() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -237,15 +241,13 @@ git_new() {
   else
     input "Add files"
     read -r r_files
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🎉 feat: Inital commit"
+    git_add_files_commit "$r_files" "🎉 feat: Inital commit"
   fi
 }
 
 ## Feature
 ## feat – a new feature is introduced with the changes
 git_feat() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -265,15 +267,13 @@ git_feat() {
       error "Please provide git commit message"
       return 1
     fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "✨ feat: $r_commit"
+    git_add_files_commit "$r_files" "✨ feat: $r_commit"
   fi
 }
 
 ## Performance Improvements.
 ## perf – performance improvements
 git_performance() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -293,15 +293,13 @@ git_performance() {
       error "Please provide git commit message"
       return 1
     fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🚀 perf: $r_commit"
+    git_add_files_commit "$r_files" "🚀 perf: $r_commit"
   fi
 }
 
 ## Chore
 ## chore – changes that do not relate to a fix or feature and don't modify src or test files (for example updating dependencies)
 git_chore() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -321,15 +319,13 @@ git_chore() {
       error "Please provide git commit message"
       return 1
     fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "♻️ chore: $r_commit"
+    git_add_files_commit "$r_files" "♻️ chore: $r_commit"
   fi
 }
 
 ## Fix
 ## fix – a bug fix has occurred
 git_fix() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -349,14 +345,12 @@ git_fix() {
       error "Please provide git commit message"
       return 1
     fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🐛 fix: $r_commit"
+    git_add_files_commit "$r_files" "🐛 fix: $r_commit"
   fi
 }
 
 #### RELEASE.
 git_release() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -366,7 +360,7 @@ git_release() {
       error "Please provide git commit message"
       return 1
     fi
-    git add . && git commit -m "🔖 release: $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "🔖 chore (release): $r_commit" && git push "${r_name:-origin}" "$(git symbolic-ref --short HEAD)"
   else
     input "Add files"
     read -r r_files
@@ -376,15 +370,13 @@ git_release() {
       error "Please provide git commit message"
       return 1
     fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🔖 release: $r_commit"
+    git_add_files_commit "$r_files" "🔖 chore (release): $r_commit"
   fi
 }
 
 ## CI
 ## ci – changes to our CI configuration files and scripts
 git_ci() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -404,15 +396,13 @@ git_ci() {
       error "Please provide git commit message"
       return 1
     fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "⚙️ ci: $r_commit"
+    git_add_files_commit "$r_files" "⚙️ ci: $r_commit"
   fi
 }
 
 ## Documentation
 ## docs – updates to documentation such as a the README or other markdown files
 git_doc() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -432,15 +422,13 @@ git_doc() {
       error "Please provide git commit message"
       return 1
     fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "📚 doc: $r_commit"
+    git_add_files_commit "$r_files" "📚 doc: $r_commit"
   fi
 }
 
 ## Testing
 ## test – changes to our test suite
 git_test() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -460,15 +448,13 @@ git_test() {
       error "Please provide git commit message"
       return 1
     fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🚨 test: $r_commit"
+    git_add_files_commit "$r_files" "🚨 test: $r_commit"
   fi
 }
 
 ## Refactor.
 ## refactor – refactored code that neither fixes a bug nor adds a feature
 git_refactor() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -488,15 +474,13 @@ git_refactor() {
       error "Please provide git commit message"
       return 1
     fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "📦 REFACTOR: $r_commit"
+    git_add_files_commit "$r_files" "📦 REFACTOR: $r_commit"
   fi
 }
 
 ## Style
 ## style – changes that do not affect the meaning of the code, likely related to code formatting such as white-space, missing semi-colons, and so on.
 git_style() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -516,15 +500,13 @@ git_style() {
       error "Please provide git commit message"
       return 1
     fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "💎 style: $r_commit"
+    git_add_files_commit "$r_files" "💎 style: $r_commit"
   fi
 }
 
 ## Build
 ## build – changes that affect the build system or external dependencies
 git_build() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -544,15 +526,13 @@ git_build() {
       error "Please provide git commit message"
       return 1
     fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🛠 build: $r_commit"
+    git_add_files_commit "$r_files" "🛠 build: $r_commit"
   fi
 }
 
 ## Revert
 ## revert – revert a previously committed change
 git_revert() {
-  local __add_files
   if [[ -n "$1" && "$1" == "--push" ]]; then
     input "Repository name (default: origin)"
     read -r r_name
@@ -572,7 +552,6 @@ git_revert() {
       error "Please provide git commit message"
       return 1
     fi
-    __add_files=$(helper_array "$r_files")
-    git add "$__add_files" && git commit -m "🔙 revert: $r_commit"
+    git_add_files_commit "$r_files" "🔙 revert: $r_commit"
   fi
 }

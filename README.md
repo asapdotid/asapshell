@@ -79,7 +79,7 @@ Running either of the above commands downloads a script and runs it. The script 
 
 ```bash
 export ASAPSHELL_DIR="$HOME/.asapshell"
-[ -s "$ASAPSHELL_DIR/aliases" ] && \. "$ASAPSHELL_DIR/aliases" # This loads asapshell
+[ -s "$ASAPSHELL_DIR/asapshell" ] && \. "$ASAPSHELL_DIR/asapshell" # This loads asapshell
 ```
 
 Additional Notes

@@ -5,8 +5,12 @@
 ASAPSHELL_DIR=$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.asapshell" || printf %s "${XDG_CONFIG_HOME}/asapshell")
 
 # Source files
+# shellcheck source=/dev/null
 source "$ASAPSHELL_DIR/src/index.sh"
 
 # Load aliases
 include_aliases "$ASAPSHELL_DIR"
 publish_aliases "$ASAPSHELL_DIR"
+
+### EXPORT
+export TERM="$TERM_COLOR"
