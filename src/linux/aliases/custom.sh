@@ -1,6 +1,9 @@
 #!/bin/bash
 
 alias ch:sh='change_shell'
+alias get:sh='get_shell'
+alias e:f='empty_file'
+alias s:e:f='empty_file root'
 
 # Functions
 change_shell() {
@@ -21,5 +24,17 @@ change_shell() {
     sudo bash -c 'chsh -s "$(which $i_shell)" "$i_user"'
   else
     chsh -s "$(which "$i_shell")" "$i_user"
+  fi
+}
+
+get_shell() {
+  echo "$SHELL"
+}
+
+empty_file() {
+  if [ -z "$1" ] && [ "$1" = "root" ]; then
+    sudo dd if=/dev/null of="$2"
+  else
+    dd if=/dev/zero of="$1"
   fi
 }
