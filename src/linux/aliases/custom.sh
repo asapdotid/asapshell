@@ -35,6 +35,6 @@ empty_file() {
   if [ -z "$1" ] && [ "$1" = "root" ]; then
     sudo dd if=/dev/null of="$2"
   else
-    dd if=/dev/zero of="$1"
+    dd if=/dev/null of="$1"
   fi
 }
