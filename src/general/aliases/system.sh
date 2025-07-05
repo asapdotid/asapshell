@@ -11,11 +11,15 @@ alias df="df -h"
 alias du="du -sh"
 alias free='free -m'           # show sizes in MB
 alias grep='grep --color=auto' # colorize output (good for log files)
-alias rm:f='rm -rf'
-alias s:rm:f='sudo rm -rf'
+alias rm='rm -f'
+alias rm:r='rm -rf'
+alias s:rm='sudo rm -f'
+alias s:rm:r='sudo rm -rf'
 alias cp:r='cp -rv'
 alias s:cp:r='sudo cp -rv'
 alias cp:sync='rsync -azP'
+alias mv='mv -iv'
+alias s:mv='sudo mv -iv'
 alias f:f="find_file"
 alias f:x="find_ext"
 alias history='history | grep'
