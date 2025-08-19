@@ -22,7 +22,6 @@ function general_aliases() {
       "$__SOURCE_DIR/general/aliases/molecule.sh"
       "$__SOURCE_DIR/general/aliases/composer.sh"
       "$__SOURCE_DIR/general/aliases/custom.sh"
-      "$__SOURCE_DIR/general/aliases/spotify-tui.sh"
       "$__SOURCE_DIR/general/aliases/gpg.sh"
       "$__SOURCE_DIR/general/aliases/google-cli.sh"
       "$__SOURCE_DIR/general/aliases/utility.sh"

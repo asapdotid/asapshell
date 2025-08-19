@@ -7,6 +7,7 @@ alias .2='change_dir 2'
 alias .3='change_dir 3'
 alias .4='change_dir 4'
 alias .5='change_dir 5'
+alias ~='cd_home_dot'
 alias df="df -h"
 alias du="du -sh"
 alias free='free -m'           # show sizes in MB
