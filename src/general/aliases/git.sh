@@ -82,12 +82,16 @@ git_add_files_commit() {
   local files=$1
   local commit=$2
 
+  if [ -z "$files" ]; then
+    files=$(git status --porcelain | awk '{print $2}')
+  fi
+
   if [ -z "$files" ] && [ -z "$commit" ]; then
     error "Please provide target files and commit message"
     return 1
   fi
 
-  for v in $(tr ',' '\n' <<<"$files"); do git add "$v" && git commit -m "$commit"; done
+  git add "$files" && git commit -m "$commit"
 }
 
 git_pull() {
