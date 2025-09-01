@@ -23,3 +23,8 @@ tmux_kill_all_session() {
   # install moreutils
   tmux list-sessions | awk 'BEGIN{FS=":"}{print $1}' | ifne xargs -n 1 tmux kill-session -t
 }
+
+tmux_kill_server() {
+  # install moreutils
+  tmux list-sessions | awk 'BEGIN{FS=":"}{print $1}' | ifne xargs -n 1 tmux kill-server
+}

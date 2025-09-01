@@ -1,7 +1,7 @@
 #!/bin/bash
 
-alias test:cors='test_cors'
-alias test:cors:v='test_cors --verbose'
+alias cors='test_cors'
+alias cors:v='test_cors --verbose'
 
 # Functions
 usage() {

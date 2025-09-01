@@ -1,7 +1,7 @@
 #!/bin/bash
 
-alias ch:sh='change_shell'
-alias get:sh='get_shell'
+alias chsh='change_shell'
+alias g:sh='get_shell'
 alias e:f='empty_file'
 alias s:e:f='empty_file root'
 

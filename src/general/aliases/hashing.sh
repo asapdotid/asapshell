@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Aliases
+alias gen:hash='call_generate_hash'
+
 # Hashing
 generate_hash() {
   input "Password Hashing Script"
@@ -51,5 +54,3 @@ call_generate_hash() {
   done
 }
 
-# Aliases
-alias gen:hash='call_generate_hash'
