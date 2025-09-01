@@ -41,7 +41,12 @@ alias browser:set='set_default_browser'
 alias myhost='bat /etc/hosts'
 
 # Speedtest
-alias nets='speedtest --secure'
+# Check if 'speedtest' command exists
+if command -v speedtest >/dev/null 2>&1; then
+    alias nets='speedtest --secure'
+elif command -v speedtest-cli >/dev/null 2>&1; then
+    alias nets='speedtest-cli --secure'
+fi
 
 # XPLR Utility
 # https://github.com/sayanarijit/xplr
