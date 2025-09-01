@@ -9,6 +9,7 @@ alias tx:ls='tmux list-sessions'
 alias tx:ks='tmux_kill_session_by_name'
 alias tx:ks:c='tmux_kill_session_all_but_current'
 alias tx:ks:a='tmux_kill_all_session'
+alias tx:K='tmux_kill_server'
 
 # Functions
 tmux_kill_session_by_name() {
@@ -25,6 +26,5 @@ tmux_kill_all_session() {
 }
 
 tmux_kill_server() {
-  # install moreutils
-  tmux list-sessions | awk 'BEGIN{FS=":"}{print $1}' | ifne xargs -n 1 tmux kill-server
+  pkill -f tmux
 }
