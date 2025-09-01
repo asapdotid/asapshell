@@ -7,8 +7,9 @@ alias .2='change_dir 2'
 alias .3='change_dir 3'
 alias .4='change_dir 4'
 alias .5='change_dir 5'
-alias .='cd_home_dot'
-alias ~='home_path'
+alias h.='cd_home_dot_dir'
+alias ~='cd $HOME'
+alias h='cd $HOME'
 alias df="df -h"
 alias du="du -sh"
 alias free='free -m'           # show sizes in MB
@@ -39,7 +40,7 @@ alias jctl="journalctl -p 3 -xb"
 
 # Functions
 # Change directory
-cd_home_dot() {
+cd_home_dot_dir() {
   if [[ -n "$1" && -d "$HOME/.$1" ]]; then
     cd "$HOME/.$1" || return
   else
