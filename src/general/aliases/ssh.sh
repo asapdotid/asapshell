@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 alias ssh='TERM=xterm ssh'
 alias ssh:-v='ssh -V'

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # GPG
 alias gpg:gen='gpg --full-gen-key'

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 alias pkg:i="package_install"
 alias pkg:ui="package_uninstall"

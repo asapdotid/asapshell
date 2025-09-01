@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Express VPN
 alias vpn:e:-v="expressvpn --version"

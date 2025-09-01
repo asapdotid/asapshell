@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function linux_aliases() {
   local __SOURCE_DIR=$1

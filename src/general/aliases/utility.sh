@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 alias cors='test_cors'
 alias cors:v='test_cors --verbose'

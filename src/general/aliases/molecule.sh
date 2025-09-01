@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Molecule test Ansible
 alias mo='molecule'
 alias mo:d='molecule --debug'

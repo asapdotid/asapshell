@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Docker
 # Must be run first because images are attached to containers
 alias dc='docker'

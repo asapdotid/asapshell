@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Service
 # Handling Service (start, stop, restart) ROOT
 alias sv:r:st='service_setup root start'

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 alias vg='vagrant'
 alias vg:-v='vagrant version'

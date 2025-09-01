@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Aliases
 alias dns:flush='sudo systemd-resolve --flush-caches'
 alias dns:flush:all='sudo systemd-resolve --flush-dns'

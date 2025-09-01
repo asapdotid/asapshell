@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Git Flow
 alias gf='git flow'
 alias gf:-v='git flow version'

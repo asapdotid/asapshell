@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 

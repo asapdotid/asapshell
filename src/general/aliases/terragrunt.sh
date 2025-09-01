@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Terragrunt
 alias tg='terragrunt'
 alias tg:-v='terragrunt --version'

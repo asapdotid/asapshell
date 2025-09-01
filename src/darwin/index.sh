@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function darwin_aliases() {
   local __SOURCE_DIR=$1

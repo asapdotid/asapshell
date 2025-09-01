@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Aliases
 alias gen:hash='call_generate_hash'
@@ -53,4 +53,3 @@ call_generate_hash() {
     fi
   done
 }
-

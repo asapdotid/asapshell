@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Initial environment
 # export ASAPSHELL_DIR="${ASAPSHELL_DIR:-$(asapshell_default_install_dir)}"

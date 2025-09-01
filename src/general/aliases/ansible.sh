@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Ansible
 alias an='ansible'
 alias an:-v='ansible --version'

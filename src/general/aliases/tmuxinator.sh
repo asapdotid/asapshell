@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Tmuxinator
 alias tr='tmuxinator'
 alias tr:-v='tmuxinator version'

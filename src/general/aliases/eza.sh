@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Eza (https://github.com/eza-community/eza)
 # Aliases

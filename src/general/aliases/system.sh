@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Aliases
 alias c='clear'
@@ -157,4 +157,35 @@ up() {
   if ! cd "$d"; then
     echo "Couldn't go up $limit dirs."
   fi
+}
+
+# find . -maxdepth 1 ! -name foldder_name -type d -not -path '.' -exec rm -rf {} +
+
+# remove_dir_except <target_dir> <except1> <except2> ...
+remove_dir_except() {
+    local target_dir="$1"
+    shift
+    local excludes=("$@")
+
+    if [[ ! -d "$target_dir" ]]; then
+        echo "Error: $target_dir is not a directory"
+        return 1
+    fi
+
+    # Build find command with exclusions
+    local exclude_args=()
+    for ex in "${excludes[@]}"; do
+        exclude_args+=(-name "$ex" -prune -o)
+    done
+
+    # Execute find and remove
+    find "$target_dir" \
+        "${exclude_args[@]}" \
+        -type d -print | while read -r dir; do
+            # skip the target root itself
+            if [[ "$dir" != "$target_dir" ]]; then
+                echo "Removing: $dir"
+                rm -rf "$dir"
+            fi
+        done
 }

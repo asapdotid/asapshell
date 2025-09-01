@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # PHP Composer
 alias cm='composer'
 alias cm:-h='composer --help'

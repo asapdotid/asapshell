@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Bun aliases
 alias bunx='bun x'
 alias bun:a='bun add'

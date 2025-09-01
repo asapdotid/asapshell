@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # NVM
 alias nvm:-v='nvm --version'
 alias nvm:-h='nvm --help'

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # NodeJs NPM #
 alias node:-v='node -v'
 alias npm:-v='npm -v'

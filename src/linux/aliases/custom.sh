@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 alias chsh='change_shell'
 alias g:sh='get_shell'

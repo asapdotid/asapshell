@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Terraform
 alias tf='terraform'
 alias tf:-v='terraform -version'

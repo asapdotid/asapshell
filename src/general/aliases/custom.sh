@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 alias edit='$EDITOR'
 alias sozsh='source $HOME/.zshrc'
@@ -39,6 +39,9 @@ alias browser:set='set_default_browser'
 # list hosts /etc/hosts
 # Using BAT utility like CAT
 alias myhost='bat /etc/hosts'
+
+# Speedtest
+alias nets='speedtest --secure'
 
 # XPLR Utility
 # https://github.com/sayanarijit/xplr

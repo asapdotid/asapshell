@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Tmux
 alias tx='tmux'
 alias tx:i='tmux info'

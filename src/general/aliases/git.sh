@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Git Command Alises #
 alias g='git'
 alias g:-v='git --version'
