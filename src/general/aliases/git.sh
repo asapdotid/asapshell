@@ -79,7 +79,7 @@ alias g:rv:p='git_revert --push'
 # Functions
 # Git string array helper
 git_add_files_commit() {
-  local files=$1
+  local files=${1:-.}
   local commit=$2
 
   if [ -z "$files" ]; then
