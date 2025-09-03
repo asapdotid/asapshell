@@ -3,7 +3,7 @@
 alias ssh='TERM=xterm ssh'
 alias ssh:-v='ssh -V'
 alias ssh:gen='ssh_generate_keys'
-alias ssh:fix:df='ssh_fix_permission'
+alias ssh:fix='ssh_fix_permission'
 
 # Functions
 #SSH directory and files permission
