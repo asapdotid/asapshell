@@ -8,18 +8,47 @@ alias ssh:fix='ssh_fix_permission'
 # Functions
 #SSH directory and files permission
 ssh_fix_permission() {
-  local __ssh_user="/home/$USER/.ssh"
-  if [ -d "$__ssh_user" ]; then
-    #Make the .ssh directory unreadable for other users and groups
-    chmod 700 "$__ssh_user" >/dev/null 2>&1
-    #Make the private SSH key read only
-    chmod 600 "$__ssh_user"/* >/dev/null 2>&1
-    #Make public key readable
-    chmod 644 "$__ssh_user"/{*.pub,authorized_key,known_hosts} >/dev/null 2>&1
-    info "Set SSH directory and files permission, done."
-  else
-    info "Cannot set permission, due to .ssh directory not found."
-  fi
+ local ssh_dir="$HOME/.ssh"
+
+    if [ ! -d "$ssh_dir" ]; then
+        echo "No ~/.ssh directory found."
+        return 1
+    fi
+
+    echo "Fixing SSH permissions in $ssh_dir ..."
+
+    # Correct ownership (user and primary group)
+    chown -R "$(whoami)":"$(id -gn)" "$ssh_dir"
+
+    # SSH directory itself
+    chmod 700 "$ssh_dir"
+
+    # Directories inside ~/.ssh (rare, but lock them down)
+    find "$ssh_dir" -type d -exec chmod 700 {} \;
+
+    # Private keys (id_rsa, id_ecdsa, etc.)
+    find "$ssh_dir" -type f -name "id_*" -name "asap_*" -name "vps_*" ! -name "*.pub" -exec chmod 600 {} \;
+
+    # Public keys (*.pub)
+    find "$ssh_dir" -type f -name "*.pub" -exec chmod 644 {} \;
+
+    # authorized_keys file
+    [ -f "$ssh_dir/authorized_keys" ] && chmod 600 "$ssh_dir/authorized_keys"
+
+    # config file
+    [ -f "$ssh_dir/config" ] && chmod 600 "$ssh_dir/config"
+
+    # known_hosts
+    [ -f "$ssh_dir/known_hosts" ] && chmod 644 "$ssh_dir/known_hosts"
+
+    # config.d fix permission
+    find "$ssh_dir/config.d" -type d -exec chmod 700 {} \;
+    find "$ssh_dir/config.d" -type f -name "id_*" -name "*.config" ! -name "*.pub" -exec chmod 600 {} \;
+    find "$ssh_dir/config.d" -type f -name "*.pub" -exec chmod 644 {} \;
+
+    echo "Permissions fixed:"
+    ls -ld "$ssh_dir"
+    ls -l "$ssh_dir"
 }
 
 #SSH generate keys
